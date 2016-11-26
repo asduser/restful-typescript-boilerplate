@@ -1,6 +1,5 @@
 import {Middleware, MiddlewareInterface, MiddlewareGlobalAfter} from "routing-controllers";
 import {HttpError} from "routing-controllers/error/http/HttpError";
-import {ResponseModel} from "../models/response/ResponseModel";
 
 @Middleware()
 export class CustomHeaders implements MiddlewareInterface {

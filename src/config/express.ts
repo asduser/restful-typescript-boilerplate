@@ -15,9 +15,10 @@ export class Application {
 
     public static init() {
         var app = express();
+        let router = express.Router({automatic405: true});
 
         // Bind middlewares.
-        ExpressHelper.bindApplicationMiddlewares(app);
+        //ExpressHelper.bindApplicationMiddlewares(app, router);
 
         // Connect to database.
         let db : MongooseDB = new MongooseDB('mongodb://localhost:27017/express-simple-api');

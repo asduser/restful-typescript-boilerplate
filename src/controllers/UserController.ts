@@ -1,7 +1,10 @@
 import {Request, Response} from "express";
-import {JsonController, QueryParam, UseInterceptor, Controller, UseBefore, UseAfter} from "routing-controllers";
-import {Body, Req, Res, Param} from "routing-controllers";
-import {Get, Post, Put} from "routing-controllers";
+/*import {
+    JsonController, QueryParam, UseInterceptor, UseBefore, UseAfter,
+    MethodNotAllowedError, Method, EmptyResultCode, NullResultCode, UndefinedResultCode, Controller
+} from "routing-controllers";*/
+//import {Body, Req, Res, Param} from "routing-controllers";
+//import {Get, Post, Put} from "routing-controllers";
 //let User = require("../models/User");
 import {UserRepository} from "../repositories/UserRepository";
 import {User} from "../models/User";
@@ -9,7 +12,13 @@ import {HttpError} from "routing-controllers/error/http/HttpError";
 import {UserService} from "../services/UserService";
 import {SuccessResponse} from "../models/response/SuccessResponse";
 
+import {
+    Controller, Put, Post, Delete, Get, Res, Req, RouteError, ErrorHandler,
+    RequiredParameterNotProvidedError, ParameterParseError, HttpVerbNotSupportedError
+} from 'giuseppe';
+
 @Controller("/users")
+@Entity()
 export class UserController {
 
     private _userRepository: UserRepository;
@@ -21,8 +30,8 @@ export class UserController {
     }
 
     @Get("/")
-    async getAll(@Req() request: Request, @Res() response: Response){
-        await this._userService.getUsers().then((users) => {
+    getAll(@Req() request: Request, @Res() response: Response){
+        return this._userService.getUsers().then((users) => {
                 let result = new SuccessResponse(users);
                 response.json(result);
             });
@@ -30,8 +39,8 @@ export class UserController {
 
     @Post("/")
     //async create(@Body({required: true}) user: User, @Req() request: Request, @Res() response: Response){
-    async create(@Req() request: Request, @Res() response: Response){
-        await this._userService.create(request.body).then((result) => {
+    create(@Req() request: Request, @Res() response: Response){
+        return this._userService.create(request.body).then((result) => {
                 //response.statusCode = result.status;
                 //console.log(`Status: ${response.statusCode}`);
                 response.json(result);
@@ -48,16 +57,16 @@ export class UserController {
             });
     }*/
 
-    @Get("/test")
-    async sortBy(@QueryParam("sort") sortDirection: number, @Req() request: Request, @Res() response: Response) {
+    /*@Get("/test")
+    sortBy(@QueryParam("sort") sortDirection: number, request: Request, response: Response) {
         let direction: number = sortDirection == 1 ? -1 : 1;
-        let result = await this._userService
+        return this._userService
             .test({name: direction})
             .exec((err, data) => {
                 let users = data.map((u) => new User(u['name'], u['age']));
                 response.json(users);
             });
-    }
+    }*/
 
     /*@Get("/test")
     async sortBy(@QueryParam("sort") sortDirection: number, @Req() request: Request, @Res() response: Response) {
@@ -81,9 +90,50 @@ export class UserController {
         return users;
     }*/
 
-    @Get("/t")
-    test1(@Req() request: Request, @Res() response: Response, next: any){
+    /*@Get("/t")
+    @NullResultCode(405)
+    @UndefinedResultCode(405)
+    test1(request: Request, response: Response, next: any){
         throw new HttpError(400, "Incorrect email or password!");
+    }*/
+
+    /*@ErrorHandler()
+    public errorHandler(request: Request, response: Response, error: Error): void {
+        console.log('Oh noes!');
+        response.status(500).end();
+    }*/
+
+    @Put('/t')
+    t(@Req() request: Request, @Res() response: Response){
+        response.send("All is ok");
     }
 
+    /*@ErrorHandler(HttpVerbNotSupportedError)
+    @Put('/s')
+    public badReq(@Req()request: Request, @Res() response: Response, error: HttpVerbNotSupportedError): void {
+        console.log('405.');
+        response.status(405).end(405);
+    }*/
+
+    @ErrorHandler(HttpVerbNotSupportedError, HttpVerbNotSupportedError)
+    public badReq(request: Request, response: Response, error: HttpVerbNotSupportedError): void {
+        console.log('This is a bad request from the client.');
+        response.status(405).end();
+    }
+
+}
+
+function test() {
+    return (target, methodName, descriptor) => {
+        console.log(target);
+        console.log(methodName);
+        console.log(descriptor);
+    };
+}
+
+function Entity() {
+    return function(target) {
+        let instance = new target();
+        console.log(instance);
+    }
 }

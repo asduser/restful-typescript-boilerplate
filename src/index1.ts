@@ -18,13 +18,20 @@ import { Application } from "./config/express";
 const app = Application.init();
 const controllerDir = path.join(__dirname, "/controllers/");
 
-/*useExpressServer(app, {
+useExpressServer(app, {
     controllers: [
         controllerDir + "*.ts",
         //path.join(__dirname, "/controllers/main/MainController.ts")
-    ]
+    ],
+    middlewares: [
+        path.join(__dirname, "/middlewares/NotFound.ts"),
+        path.join(__dirname, "/middlewares/TestHandler.ts"),
+        path.join(__dirname, "/middlewares/ErrorHandler.ts"),
+        //path.join(__dirname, "/middlewares/main/MainController.ts")
+    ],
+    defaultErrorHandler: false
 
-}).listen(3002);*/
+}).listen(3002);
 
 /*app.use((request: Request, response: Response, next: any) => {
     let notFound = new ResponseModel(404, false, null, null, "Not found 404.");
@@ -32,15 +39,7 @@ const controllerDir = path.join(__dirname, "/controllers/");
     next();
 });*/
 
-import {ExpressHelper} from "./helpers/ExpressHelper";
-import {registerControllers} from "giuseppe";
-import "./controllers/UserController.ts";
-ExpressHelper.bindApplicationMiddlewares(app);
-app.use(registerControllers());
-ExpressHelper.bindErrorMiddlewares(app);
-app.listen(3002,() => {
-    console.log("Server is running on port: ", 3002);
-});
+console.log("Server is running on port: ", 3002);
 
 
 // Init the express application

@@ -23,4 +23,33 @@ class Test1 extends Test {
 }
 
 let t1_1 = new Test1("sds");
-console.log( t1_1.info() );
+//console.log( t1_1.info() );
+
+const subscribe = () => {
+    return function(a, b, c){
+        console.log(a, b, c);
+    };
+    /*let value = null;
+    return {
+        get: ():any => {
+            console.log(`Get: ${value}`);
+            return value;
+        },
+        set: (newVal):void => console.log(`Set: ${value} => ${newVal}`)
+    }*/
+};
+
+const role = (target: any) => {
+    target.role = "admin";
+};
+
+@role
+class Person {
+
+    info(input?: number): void {
+        console.log(this);
+    }
+}
+
+let p1 = new Person();
+p1.info();
