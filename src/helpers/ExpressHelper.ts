@@ -1,11 +1,13 @@
 import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
-import * as logger from "morgan";
+import * as morganLogger from "morgan";
 import {Request, Response} from "express";
 import {HttpError} from "../models/errors/HttpError";
 import {NotFoundResponse} from "../models/response/NotFoundResponse";
 import {ErrorResponse} from "../models/response/ErrorResponse";
 import {Application} from "express";
+import * as path from "path";
+const fs = require('fs');
 const compression = require("compression");
 const methodOverride = require('method-override');
 const errorHandler = require('express-error-handler');
@@ -13,7 +15,11 @@ const errorHandler = require('express-error-handler');
 export class ExpressHelper {
     
     public static bindApplicationMiddlewares(app: any, router?: any){
-        app.use(logger("dev"));
+        var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'));
+        app.use(morganLogger("combined", {stream: accessLogStream}));
+
+        //app.use(morganLogger("dev"));
+
         //app.use(bodyParser.text());
         //app.use(bodyParser.urlencoded({ extended: false }));
         app.use(bodyParser.urlencoded({ extended: false }));
@@ -186,10 +192,11 @@ export class ExpressHelper {
         //app.use(errorHandler.httpError(405));
 
         // handle 404 errors
-        /*app.get('*', function(req, res, next){
+        app.use(function(req, res, next){
             next(new HttpError(404, 'Route is not found.'));
         });
 
+        /*
         app.use('*', function (req, res, next) {
             next(new HttpError(405, 'Method is now allowed.'));
         });*/
