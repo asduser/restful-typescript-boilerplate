@@ -7,7 +7,7 @@ import {Request, Response} from "express";
 //import {Get, Post, Put} from "routing-controllers";
 //let User = require("../models/User");
 import {UserRepository} from "../repositories/UserRepository";
-import {User, IUserRequestModel} from "../models/User";
+import {User, IUser} from "../models/User";
 import {HttpError} from "../models/errors/HttpError";
 import {UserService} from "../services/UserService";
 import {SuccessResponse} from "../models/response/SuccessResponse";
@@ -56,10 +56,15 @@ export class UserController {
     }
 
     @Put("/:id")
-    updateById(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: string, @Body({required: true}) user: IUserRequestModel) {
-        console.log(user);
-        console.log(id);
+    updateById(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: string, @Body({required: true}) user: IUser) {        
         return this._userService.updateById(id, user).then((res: any) => {
+            response.json(res);
+        });
+    }
+    
+    @Delete('/:id')
+    removeById(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: string) {
+        return this._userService.removeById(id).then((res: any) => {
             response.json(res);
         });
     }
