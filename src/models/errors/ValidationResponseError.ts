@@ -1,4 +1,5 @@
-import {HttpError} from "routing-controllers/index";
+//import {HttpError} from "routing-controllers/index";
+import {HttpError} from "./HttpError";
 
 export class ValidationResponseError extends HttpError {
     

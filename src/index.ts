@@ -33,10 +33,20 @@ const controllerDir = path.join(__dirname, "/controllers/");
 });*/
 
 import {ExpressHelper} from "./helpers/ExpressHelper";
-import {registerControllers} from "giuseppe";
-import "./controllers/UserController.ts";
+import {registerControllers, registerControllersFromFolder} from "giuseppe";
+//import "./controllers/UserController.ts";
+import "./controllers/index.ts";
 ExpressHelper.bindApplicationMiddlewares(app);
 app.use(registerControllers());
+
+/*registerControllersFromFolder({
+    folderPath: './controllers'
+}).then(router => {
+    app.use(router);
+}).catch((err: any) => {
+    console.log(err);
+});*/
+
 ExpressHelper.bindErrorMiddlewares(app);
 app.listen(3002,() => {
     console.log("Server is running on port: ", 3002);

@@ -14,11 +14,21 @@ export class ExpressHelper {
     
     public static bindApplicationMiddlewares(app: any, router?: any){
         app.use(logger("dev"));
-        app.use(bodyParser.text());
+        //app.use(bodyParser.text());
+        //app.use(bodyParser.urlencoded({ extended: false }));
         app.use(bodyParser.urlencoded({ extended: false }));
+        app.use(bodyParser.json());
+        app.use(bodyParser.text());
         app.use(cookieParser());
 
         app.set('etag', false);
+
+        app.use(function(req, res, next) {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, HEAD');
+            return next();
+        });
+
         /*app.use(function(request: Request, res: Response, next: Function) {
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.setHeader('X-Type', '101');
@@ -195,7 +205,8 @@ export class ExpressHelper {
                 response.status(200).send(result);
                 return;
             }*/
-            console.log('error');
+            console.log(error);
+            console.log(error.httpCode);
             let result = new ErrorResponse(error.httpCode, error.message);
             response.status(200).send(result);
             return;

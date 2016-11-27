@@ -1,7 +1,6 @@
-export class HttpError extends Error {
-    httpCode: number;
-    message: string;
-    constructor(httpCode: number, message?: string){
-        super(message);
+import {IHttpError} from "./IHttpError";
+
+export class HttpError implements IHttpError {
+    constructor(public httpCode: number, public message: string = ""){
     }
 }

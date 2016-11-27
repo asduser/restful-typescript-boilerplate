@@ -19,6 +19,10 @@ export class UserService {
         return this._userRepository.getAll();
     }
     
+    getUserById(id: string): Promise<any> {
+        return this._userRepository.getById(id);
+    }
+    
     /*create(user: User): Promise<boolean> {
         return this._userRepository.create(user);
     }*/
@@ -31,6 +35,17 @@ export class UserService {
             } else {
                 result = new SuccessResponse(user, `User ${user.name} was successfully created.`);
             }
+            return new Promise<any>((resolve) => {
+                resolve(result);
+            });
+        });
+    }
+    
+    updateById(id: string, user: User): Promise<any> {
+        console.log(id);
+        console.log(user);
+        return this._userRepository.update(id, user).then((err) => {
+            let result = new SuccessResponse(user, `User ${user.name} was successfully update.`);
             return new Promise<any>((resolve) => {
                 resolve(result);
             });

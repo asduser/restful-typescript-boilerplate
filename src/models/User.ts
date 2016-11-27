@@ -1,3 +1,8 @@
+export interface IUserRequestModel {
+    name: string;
+    age: number;
+}
+
 export class User {
     public name: string;
     public age: number;

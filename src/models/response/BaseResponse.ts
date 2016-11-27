@@ -10,7 +10,7 @@ export abstract class BaseResponse {
         this.message = message || "";
         this.data = data || {};
         this.errors = errors || "";        
-        this.success = this.message.length == 0 && this.errors.length == 0;  
+        this.success = this.errors.length == 0;
         this.status = status;
     }
     

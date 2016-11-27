@@ -7,18 +7,18 @@ import {Request, Response} from "express";
 //import {Get, Post, Put} from "routing-controllers";
 //let User = require("../models/User");
 import {UserRepository} from "../repositories/UserRepository";
-import {User} from "../models/User";
-import {HttpError} from "routing-controllers/error/http/HttpError";
+import {User, IUserRequestModel} from "../models/User";
+import {HttpError} from "../models/errors/HttpError";
 import {UserService} from "../services/UserService";
 import {SuccessResponse} from "../models/response/SuccessResponse";
 
 import {
-    Controller, Put, Post, Delete, Get, Res, Req, RouteError, ErrorHandler,
-    RequiredParameterNotProvidedError, ParameterParseError, HttpVerbNotSupportedError
+    Controller, Put, Post, Delete, Get, Res, Req, RouteError, ErrorHandler, Header, Cookie,
+    RequiredParameterNotProvidedError, ParameterParseError, HttpVerbNotSupportedError, Query, UrlParam, Body
 } from 'giuseppe';
+import {BodyRequiredError} from "routing-controllers/error/BodyRequiredError";
 
 @Controller("/users")
-@Entity()
 export class UserController {
 
     private _userRepository: UserRepository;
@@ -37,6 +37,14 @@ export class UserController {
             });
     }
 
+    @Get("/:id")
+    getOne(@Req() request: Request, @Res() response: Response, @UrlParam('id') id){
+        return this._userService.getUserById(id).then((user) => {
+            let result = new SuccessResponse(user);
+            response.json(result);
+        });
+    }
+
     @Post("/")
     //async create(@Body({required: true}) user: User, @Req() request: Request, @Res() response: Response){
     create(@Req() request: Request, @Res() response: Response){
@@ -45,6 +53,15 @@ export class UserController {
                 //console.log(`Status: ${response.statusCode}`);
                 response.json(result);
             });
+    }
+
+    @Put("/:id")
+    updateById(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: string, @Body({required: true}) user: IUserRequestModel) {
+        console.log(user);
+        console.log(id);
+        return this._userService.updateById(id, user).then((res: any) => {
+            response.json(res);
+        });
     }
 
     /*@Put("/:id")
@@ -103,9 +120,10 @@ export class UserController {
         response.status(500).end();
     }*/
 
-    @Put('/t')
-    t(@Req() request: Request, @Res() response: Response){
-        response.send("All is ok");
+    @Get('/t')
+    t(@Req() request: Request, @Res() response: Response, @Query('number', {required: true}) queryNumber, @Header('test') lang: string = 'de'){
+        console.log(lang);
+        response.json(queryNumber * 10);
     }
 
     /*@ErrorHandler(HttpVerbNotSupportedError)
@@ -115,10 +133,15 @@ export class UserController {
         response.status(405).end(405);
     }*/
 
-    @ErrorHandler(HttpVerbNotSupportedError, HttpVerbNotSupportedError)
-    public badReq(request: Request, response: Response, error: HttpVerbNotSupportedError): void {
-        console.log('This is a bad request from the client.');
-        response.status(405).end();
+    @ErrorHandler(RequiredParameterNotProvidedError)
+    public badReq1(request: Request, response: Response, error: RequiredParameterNotProvidedError): void {
+        //response.status(400).json(error.message);
+        throw new HttpError(400,error.message);
+    }
+
+    @ErrorHandler(HttpVerbNotSupportedError)
+    public badReq2(request: Request, response: Response, error: HttpVerbNotSupportedError): void {
+        response.status(405).json(decodeURI(error.message));
     }
 
 }
