@@ -15,8 +15,8 @@ const errorHandler = require('express-error-handler');
 export class ExpressHelper {
     
     public static bindApplicationMiddlewares(app: any, router?: any){
-        var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'));
-        app.use(morganLogger("combined", {stream: accessLogStream}));
+        //var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'));
+        //app.use(morganLogger("combined", {stream: accessLogStream}));
 
         //app.use(morganLogger("dev"));
 
@@ -133,6 +133,36 @@ export class ExpressHelper {
             res.render('error', { error: err })
         }*/
 
+        const winston = require('winston');
+        const expressWinston = require('express-winston');
+        // express-winston logger makes sense BEFORE the router.
+        app.use(expressWinston.logger({
+            transports: [
+                new winston.transports.Console({
+                    json: true,
+                    colorize: true
+                }),
+                new (winston.transports.File)({
+                    filename: `results.log`,
+                    timestamp: new Date().toLocaleTimeString(),
+                    level: process.env.NODE_ENV || 'development' === 'development' ? 'debug' : 'info'
+                })
+            ]
+        }));
+        app.use(router);
+        app.use(expressWinston.errorLogger({
+            transports: [
+                new winston.transports.Console({
+                    json: true,
+                    colorize: true
+                }),
+                new (winston.transports.File)({
+                    filename: `results.log`,
+                    timestamp: new Date().toLocaleTimeString(),
+                    level: process.env.NODE_ENV || 'development' === 'development' ? 'debug' : 'info'
+                })
+            ]
+        }));
 
     }
 
