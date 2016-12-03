@@ -139,7 +139,7 @@ export class ExpressHelper {
         app.use(expressWinston.logger({
             transports: [
                 new winston.transports.Console({
-                    json: true,
+                    json: false,
                     colorize: true
                 }),
                 new (winston.transports.File)({
@@ -153,7 +153,7 @@ export class ExpressHelper {
         app.use(expressWinston.errorLogger({
             transports: [
                 new winston.transports.Console({
-                    json: true,
+                    json: false,
                     colorize: true
                 }),
                 new (winston.transports.File)({
