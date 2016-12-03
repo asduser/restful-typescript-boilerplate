@@ -34,13 +34,16 @@
     "compression": "^1.6.2",
     "es6-shim": "^0.35.1",
     "express-error-handler": "^1.1.0",
+    "express-winston": "^2.0.0",
     "giuseppe": "^1.2.0",
     "linqts": "^1.6.0",
     "method-override": "^2.3.7",
     "mongodb": "^2.2.10",
     "mongoose": "^4.6.3",
+    "morgan": "^1.6.1",
     "reflect-metadata": "^0.1.8",
     "routing-controllers": "^0.6.6",
-    "ts-node": "^0.7.3"
+    "ts-node": "^0.7.3",
+    "winston": "^2.3.0"
   }
 }
