@@ -80,7 +80,7 @@ export class ExpressHelper {
 
         app.use(methodOverride());
         //app.use(logErrors);
-        app.use(clientErrorHandler);
+        //app.use(clientErrorHandler);
 
         //app.use(errorHandler);
         /*app.use((request: Request, response: Response, next?: (err?: any) => any): any => {
@@ -186,10 +186,11 @@ export class ExpressHelper {
         //app.use(errorHandler.httpError(405));
 
         // handle 404 errors
-        /*app.get('*', function(req, res, next){
+        app.use(function(req, res, next){
             next(new HttpError(404, 'Route is not found.'));
         });
 
+        /*
         app.use('*', function (req, res, next) {
             next(new HttpError(405, 'Method is now allowed.'));
         });*/

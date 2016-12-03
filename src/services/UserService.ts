@@ -75,6 +75,10 @@ export class UserService {
     test(sortConfig: any){
         return this._userRepository.sort().sort(sortConfig);
     }
+    
+    test1(){
+        return 100;
+    }
 
     /*async test2(){
         return await this._userRepository.getAll2();
