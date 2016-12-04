@@ -49,7 +49,15 @@ controls.stack.forEach((el) => {
     routeList.push(el.route);
 });
 let routes = lodash.uniq(routeList, 'path');
-console.log( lodash.uniq(routeList.map(r => r.path)) );
+let uniqueRoutes = lodash.uniq(routeList.map(r => r.path));
+console.log( routes );
+
+uniqueRoutes.forEach((r) => {
+    let _routes = routes.filter((_r) => _r.path == r);
+    _routes.forEach((_r) => {
+        Object.assign(r.methods, _r.methods)
+    });
+});
 
 /*registerControllersFromFolder({
     folderPath: './controllers'
