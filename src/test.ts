@@ -53,3 +53,6 @@ class Person {
 
 let p1 = new Person();
 p1.info();
+
+import * as A from 'test-module';
+console.log( A.add(10,20) );

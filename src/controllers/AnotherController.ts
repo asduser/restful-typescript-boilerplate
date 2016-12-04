@@ -1,13 +1,15 @@
 import {Request, Response} from "express";
 import {
     Controller, Put, Post, Delete, Get, Res, Req, RouteError, ErrorHandler, Header, Cookie,
-    RequiredParameterNotProvidedError, ParameterParseError, HttpVerbNotSupportedError, Query, UrlParam, Body
+    RequiredParameterNotProvidedError, ParameterParseError, HttpVerbNotSupportedError, Query, UrlParam, Body, isNumber
 } from 'giuseppe';
 import {UserRepository} from "../repositories/UserRepository";
 import {UserService} from "../services/UserService";
 import {HttpError} from "../models/errors/HttpError";
 
-@Controller("test")
+import {LoggerMiddleware, LoggerMiddleware2} from "../middlewares/all";
+
+@Controller("test", LoggerMiddleware, LoggerMiddleware2)
 export class AnotherController {
 
     private _userRepository: UserRepository;
@@ -18,7 +20,7 @@ export class AnotherController {
         this._userService = new UserService();
     }
 
-    @Get()
+    @Get("")
     getAll(@Req() request: Request, @Res() response: Response){
         return response.json("all");
     }
@@ -41,7 +43,10 @@ export class AnotherController {
     @Get(':id')
     getOne(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: number){
         console.log(id, typeof id);
-        if (typeof id != "number" || isNaN(id)) { throw new ParameterParseError('id', new Error("iddd")) }
+        //console.log(request);
+        console.log(request.route.path);
+        //if (typeof id != "number" || isNaN(id)) { throw new ParameterParseError('id', new Error("iddd")) }
+        //if (isNaN(id)) { throw new HttpError(400, "Custom.") }
         return response.json(`This is ${id}`);
     }
 
@@ -57,13 +62,6 @@ export class AnotherController {
 
     @ErrorHandler(RequiredParameterNotProvidedError)
     public badReq1(request: Request, response: Response, error: RequiredParameterNotProvidedError): void {
-        //response.status(400).json(error.message);
-        throw new HttpError(400,error.message);
-    }
-
-    @ErrorHandler(ParameterParseError)
-    public badReq2(request: Request, response: Response, error: ParameterParseError): void {
-        //response.status(400).json(error.message);
         throw new HttpError(400,error.message);
     }
 

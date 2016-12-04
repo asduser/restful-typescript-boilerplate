@@ -37,7 +37,19 @@ import {registerControllers, registerControllersFromFolder} from "giuseppe";
 //import "./controllers/UserController.ts";
 import "./controllers/index.ts";
 //ExpressHelper.bindApplicationMiddlewares(app);
-app.use(registerControllers());
+let controls = registerControllers();
+//console.log(controls);
+app.use(controls);
+
+import * as lodash from "lodash";
+let newRoutes: AppRoute[] = [];
+let routeList = [];
+controls.stack.forEach((el) => {
+    //console.log(el.route);
+    routeList.push(el.route);
+});
+let routes = lodash.uniq(routeList, 'path');
+console.log( lodash.uniq(routeList.map(r => r.path)) );
 
 /*registerControllersFromFolder({
     folderPath: './controllers'
@@ -47,7 +59,7 @@ app.use(registerControllers());
     console.log(err);
 });*/
 
-ExpressHelper.bindErrorMiddlewares(app);
+ExpressHelper.bindCommonRequestMiddlewares(app);
 app.listen(3002,() => {
     console.log("Server is running on port: ", 3002);
 });
@@ -71,3 +83,10 @@ server.on("listening", () => {
 
 /*import { Server } from "./config/server";
 const s = new Server();*/
+
+class AppRoute {
+    constructor(
+        public path: string,
+        public methods: string[]
+    ){}
+}
