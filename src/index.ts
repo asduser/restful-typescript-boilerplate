@@ -37,9 +37,16 @@ import {registerControllers, registerControllersFromFolder} from "giuseppe";
 //import "./controllers/UserController.ts";
 import "./controllers/index.ts";
 //ExpressHelper.bindApplicationMiddlewares(app);
-let controls = registerControllers();
+let controls = registerControllers('api');
 //console.log(controls);
 app.use(controls);
+
+class AppRoute {
+    constructor(
+        public path: string,
+        public methods: string[]
+    ){}
+}
 
 import * as lodash from "lodash";
 let newRoutes: AppRoute[] = [];
@@ -50,14 +57,30 @@ controls.stack.forEach((el) => {
 });
 let routes = lodash.uniq(routeList, 'path');
 let uniqueRoutes = lodash.uniq(routeList.map(r => r.path));
-console.log( routes );
+console.log( routeList );
 
-uniqueRoutes.forEach((r) => {
+/*uniqueRoutes.forEach((r) => {
     let _routes = routes.filter((_r) => _r.path == r);
     _routes.forEach((_r) => {
         Object.assign(r.methods, _r.methods)
     });
+});*/
+
+uniqueRoutes.forEach((ur) => {
+    let similarRoutes = routeList.filter((_r) => _r.path == ur);
+    let methods = {};
+    similarRoutes.forEach((sr) => {
+        methods = Object.assign(methods, sr.methods)
+    });
+    let _methods: string[] = [];
+    for (let key in methods) {
+        _methods.push(key);
+    }
+    //console.log(_methods);
+    newRoutes.push(new AppRoute(ur, _methods));
 });
+
+console.log(newRoutes);
 
 /*registerControllersFromFolder({
     folderPath: './controllers'
@@ -91,10 +114,3 @@ server.on("listening", () => {
 
 /*import { Server } from "./config/server";
 const s = new Server();*/
-
-class AppRoute {
-    constructor(
-        public path: string,
-        public methods: string[]
-    ){}
-}
