@@ -12,7 +12,7 @@ const compression = require("compression");
 const methodOverride = require('method-override');
 const errorHandler = require('express-error-handler');
 
-import {ErrorMiddleware, NotFoundMiddleware, CustomHeaders} from "../middlewares/all";
+import {ErrorMiddleware, NotFoundMiddleware, MethodNotAllowedMiddleware, CustomHeaders} from "../middlewares/all";
 
 export class ExpressHelper {
     
@@ -91,6 +91,7 @@ export class ExpressHelper {
             next();
         });
 
+        app.use(MethodNotAllowedMiddleware);
         app.use(NotFoundMiddleware);
         app.use(ErrorMiddleware);
     }

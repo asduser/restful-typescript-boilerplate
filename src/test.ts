@@ -1,58 +1,26 @@
-abstract class Test {
+class Sing {
 
-    protected status: number;
-    protected message: string;
+    public static _instance: Sing;
+    public counter: number = 0;
 
-    constructor(message: string) {
-        this.message = message;
+    constructor(){
+        if (Sing._instance) {
+            console.log("Instance created. Use getInstance instead.");
+        }
+        Sing._instance = this;
     }
 
-}
-
-class Test1 extends Test {
-
-    constructor(msg: string){
-        super(msg);
-        this.status = 200;
+    public static getInstance(): Sing {
+        return Sing._instance;
     }
 
-    public info = (): string => {
-        return `Message: ${this.message}, status: ${this.status}`;
-    }
-
-}
-
-let t1_1 = new Test1("sds");
-//console.log( t1_1.info() );
-
-const subscribe = () => {
-    return function(a, b, c){
-        console.log(a, b, c);
-    };
-    /*let value = null;
-    return {
-        get: ():any => {
-            console.log(`Get: ${value}`);
-            return value;
-        },
-        set: (newVal):void => console.log(`Set: ${value} => ${newVal}`)
-    }*/
-};
-
-const role = (target: any) => {
-    target.role = "admin";
-};
-
-@role
-class Person {
-
-    info(input?: number): void {
-        console.log(this);
+    public inc(): void {
+        this.counter++;
     }
 }
 
-let p1 = new Person();
-p1.info();
-
-import * as A from 'test-module';
-console.log( A.add(10,20) );
+let t1 = new Sing();
+t1.inc();
+console.log(t1.counter);
+let t2 = new Sing();
+console.log(t1.counter);
