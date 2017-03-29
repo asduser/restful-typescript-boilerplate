@@ -40,6 +40,11 @@ export class AnotherController {
         return response.json('z');
     }
 
+    @Get('error')
+    get3(@Req() request: Request, @Res() response: Response){
+        throw new HttpError(500, "Custom error.");
+    }
+
     @Get(':id')
     getOne(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: number){
         console.log(id, typeof id);

@@ -22,11 +22,16 @@ export class UserController {
     }
 
     @Get("/")
-    getAll2(@Req() request: Request, @Res() response: Response){
+    /*getAll2(@Req() request: Request, @Res() response: Response){
         return this._userService.getUsers().then((users) => {
                 let result = new SuccessResponse(users);
                 response.json(result);
             });
+    }*/
+    public async getAll2(@Req() request: Request, @Res() response: Response){
+        let users = await this._userService.getUsers();
+        let result = new SuccessResponse(users);
+        response.json(result);
     }
 
     @Get("/olo")

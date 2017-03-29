@@ -48,33 +48,33 @@ export class ExpressHelper {
         const winston = require('winston');
         const expressWinston = require('express-winston');
         // express-winston logger makes sense BEFORE the router.
-        app.use(expressWinston.logger({
+        expressWinston.requestWhitelist.push('body');
+        var logger = new winston.Logger({
             transports: [
-                new winston.transports.Console({
-                    json: false,
+                new winston.transports.File({
+                    level: 'info',
+                    filename: 'results.log',
+                    handleExceptions: true,
+                    json: true,
+                    maxsize: 5242880, //5MB
+                    maxFiles: 5,
                     colorize: true
                 }),
-                new (winston.transports.File)({
-                    filename: `results.log`,
-                    timestamp: new Date().toLocaleTimeString(),
-                    level: process.env.NODE_ENV || 'development' === 'development' ? 'debug' : 'info'
-                })
-            ]
-        }));
-        app.use(router);
-        app.use(expressWinston.errorLogger({
-            transports: [
                 new winston.transports.Console({
+                    level: 'debug',
+                    handleExceptions: true,
                     json: false,
                     colorize: true
-                }),
-                new (winston.transports.File)({
-                    filename: `results.log`,
-                    timestamp: new Date().toLocaleTimeString(),
-                    level: process.env.NODE_ENV || 'development' === 'development' ? 'debug' : 'info'
                 })
-            ]
-        }));
+            ],
+            exitOnError: false
+        });
+        logger.stream = {
+            write: function(message, encoding){
+                logger.info(message);
+            }
+        };
+        app.use(require("morgan")("combined", { "stream": logger.stream }));
 
     }
 
@@ -91,8 +91,8 @@ export class ExpressHelper {
             next();
         });
 
-        app.use(MethodNotAllowedMiddleware);
         app.use(NotFoundMiddleware);
+        app.use(MethodNotAllowedMiddleware);
         app.use(ErrorMiddleware);
     }
     

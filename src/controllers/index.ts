@@ -1,2 +1,2 @@
-import "./UserController.ts";
-import "./AnotherController.ts";
+import "./user-controller.ts";
+import "./another-controller.ts";

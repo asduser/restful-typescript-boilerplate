@@ -6,5 +6,5 @@ export const ErrorMiddleware = (error: any, request: Request, response: Response
     console.log(error);
     console.log(error.httpCode);
     let result = new ErrorResponse(error.httpCode, error.message);
-    response.status(200).send(result);
+    response.status(error.httpCode).send(result);
 };
