@@ -3,8 +3,8 @@ import {
     Controller, Put, Post, Delete, Get, Res, Req, RouteError, ErrorHandler, Header, Cookie,
     RequiredParameterNotProvidedError, ParameterParseError, HttpVerbNotSupportedError, Query, UrlParam, Body, isNumber
 } from 'giuseppe';
-import {UserRepository} from "../repositories/UserRepository";
-import {UserService} from "../services/UserService";
+import {UserRepository} from "../repositories/user-repository";
+import {UserService} from "../services/user-service";
 import {HttpError} from "../models/errors/HttpError";
 
 import {LoggerMiddleware, LoggerMiddleware2} from "../middlewares/all";

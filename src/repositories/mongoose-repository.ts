@@ -1,4 +1,4 @@
-import {IRepository} from "./IRepository";
+import {IRepository} from "./repository";
 import * as mongoose from "mongoose";
 
 export abstract class MongooseRepository<T> implements IRepository {

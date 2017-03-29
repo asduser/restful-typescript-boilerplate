@@ -1,7 +1,7 @@
 import { List } from "linqts/linq";
-import { UserRepository } from "../repositories/UserRepository";
-import { Direction } from "../enums/Direction";
-import {User} from "../models/User";
+import { UserRepository } from "../repositories/user-repository";
+import { Direction } from "../enums/direction";
+import {User} from "../models/app/user";
 import {async} from "q";
 import {SuccessResponse} from "../models/response/SuccessResponse";
 import {ErrorResponse} from "../models/response/ErrorResponse";

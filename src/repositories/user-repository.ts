@@ -1,6 +1,6 @@
-import {User} from "../models/User";
+import {User} from "../models/app/user";
 import es6PromiseLib = require('es6-promise');
-import {MongooseRepository} from "./MongooseRepository";
+import {MongooseRepository} from "./mongoose-repository";
 const Promise = es6PromiseLib.Promise;
 const UserSchema = require("../models/schemas/User");
 

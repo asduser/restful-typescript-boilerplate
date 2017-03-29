@@ -1,8 +1,8 @@
 import {Request, Response} from "express";
-import {UserRepository} from "../repositories/UserRepository";
-import {User, IUser} from "../models/User";
+import {UserRepository} from "../repositories/user-repository";
+import {User, IUser} from "../models/app/user";
 import {HttpError} from "../models/errors/HttpError";
-import {UserService} from "../services/UserService";
+import {UserService} from "../services/user-service";
 import {SuccessResponse} from "../models/response/SuccessResponse";
 
 import {
