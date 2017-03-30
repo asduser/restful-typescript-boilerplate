@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
-import {HttpError} from "../models/errors/HttpError";
-import {RouteHelper, AppRoute} from "../helpers/RouteHelper";
+import {HttpError} from "../models/errors/http-error";
+import {RouteHelper, AppRoute} from "../helpers/route/route-helper";
 
 export const NotFoundMiddleware = (request: Request, response: Response, next?: (err?: any) => any): any => {
     let methodFound = RouteHelper.appRoutes.find((route: AppRoute) => {

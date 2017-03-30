@@ -5,7 +5,7 @@ import {
 } from 'giuseppe';
 import {UserRepository} from "../repositories/user-repository";
 import {UserService} from "../services/user-service";
-import {HttpError} from "../models/errors/HttpError";
+import {HttpError} from "../models/errors/http-error";
 
 import {LoggerMiddleware, LoggerMiddleware2} from "../middlewares/all";
 

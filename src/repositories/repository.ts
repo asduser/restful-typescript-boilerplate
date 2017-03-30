@@ -1,6 +1,6 @@
-export interface IRepository {
+export interface IRepository<T> {
     getById(id: string);
     getAll();
-    create<T>(entity: T);
-    update<T>(id: string, entity: T);
+    create(entity: T);
+    update(id: string, entity: T);
 }

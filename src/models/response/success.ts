@@ -1,4 +1,4 @@
-import {BaseResponse} from "./BaseResponse";
+import {BaseResponse} from "./base";
 
 export class SuccessResponse extends BaseResponse {
     

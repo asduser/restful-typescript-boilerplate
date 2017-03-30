@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
-import {RouteHelper, AppRoute} from "../helpers/RouteHelper";
-import {HttpError} from "../models/errors/HttpError";
+import {RouteHelper, AppRoute} from "../helpers/route/route-helper";
+import {HttpError} from "../models/errors/http-error";
 
 export const MethodNotAllowedMiddleware = (request: Request, response: Response, next?: (err?: any) => any): any => {
     let routes = RouteHelper.appRoutes;

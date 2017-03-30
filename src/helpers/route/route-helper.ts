@@ -1,16 +1,9 @@
 import * as lodash from "lodash";
 
-export class AppRoute {
-    constructor(
-        public path: string,
-        public methods: string[]
-    ){}
-}
-
 export class RouteHelper {
 
     public static appRoutes: AppRoute[] = [];
-    
+
     public static countRoutes(controls: any): void {
         if (RouteHelper.appRoutes.length == 0) {
             let newRoutes:AppRoute[] = [];
@@ -38,5 +31,13 @@ export class RouteHelper {
             console.log(RouteHelper.appRoutes);
         }
     }
-    
+
+}
+
+
+export class AppRoute {
+    constructor(
+        public path: string,
+        public methods: string[]
+    ){}
 }

@@ -32,7 +32,7 @@ const controllerDir = path.join(__dirname, "/controllers/");
     next();
 });*/
 
-import {ExpressHelper} from "./helpers/ExpressHelper";
+import {ExpressHelper} from "./helpers/express/express-helper";
 import {registerControllers, registerControllersFromFolder} from "giuseppe";
 //import "./controllers/UserController.ts";
 import "./controllers/index.ts";
@@ -41,7 +41,7 @@ let controls = registerControllers();
 //console.log(controls);
 app.use(controls);
 
-import {RouteHelper} from "./helpers/RouteHelper";
+import {RouteHelper} from "./helpers/route/route-helper";
 RouteHelper.countRoutes(controls);
 
 /*registerControllersFromFolder({

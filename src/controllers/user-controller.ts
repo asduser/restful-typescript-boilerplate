@@ -1,9 +1,9 @@
 import {Request, Response} from "express";
 import {UserRepository} from "../repositories/user-repository";
 import {User, IUser} from "../models/app/user";
-import {HttpError} from "../models/errors/HttpError";
+import {HttpError} from "../models/errors/http-error";
 import {UserService} from "../services/user-service";
-import {SuccessResponse} from "../models/response/SuccessResponse";
+import {SuccessResponse} from "../models/response/success";
 
 import {
     Controller, Put, Post, Delete, Get, Res, Req, RouteError, ErrorHandler, Header, Cookie,
@@ -36,7 +36,7 @@ export class UserController {
 
     @Get("/olo")
     getAll4(@Req() request: Request, @Res() response: Response){
-        return response.json(this._userService.test1());
+        return response.json(100);
     }
 
     @Get("/multiple")

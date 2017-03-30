@@ -2,9 +2,9 @@ import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
 import * as morganLogger from "morgan";
 import {Request, Response} from "express";
-import {HttpError} from "../models/errors/HttpError";
-import {NotFoundResponse} from "../models/response/NotFoundResponse";
-import {ErrorResponse} from "../models/response/ErrorResponse";
+import {HttpError} from "../../models/errors/http-error";
+import {NotFoundResponse} from "../../models/response/not-found";
+import {ErrorResponse} from "../../models/response/error";
 import {Application} from "express";
 import * as path from "path";
 const fs = require('fs');
@@ -12,7 +12,7 @@ const compression = require("compression");
 const methodOverride = require('method-override');
 const errorHandler = require('express-error-handler');
 
-import {ErrorMiddleware, NotFoundMiddleware, MethodNotAllowedMiddleware, CustomHeaders} from "../middlewares/all";
+import {ErrorMiddleware, NotFoundMiddleware, MethodNotAllowedMiddleware, CustomHeaders} from "../../middlewares/all";
 
 export class ExpressHelper {
     

@@ -1,12 +1,12 @@
-import { List } from "linqts/linq";
+import { List } from "linqts/dist/linq";
 import { UserRepository } from "../repositories/user-repository";
 import { Direction } from "../enums/direction";
 import {User} from "../models/app/user";
 import {async} from "q";
-import {SuccessResponse} from "../models/response/SuccessResponse";
-import {ErrorResponse} from "../models/response/ErrorResponse";
-import {BaseResponse} from "../models/response/BaseResponse";
-import {MongooseErrorHelper} from "../helpers/MongooseErrorHelper";
+import {SuccessResponse} from "../models/response/success";
+import {ErrorResponse} from "../models/response/error";
+import {BaseResponse} from "../models/response/base";
+import {MongooseErrorHelper} from "../helpers/mongoose-error/mongoose-error-helper";
 
 export class UserService {
 
@@ -23,16 +23,11 @@ export class UserService {
     getUserById(id: string): Promise<any> {
         return this._userRepository.getById(id);
     }
-    
-    /*create(user: User): Promise<boolean> {
-        return this._userRepository.create(user);
-    }*/
 
     create(user: User): Promise<any> {
         return this._userRepository.create(user).then((err) => {
             let result: BaseResponse;
             if (err) {
-                //result = new ErrorResponse(400, "Validation error.", err.errors);
                 result = new ErrorResponse(400, "Validation error.", MongooseErrorHelper.use(err.errors));
             } else {
                 result = new SuccessResponse(user, `User ${user.name} was successfully created.`);
@@ -65,13 +60,6 @@ export class UserService {
             });
         });
     }
-    
-    paginate(query?: string, from?: number, to?:number): void{
-        this.getUsers()
-            .then((users) => {
-
-            });
-    }
 
     /*sortBy(direction:Direction){
         if (direction == Direction.Desc) {
@@ -85,34 +73,5 @@ export class UserService {
             return this.getUsers();
         }
     }*/
-    
-    test(sortConfig: any){
-        return this._userRepository.sort().sort(sortConfig);
-    }
-    
-    test1(){
-        return 100;
-    }
 
-    /*async test2(){
-        return await this._userRepository.getAll2();
-    }*/
-
-}
-
-const users = [
-    {"name": "Bob", "age": "20"},
-    {"name": "Tom", "age": "25"},
-    {"name": "Sam", "age": "30"},
-];
-
-interface IInt {
-    create<T>(entity: T);
-}
-
-class Inter implements IInt {
-    collection;
-    create<T>(entity: T) {
-        this.collection = entity;
-    };
 }

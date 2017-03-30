@@ -1,7 +1,6 @@
-import {IRepository} from "./repository";
 import * as mongoose from "mongoose";
 
-export abstract class MongooseRepository<T> implements IRepository {
+export abstract class MongooseRepository<T> {
 
     private _db: mongoose.Model<mongoose.Document>;
 
@@ -49,10 +48,6 @@ export abstract class MongooseRepository<T> implements IRepository {
                 resolve(err);
             });
         });
-    }
-
-    sort() {
-        return this._db.find({});
     }
 
 }
