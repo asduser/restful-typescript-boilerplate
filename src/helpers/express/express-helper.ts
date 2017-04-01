@@ -16,14 +16,7 @@ import {ErrorMiddleware, NotFoundMiddleware, MethodNotAllowedMiddleware, CustomH
 
 export class ExpressHelper {
     
-    public static bindApplicationMiddlewares(app: any, router?: any){
-        //var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'));
-        //app.use(morganLogger("combined", {stream: accessLogStream}));
-
-        //app.use(morganLogger("dev"));
-
-        //app.use(bodyParser.text());
-        //app.use(bodyParser.urlencoded({ extended: false }));
+    public static bindApplicationMiddlewares(app: any, router?: any) {
         app.use(bodyParser.urlencoded({ extended: false }));
         app.use(bodyParser.json());
         app.use(bodyParser.text());

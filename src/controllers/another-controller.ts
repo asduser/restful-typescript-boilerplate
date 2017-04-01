@@ -45,6 +45,12 @@ export class AnotherController {
         throw new HttpError(500, "Custom error.");
     }
 
+    @Get('some')
+    testSome(@Req() request: Request, @Res() response: Response): HttpError {
+        response.status(500);
+        return new HttpError(400,'Oops');
+    }
+
     @Get(':id')
     getOne(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: number){
         console.log(id, typeof id);
