@@ -36,7 +36,7 @@ import {ExpressHelper} from "./helpers/express/express-helper";
 import {registerControllers, registerControllersFromFolder} from "giuseppe";
 //import "./controllers/UserController.ts";
 import "./controllers/index.ts";
-//ExpressHelper.bindApplicationMiddlewares(app);
+ExpressHelper.bindApplicationMiddlewares(app);
 let controls = registerControllers();
 //console.log(controls);
 app.use(controls);

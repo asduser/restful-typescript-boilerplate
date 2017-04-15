@@ -67,7 +67,7 @@ export class ExpressHelper {
                 logger.info(message);
             }
         };
-        app.use(require("morgan")("combined", { "stream": logger.stream }));
+        // app.use(require("morgan")("combined", { "stream": logger.stream }));
 
     }
 

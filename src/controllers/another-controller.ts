@@ -9,7 +9,7 @@ import {HttpError} from "../models/errors/http-error";
 
 import {LoggerMiddleware, LoggerMiddleware2} from "../middlewares/all";
 
-@Controller("test", LoggerMiddleware, LoggerMiddleware2)
+@Controller("test", LoggerMiddleware)
 export class AnotherController {
 
     private _userRepository: UserRepository;
@@ -25,33 +25,34 @@ export class AnotherController {
         return response.json("all");
     }
 
-    @Get('a')
+    @Get('/a')
     getA(@Req() request: Request, @Res() response: Response){
         return response.json(1);
     }
 
-    @Get('count')
+    @Get('/count')
     count(@Req() request: Request, @Res() response: Response, @Query('number', {required: true}) queryNumber){
-        return response.json(queryNumber * 10);
+        return response.send(queryNumber * 10);
     }
 
-    @Get('z')
+    @Get('/z')
     getZ(@Req() request: Request, @Res() response: Response){
         return response.json('z');
     }
 
-    @Get('error')
+    @Get('/error')
     get3(@Req() request: Request, @Res() response: Response){
+        // throw new Error("Custom error.");
         throw new HttpError(500, "Custom error.");
     }
 
-    @Get('some')
+    @Get('/some')
     testSome(@Req() request: Request, @Res() response: Response): HttpError {
-        response.status(500);
+        response.send(500, 'Oops');
         return new HttpError(400,'Oops');
     }
 
-    @Get(':id')
+    @Get('/:id')
     getOne(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: number){
         console.log(id, typeof id);
         //console.log(request);
@@ -71,9 +72,16 @@ export class AnotherController {
         return response.json(`Books ${id}`);
     }
 
-    @ErrorHandler(RequiredParameterNotProvidedError)
-    public badReq1(request: Request, response: Response, error: RequiredParameterNotProvidedError): void {
-        throw new HttpError(400,error.message);
+    /*@ErrorHandler()
+    public err(req: Request, res: Response, err: Error): void {
+        res.status(500).send(new HttpError(500, JSON.stringify(err.message)));
+    }*/
+
+    @ErrorHandler(RequiredParameterNotProvidedError, ParameterParseError)
+    public badReq(request: Request, response: Response, error: RequiredParameterNotProvidedError|ParameterParseError): void {
+        console.log('This is a bad request from the client.');
+        console.log(error);
+        response.send(400, error.message || error);
     }
 
 }

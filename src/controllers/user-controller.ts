@@ -7,7 +7,7 @@ import {SuccessResponse} from "../models/response/success";
 
 import {
     Controller, Put, Post, Delete, Get, Res, Req, RouteError, ErrorHandler, Header, Cookie,
-    RequiredParameterNotProvidedError, ParameterParseError, HttpVerbNotSupportedError, Query, UrlParam, Body
+    RequiredParameterNotProvidedError, ParameterParseError, HttpVerbNotSupportedError, Query, UrlParam, Body, isString, isNumber
 } from 'giuseppe';
 
 @Controller("/users")
@@ -21,7 +21,7 @@ export class UserController {
         this._userService = new UserService();
     }
 
-    @Get("/")
+    @Get()
     /*getAll2(@Req() request: Request, @Res() response: Response){
         return this._userService.getUsers().then((users) => {
                 let result = new SuccessResponse(users);
@@ -40,8 +40,7 @@ export class UserController {
     }
 
     @Get("/multiple")
-    getAll5(@Req() request: Request, @Res() response: Response, @Query('number', {required: true}) queryNumber, @Header('test') lang: string = 'de'){
-        console.log(lang);
+    getAll5(@Query('number', {required: true, validator: isNumber()}) queryNumber: number, @Header('test') lang: string = 'de', @Req() request: Request, @Res() response: Response){
         return response.json(queryNumber * 10);
     }
 
@@ -77,9 +76,15 @@ export class UserController {
         });
     }
 
-    @ErrorHandler(RequiredParameterNotProvidedError)
-    public badReq1(request: Request, response: Response, error: RequiredParameterNotProvidedError): void {
+    /*@ErrorHandler(RequiredParameterNotProvidedError)
+    public badReq1(request: Request, response: Response, error: RequiredParameterNotProvidedError) {
         throw new HttpError(400,error.message);
+    }*/
+
+    @ErrorHandler()
+    public err(req: Request, res: Response, err: Error): void {
+        console.error(err);
+        res.status(500).json({err});
     }
 
 }
