@@ -8,15 +8,15 @@ import {UserService} from "../services/user-service";
 import {HttpError} from "../models/errors/http-error";
 
 import {LoggerMiddleware, LoggerMiddleware2} from "../middlewares/all";
+import {BaseController} from "./base-controller";
 
 @Controller("test", LoggerMiddleware)
-export class AnotherController {
+export class AnotherController extends BaseController {
 
-    private _userRepository: UserRepository;
     private _userService: UserService;
 
     constructor(){
-        this._userRepository = new UserRepository();
+        super();
         this._userService = new UserService();
     }
 
@@ -54,11 +54,12 @@ export class AnotherController {
 
     @Get('/:id')
     getOne(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: number){
-        console.log(id, typeof id);
+        console.log(id, typeof id, request.params.id);
         //console.log(request);
         console.log(request.route.path);
         //if (typeof id != "number" || isNaN(id)) { throw new ParameterParseError('id', new Error("iddd")) }
         //if (isNaN(id)) { throw new HttpError(400, "Custom.") }
+        if (typeof id != typeof request.params.id) throw new HttpError(500, "Custom error.");
         return response.json(`This is ${id}`);
     }
 
@@ -70,18 +71,6 @@ export class AnotherController {
     @Get(':id/books')
     get2(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: number){
         return response.json(`Books ${id}`);
-    }
-
-    /*@ErrorHandler()
-    public err(req: Request, res: Response, err: Error): void {
-        res.status(500).send(new HttpError(500, JSON.stringify(err.message)));
-    }*/
-
-    @ErrorHandler(RequiredParameterNotProvidedError, ParameterParseError)
-    public badReq(request: Request, response: Response, error: RequiredParameterNotProvidedError|ParameterParseError): void {
-        console.log('This is a bad request from the client.');
-        console.log(error);
-        response.send(400, error.message || error);
     }
 
 }
