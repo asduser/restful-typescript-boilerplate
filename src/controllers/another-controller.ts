@@ -3,7 +3,6 @@ import {
     Controller, Put, Post, Delete, Get, Res, Req, RouteError, ErrorHandler, Header, Cookie,
     RequiredParameterNotProvidedError, ParameterParseError, HttpVerbNotSupportedError, Query, UrlParam, Body, isNumber
 } from 'giuseppe';
-import {UserRepository} from "../repositories/user-repository";
 import {UserService} from "../services/user-service";
 import {HttpError} from "../models/errors/http-error";
 
@@ -42,7 +41,6 @@ export class AnotherController extends BaseController {
 
     @Get('/error')
     get3(@Req() request: Request, @Res() response: Response){
-        // throw new Error("Custom error.");
         throw new HttpError(500, "Custom error.");
     }
 
@@ -55,10 +53,7 @@ export class AnotherController extends BaseController {
     @Get('/:id')
     getOne(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: number){
         console.log(id, typeof id, request.params.id);
-        //console.log(request);
         console.log(request.route.path);
-        //if (typeof id != "number" || isNaN(id)) { throw new ParameterParseError('id', new Error("iddd")) }
-        //if (isNaN(id)) { throw new HttpError(400, "Custom.") }
         if (typeof id != typeof request.params.id) throw new HttpError(500, "Custom error.");
         return response.json(`This is ${id}`);
     }
