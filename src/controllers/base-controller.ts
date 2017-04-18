@@ -2,7 +2,8 @@ import {ErrorHandler, RequiredParameterNotProvidedError, ParameterParseError} fr
 import {Request, Response} from "express";
 import {HttpError} from "../models/errors/http-error";
 
-export class BaseController {
+// All functional controllers should be inherited from this one.
+export abstract class BaseController {
 
     @ErrorHandler()
     public err(req: Request, res: Response, err: Error): void {

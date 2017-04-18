@@ -25,6 +25,7 @@
     "lodash": "^3.10.1",
     "mongoose": "^4.1.5",
     "morgan": "~1.6.1",
+    "nodemon": "^1.11.0",
     "q": "^1.4.1",
     "serve-favicon": "~2.3.0",
     "ts-node": "*",
