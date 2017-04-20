@@ -20,7 +20,7 @@
     "grunt-nodemon": "^0.4.0",
     "grunt-ts": "^5.0.0-beta.1",
     "jade": "~1.11.0",
-    "linqts": "^1.8.1",
+    "linqts": "*",
     "load-grunt-tasks": "^3.2.0",
     "lodash": "^3.10.1",
     "mongoose": "^4.1.5",
