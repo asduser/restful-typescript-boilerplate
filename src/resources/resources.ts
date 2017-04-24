@@ -1,3 +1,10 @@
-/**
- * Created by Zibert on 22.04.2017.
- */
+namespace Resources {
+    
+    export const Http  = {
+        
+        "NotFound": 'Resource not found.',
+        "Forbidden": 'Can\'t get access.'
+        
+    };
+    
+}
