@@ -31,7 +31,7 @@ export class AnotherController extends BaseController {
 
     @Get('/count')
     count(@Req() request: Request, @Res() response: Response, @Query('number', {required: true}) queryNumber){
-        return response.send(queryNumber * 10);
+        return response.json(queryNumber * 10);
     }
 
     @Get('/z')
@@ -50,13 +50,13 @@ export class AnotherController extends BaseController {
         return new HttpError(400,'Oops');
     }
 
-    @Get('/:id')
+    /*@Get('/:id')
     getOne(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: number){
         console.log(id, typeof id, request.params.id);
         console.log(request.route.path);
         if (typeof id != typeof request.params.id) throw new HttpError(500, "Custom error.");
         return response.json(`This is ${id}`);
-    }
+    }*/
 
     @Get(':id/info')
     get1(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: number){
