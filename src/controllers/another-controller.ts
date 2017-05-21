@@ -3,6 +3,7 @@ import {
     Controller, Put, Post, Delete, Get, Res, Req, RouteError, ErrorHandler, Header, Cookie,
     RequiredParameterNotProvidedError, ParameterParseError, HttpVerbNotSupportedError, Query, UrlParam, Body, isNumber
 } from 'giuseppe';
+import {IUser, User} from "../models/app/user";
 import {UserService} from "../services/user-service";
 import {HttpError} from "../models/errors/http-error";
 
@@ -13,6 +14,10 @@ import {BaseController} from "./base-controller";
 export class AnotherController extends BaseController {
 
     private _userService: UserService;
+    private users: User[] = [
+        new User({name: "Bob", age: 20, id: 1}),
+        new User({name: "Thomas", age: 31, id: 2})
+    ];
 
     constructor(){
         super();
@@ -21,12 +26,7 @@ export class AnotherController extends BaseController {
 
     @Get("")
     getAll(@Req() request: Request, @Res() response: Response){
-        return response.json("all");
-    }
-
-    @Get('/a')
-    getA(@Req() request: Request, @Res() response: Response){
-        return response.json(1);
+        return response.json(this.users);
     }
 
     @Get('/count')
@@ -34,20 +34,25 @@ export class AnotherController extends BaseController {
         return response.json(queryNumber * 10);
     }
 
-    @Get('/z')
-    getZ(@Req() request: Request, @Res() response: Response){
-        return response.json('z');
-    }
-
     @Get('/error')
     get3(@Req() request: Request, @Res() response: Response){
         throw new HttpError(500, "Custom error.");
+    }
+
+    @Get('/length')
+    getA(@Req() request: Request, @Res() response: Response){
+        return response.json(this.users.length);
     }
 
     @Get('/some')
     testSome(@Req() request: Request, @Res() response: Response): HttpError {
         response.send(500, 'Oops');
         return new HttpError(400,'Oops');
+    }
+
+    @Get('/z')
+    getZ(@Req() request: Request, @Res() response: Response){
+        return response.json('z');
     }
 
     /*@Get('/:id')
@@ -58,13 +63,20 @@ export class AnotherController extends BaseController {
         return response.json(`This is ${id}`);
     }*/
 
-    @Get(':id/info')
-    get1(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: number){
-        return response.json(`Info ${id}`);
+    @Get(':id')
+    getById(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: number){
+        let user = this.users.find(user => user.id == id);
+        return response.json(user || "User with specified 'id' is not found.");
+    }
+
+    @Get(':id/name')
+    getUserName(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: number){
+        let user = this.users.find(user => user.id == id);
+        return response.json(user ? user.name : "User with specified 'id' is not found.");
     }
 
     @Get(':id/books')
-    get2(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: number){
+    getUserBooks(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: number){
         return response.json(`Books ${id}`);
     }
 
