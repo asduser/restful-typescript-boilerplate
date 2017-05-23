@@ -44,14 +44,6 @@ app.use(controls);
 import {RouteHelper} from "./helpers/route/route-helper";
 RouteHelper.countRoutes(controls);
 
-/*registerControllersFromFolder({
-    folderPath: './controllers'
-}).then(router => {
-    app.use(router);
-}).catch((err: any) => {
-    console.log(err);
-});*/
-
 ExpressHelper.bindCommonRequestMiddlewares(app);
 app.listen(3002,() => {
     console.log("Server is running on port => ", 3002);

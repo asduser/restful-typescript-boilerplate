@@ -3,3 +3,4 @@ typings/
 .vscode/
 .idea/
 results.log
+test/

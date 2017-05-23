@@ -61,7 +61,7 @@ export class UserController {
     }
 
     @Put("/:id")
-    updateById(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: string, @Body({required: true}) user: IUser) {        
+    updateById(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: string, @Body({required: true}) user: User) {
         return this._userService.updateById(id, user).then((res: any) => {
             response.json(res);
         });
