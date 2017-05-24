@@ -13,11 +13,11 @@ import {
 @Controller("/users")
 export class UserController {
 
-    private _userRepository: UserRepository;
+    private _userRepository: UserRepository<IUser>;
     private _userService: UserService;
 
     constructor(){
-        this._userRepository = new UserRepository();
+        this._userRepository = new UserRepository<IUser>();
         this._userService = new UserService();
     }
 
@@ -61,7 +61,7 @@ export class UserController {
     }
 
     @Put("/:id")
-    updateById(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: string, @Body({required: true}) user: User) {
+    updateById(@Req() request: Request, @Res() response: Response, @UrlParam('id') id: string, @Body({required: true}) user: IUser) {        
         return this._userService.updateById(id, user).then((res: any) => {
             response.json(res);
         });
@@ -74,15 +74,15 @@ export class UserController {
         });
     }
 
-    /*@ErrorHandler(RequiredParameterNotProvidedError)
-    public badReq1(request: Request, response: Response, error: RequiredParameterNotProvidedError) {
-        throw new HttpError(400,error.message);
-    }*/
-
     @ErrorHandler()
     public err(req: Request, res: Response, err: Error): void {
         console.error(err);
         res.status(500).json({err});
+    }
+
+    @ErrorHandler(RequiredParameterNotProvidedError)
+    public badReq1(request: Request, response: Response, error: RequiredParameterNotProvidedError) {
+        throw new HttpError(400,error.message);
     }
 
 }

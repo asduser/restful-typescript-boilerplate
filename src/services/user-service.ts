@@ -1,7 +1,7 @@
 import { List } from "linqts/dist/linq";
 import { UserRepository } from "../repositories/user-repository";
 import { Direction } from "../enums/direction";
-import {User} from "../models/app/user";
+import {User, IUser} from "../models/app/user";
 import {async} from "q";
 import {SuccessResponse} from "../models/response/success";
 import {ErrorResponse} from "../models/response/error";
@@ -10,10 +10,10 @@ import {MongooseErrorHelper} from "../helpers/mongoose-error/mongoose-error-help
 
 export class UserService {
 
-    private _userRepository: UserRepository;
+    private _userRepository: UserRepository<IUser>;
 
     constructor(){
-        this._userRepository = new UserRepository();
+        this._userRepository = new UserRepository<IUser>();
     }
     
     getUsers(): Promise<any> {
@@ -24,7 +24,7 @@ export class UserService {
         return this._userRepository.getById(id);
     }
 
-    create(user: User): Promise<any> {
+    create(user: IUser): Promise<any> {
         return this._userRepository.create(user).then((err) => {
             let result: BaseResponse;
             if (err) {
@@ -38,7 +38,7 @@ export class UserService {
         });
     }
     
-    updateById(id: string, user: User): Promise<any> {
+    updateById(id: string, user: IUser): Promise<any> {
         return this._userRepository.update(id, user).then((err) => {
             let result = new SuccessResponse(user, `User ${user.name} was successfully update.`);
             return new Promise<any>((resolve) => {
@@ -60,18 +60,5 @@ export class UserService {
             });
         });
     }
-
-    /*sortBy(direction:Direction){
-        if (direction == Direction.Desc) {
-            return this.getUsers()
-                .then((users) => {
-                    return new Promise<any>((resolve, reject) => {
-                        resolve(users.reverse());
-                    });
-                });
-        } else {
-            return this.getUsers();
-        }
-    }*/
 
 }
