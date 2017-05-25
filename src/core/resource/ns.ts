@@ -1,8 +1,12 @@
-export module Utility {
+declare module Utility {
     export function log(msg) {
         console.log(msg);
     }
     export function error(msg) {
         console.error(msg);
     }
+}
+
+export module 'utilities' {
+    export = Utility;
 }
