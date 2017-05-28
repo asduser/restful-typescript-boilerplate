@@ -1,4 +1,4 @@
-import * as lodash from "lodash";
+import {uniq} from "lodash";
 
 export class RouteHelper {
 
@@ -11,8 +11,8 @@ export class RouteHelper {
             controls.stack.forEach((el) => {
                 routeList.push(el.route);
             });
-            let routes = lodash.uniq(routeList, 'path');
-            let uniqueRoutes = lodash.uniq(routeList.map(r => r.path));
+            let routes = uniq(routeList, 'path');
+            let uniqueRoutes = uniq(routeList.map(r => r.path));
 
             uniqueRoutes.forEach((ur) => {
                 let similarRoutes = routeList.filter((_r) => _r.path == ur);
