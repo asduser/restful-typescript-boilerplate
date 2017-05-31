@@ -3,4 +3,5 @@ export interface IRepository<T> {
     getAll();
     create(entity: T);
     update(id: string, entity: T);
+    remove(id: string);
 }
