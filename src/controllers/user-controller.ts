@@ -4,6 +4,7 @@ import {User, IUser} from "../models/app/user";
 import {HttpError} from "../models/errors/http-error";
 import {UserService} from "../services/user-service";
 import {SuccessResponse} from "../models/response/success";
+import {ErrorResponse} from "../models/response/error";
 
 import {
     Controller, Put, Post, Delete, Get, Res, Req, RouteError, ErrorHandler, Header, Cookie,
@@ -49,7 +50,7 @@ export class UserController {
                 //response.statusCode = result.status;
                 //console.log(`Status: ${response.statusCode}`);
                 response.json(result);
-            });
+            }, () => null).catch(() => null);
     }
 
     @Get("/:id")
@@ -57,7 +58,10 @@ export class UserController {
         return this._userService.getUserById(id).then((user) => {
             let result = new SuccessResponse(user);
             response.json(result);
+        }, () => {
+            response.json('Not found');
         });
+        // response.json(100);
     }
 
     @Put("/:id")

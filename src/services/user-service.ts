@@ -32,7 +32,7 @@ export class UserService {
             } else {
                 result = new SuccessResponse(user, `User ${user.name} was successfully created.`);
             }
-            return new Promise<any>((resolve) => {
+            return new Promise<any>((resolve, reject) => {
                 resolve(result);
             });
         });

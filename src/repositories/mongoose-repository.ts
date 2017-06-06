@@ -20,9 +20,16 @@ export abstract class MongooseRepository<T> {
     getById(id: string) {
         return new Promise<any>((resolve, reject) => {
             this._db.findById(id, (err, response) => {
-                if(err){ reject(err); }
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }
+                console.log(response);
                 resolve(response);
-            })
+            }, (err) => {
+                console.log(err);
+                reject(err);
+            });
         });
     }
 
