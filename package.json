@@ -27,6 +27,7 @@
     "morgan": "~1.6.1",
     "nodemon": "*",
     "q": "^1.4.1",
+    "routing-controllers": "^0.7.0",
     "serve-favicon": "~2.3.0",
     "ts-node": "*",
     "typescript": "*",
@@ -44,7 +45,6 @@
     "mongoose": "^4.6.3",
     "morgan": "^1.6.1",
     "reflect-metadata": "^0.1.8",
-    "routing-controllers": "^0.6.6",
     "ts-node": "*",
     "winston": "^2.3.0"
   }
