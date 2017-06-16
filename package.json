@@ -24,7 +24,7 @@
     "load-grunt-tasks": "^3.2.0",
     "lodash": "^3.10.1",
     "mongoose": "^4.1.5",
-    "morgan": "~1.6.1",
+    "morgan": "*",
     "nodemon": "*",
     "q": "^1.4.1",
     "routing-controllers": "^0.7.0",
@@ -46,6 +46,6 @@
     "morgan": "^1.6.1",
     "reflect-metadata": "^0.1.8",
     "ts-node": "*",
-    "winston": "^2.3.0"
+    "winston": "*"
   }
 }
