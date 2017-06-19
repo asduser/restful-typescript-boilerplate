@@ -4,7 +4,7 @@ import {
     RequiredParameterNotProvidedError, ParameterParseError, HttpVerbNotSupportedError, Query, UrlParam, Body, isNumber
 } from 'giuseppe';
 import {IUser, User} from "../models/app/user";
-import {UserService} from "../services/user-service";
+import {UserService} from "../services/data/user-service";
 import {HttpError} from "../models/errors/http-error";
 
 import {LoggerMiddleware, LoggerMiddleware2} from "../middlewares/all";

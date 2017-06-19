@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import {UserRepository} from "../repositories/user-repository";
 import {User, IUser} from "../models/app/user";
 import {HttpError} from "../models/errors/http-error";
-import {UserService} from "../services/user-service";
+import {UserService} from "../services/data/user-service";
 import {SuccessResponse} from "../models/response/success";
 import {ErrorResponse} from "../models/response/error";
 
