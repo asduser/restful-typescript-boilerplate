@@ -1,4 +1,4 @@
-import "es6-shim";
+/*import "es6-shim";
 import "reflect-metadata";
 import * as path from "path";
 
@@ -19,4 +19,14 @@ RouteHelper.countRoutes(controls);
 ExpressHelper.bindCommonRequestMiddlewares(app);
 app.listen(3002,() => {
     console.log("Server is running on port => ", 3002);
+});*/
+
+import {createExpressServer} from "routing-controllers";
+import {BlogController} from "./modules/blog/controllers/BlogController";
+const app = createExpressServer({
+    controllers: [BlogController]
+});
+
+app.listen(3001, () => {
+    console.log('Express app started at 3001 port!');
 });

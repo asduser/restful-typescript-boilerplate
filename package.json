@@ -27,7 +27,7 @@
     "morgan": "*",
     "nodemon": "*",
     "q": "^1.4.1",
-    "routing-controllers": "^0.7.0",
+    "routing-controllers": "^0.7.1",
     "serve-favicon": "~2.3.0",
     "ts-node": "*",
     "typescript": "*",
