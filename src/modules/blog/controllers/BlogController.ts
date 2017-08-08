@@ -1,19 +1,19 @@
 import {Request} from "express";
-import {JsonController, Get, Post, Put, Patch, Delete, Req} from "routing-controllers";
+import {Controller, Put, Patch, Delete, Req, Get, Post, Res} from "routing-controllers";
 
-@JsonController('blogs')
+@Controller('/blogs')
 export class BlogController {
 
-    @Get("")
-    getAll() {
+    @Get()
+    async getAll(@Res() response) {
         console.log("Getting blogs...");
-        return this.createPromise([
+        this.createPromise([
             { id: 1, name: "Blog 1!"},
             { id: 2, name: "Blog 2!"},
         ], 3000);
     }
 
-    @Get('')
+    @Get()
     test(): number {
         return 100;
     }
@@ -23,7 +23,7 @@ export class BlogController {
         return this.createPromise({ id: 1, name: "Blog 1!"}, 3000);
     }
 
-    @Post("")
+    @Post()
     post(@Req() request: Request) {
         let blog = JSON.stringify(request.body);
         return this.createPromise("Blog " + blog + " !saved!", 3000);
@@ -45,8 +45,8 @@ export class BlogController {
     }
 
     private createPromise(data: any, timeout: number): Promise<any> {
-        return new Promise<any>((ok, fail) => {
-            setTimeout(() => ok(data), timeout);
+        return new Promise<any>((resolve, reject) => {
+            setTimeout(() => resolve(data), timeout);
         });
     }
 
