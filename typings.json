@@ -12,7 +12,7 @@
     "minimatch": "github:DefinitelyTyped/DefinitelyTyped/minimatch/minimatch.d.ts#af76bf46025371c760d8fe8c03cf874428da6124",
     "mongoose": "github:DefinitelyTyped/DefinitelyTyped/mongoose/mongoose.d.ts#af76bf46025371c760d8fe8c03cf874428da6124",
     "morgan": "github:DefinitelyTyped/DefinitelyTyped/morgan/morgan.d.ts#32f0a90dab26f70b206407ac24d4d622d0f0f408",
-    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#af76bf46025371c760d8fe8c03cf874428da6124",
+    "node": "registry:dt/node#7.0.0+20170322231424",
     "serve-favicon": "github:DefinitelyTyped/DefinitelyTyped/serve-favicon/serve-favicon.d.ts#32f0a90dab26f70b206407ac24d4d622d0f0f408"
   }
 }

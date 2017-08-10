@@ -1,20 +1,12 @@
 {
-    "compileOnSave": true,
     "compilerOptions": {
-        "target": "es6",
         "module": "commonjs",
-        "declaration": false,
-        "noImplicitAny": false,
-        "removeComments": true,
-        "noLib": false,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
+        "target": "es6",
         "sourceMap": true,
-        "listFiles": false,
-        "outDir": "dist/",
-        "rootDir": "test/"
+        "outDir": "dist"
     },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "typings"
     ]
 }
