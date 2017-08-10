@@ -38,12 +38,14 @@
     "es6-shim": "^0.35.1",
     "express-error-handler": "^1.1.0",
     "express-winston": "^2.0.0",
+    "giuseppe": "^2.0.2",
     "linqts": "*",
     "method-override": "^2.3.7",
     "mongodb": "^2.2.10",
     "mongoose": "^4.6.3",
     "morgan": "^1.6.1",
     "reflect-metadata": "^0.1.8",
+    "routing-controllers": "^0.7.1",
     "ts-node": "*",
     "winston": "*"
   }

@@ -1,4 +1,5 @@
 {
+    "compileOnSave": true,
     "compilerOptions": {
         "target": "es6",
         "module": "commonjs",
@@ -8,8 +9,10 @@
         "noLib": false,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "sourceMap": false,
-        "listFiles": false
+        "sourceMap": true,
+        "listFiles": false,
+        "outDir": "dist/",
+        "rootDir": "test/"
     },
     "exclude": [
         "node_modules"

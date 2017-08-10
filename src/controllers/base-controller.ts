@@ -1,4 +1,4 @@
-import {ErrorHandler, RequiredParameterNotProvidedError, ParameterParseError} from "giuseppe/index";
+import {ErrorHandler, RequiredParameterNotProvidedError, ParameterParseError} from "giuseppe";
 import {Request, Response} from "express";
 import {HttpError} from "../models/errors/http-error";
 
