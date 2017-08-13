@@ -8,12 +8,12 @@
         "sourceMap": true,
         "outDir": "dist",
         "rootDirs": [
-            "./test"
+            "./src"
         ],
         "watch": true
     },
     "include": [
-        "./test/index.ts"
+        "./src/index.ts"
     ],
     "exclude": [
         "node_modules",
