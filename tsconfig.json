@@ -2,8 +2,19 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
-        "rootDir": "src"
+        "types": ["node"],
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "outDir": "dist",
+        "rootDirs": [
+            "./test"
+        ],
+        "watch": true
     },
+    "include": [
+        "./test/index.ts"
+    ],
     "exclude": [
         "node_modules",
         "typings"
