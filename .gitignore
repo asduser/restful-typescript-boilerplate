@@ -1,7 +1,8 @@
-node_modules/
-typings/
 .vscode/
 .idea/
-results.log
+node_modules/
+typings/
 test/
 dist/
+results.log
+npm-debug.log
