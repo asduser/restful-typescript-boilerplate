@@ -12,8 +12,6 @@
     "glob": "^5.0.14",
     "lodash": "^3.10.1",
     "nodemon": "*",
-    "q": "^1.4.1",
-    "serve-favicon": "~2.3.0",
     "ts-node": "*",
     "typescript": "^2.4.2"
   },

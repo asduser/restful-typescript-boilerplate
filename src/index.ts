@@ -1,8 +1,9 @@
 import "reflect-metadata";
 import * as express from 'express';
+import {config} from "./config/config";
 
 const app = express();
 
-app.listen(3001, () => {
-    console.log('Express app started at 3001 port!');
+app.listen(config.port, config.host,() => {
+    console.log(`Express app started at ${config.port} port!`);
 });
