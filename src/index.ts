@@ -1,9 +1,15 @@
+import "./config/env-resolver";
 import "reflect-metadata";
 import * as express from 'express';
 import {config} from "./config/config";
 
-const app = express();
+// routes
+import {infoRoute} from "./endpoint/info";
 
-app.listen(config.port, config.host,() => {
+const app = express();
+app.use('/info', infoRoute);
+
+app.listen(config.port, config.host,(data) => {
+    console.log(data);
     console.log(`Express app started at ${config.port} port!`);
 });

@@ -1,0 +1,1 @@
+export {infoRoute} from "./info-route";
