@@ -19,7 +19,6 @@
     "compression": "^1.6.2",
     "es6-shim": "^0.35.1",
     "express": "~4.13.1",
-    "express-error-handler": "^1.1.0",
     "express-winston": "^2.0.0",
     "method-override": "^2.3.7",
     "mongodb": "^2.2.10",
