@@ -7,17 +7,19 @@ import {config} from "./config/config";
 const compression = require('compression');
 
 import {infoRoute} from "./endpoint/info";
-import {notFoundMiddleware} from "./middlewares/not-found";
-import {errorHandlerMiddleware} from "./middlewares/error-handler";
+import {notFoundMiddleware} from "./middlewares/errors/not-found";
+import {errorHandlerMiddleware} from "./middlewares/errors/error-handler";
+import {crossDomainMiddleware} from "./middlewares/security/cross-domain";
 
 const app = express();
 
 // common handlers
 app.disable('etag');
 app.disable('x-powered-by');
+app.use(crossDomainMiddleware);
+app.use(compression());
 app.post('*', bodyParser.json());
 app.put('*', bodyParser.json());
-app.use(compression());
 
 // routes
 app.use('/info', infoRoute);
