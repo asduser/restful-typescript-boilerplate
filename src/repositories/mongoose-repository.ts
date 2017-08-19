@@ -2,9 +2,9 @@ import * as mongoose from "mongoose";
 
 export abstract class MongooseRepository<T> {
 
-    private _db: mongoose.Model<mongoose.Document>;
+    private _db: mongoose.model<mongoose.do>;
 
-    constructor(dbSchema: mongoose.Model<mongoose.Document>){
+    constructor(dbSchema: mongoose.model<mongoose.Document>){
         this._db = dbSchema;
     }
 

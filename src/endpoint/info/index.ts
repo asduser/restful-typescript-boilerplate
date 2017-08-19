@@ -1,1 +1,1 @@
-export {infoRoute} from "./info-route";
+export {infoRoute} from "./route";

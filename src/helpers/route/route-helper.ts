@@ -11,7 +11,6 @@ export class RouteHelper {
             controls.stack.forEach((el) => {
                 routeList.push(el.route);
             });
-            let routes = uniq(routeList, 'path');
             let uniqueRoutes = uniq(routeList.map(r => r.path));
 
             uniqueRoutes.forEach((ur) => {
