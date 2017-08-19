@@ -1,5 +1,6 @@
 import {Request, Response, NextFunction} from "express";
+import {NotFoundError} from "../../errors/server";
 
 export const notFoundMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    return next('Route is not found!');
+    return next(new NotFoundError());
 };

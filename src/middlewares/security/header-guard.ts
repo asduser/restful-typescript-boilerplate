@@ -4,7 +4,6 @@ export const headerGuardMiddleware = (req: Request, res: Response, next: NextFun
 
     res.header('X-XSS-Protection', '1; mode=block');
     res.header('X-Content-Type-Options', 'nosniff');
-    res.header('X-Download-Options ', 'noopen');
 
     next();
 };

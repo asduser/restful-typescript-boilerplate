@@ -17,6 +17,7 @@ app.disable('x-powered-by');
 app.use(compression());
 app.use(middlewares.crossDomain);
 app.use(middlewares.requestLogger);
+app.use(middlewares.headerGuard);
 app.post('*', bodyParser.json());
 app.put('*', bodyParser.json());
 
