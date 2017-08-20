@@ -9,6 +9,15 @@ abstract class HttpError {
     }
 }
 
+export class InternalError extends HttpError {
+    constructor(opts: HttErrorOptions) {
+        super({
+            status: opts.status || 500,
+            message: opts.message || 'Internal Server Error'
+        });
+    }
+}
+
 export class NotFoundError extends HttpError {
     constructor() {
         super({
@@ -18,11 +27,12 @@ export class NotFoundError extends HttpError {
     }
 }
 
-export class InternalError extends HttpError {
-    constructor(opts: HttErrorOptions) {
+export class ForbiddenError extends HttpError {
+    constructor() {
         super({
-            status: opts.status || 500,
-            message: opts.message || 'Internal Server Error'
+            status: 403,
+            message: "You don't have permissions for this route!",
+            title: 'Forbidden'
         });
     }
 }

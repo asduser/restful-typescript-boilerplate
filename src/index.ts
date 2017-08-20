@@ -22,8 +22,9 @@ app.post('*', bodyParser.json());
 app.put('*', bodyParser.json());
 
 // routes
-app.use('api/v1/info', routes.info);
-app.use('api/v1/users', routes.users);
+app.use('/api/v1/auth', routes.auth);
+app.use('/api/v1/info', routes.info);
+app.use('/api/v1/users', routes.users);
 
 // error-handlers
 app.use('*', middlewares.notFound);
