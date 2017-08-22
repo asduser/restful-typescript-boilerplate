@@ -9,6 +9,8 @@ const compression = require('compression');
 const bunyan = require("express-bunyan-logger");
 const bformat = require('bunyan-format');
 const formatOut = bformat({ outputMode: 'short' });
+const expressWinston = require('express-winston');
+const winston = require('winston');
 
 import * as routes from "./endpoint";
 import * as middlewares from "./middlewares";
@@ -18,13 +20,13 @@ const app = express();
 // common handlers
 app.disable('etag');
 app.disable('x-powered-by');
-app.use(bunyan.errorLogger());
-app.use(bunyan({
-    name: 'Logger',
-    streams: [{
-        level: 'debug',
-        stream: process.stdout
-    }]
+app.use(expressWinston.logger({
+    transports: [
+        new winston.transports.Console({
+            json: true,
+            colorize: true
+        })
+    ]
 }));
 app.use(compression());
 app.use(middlewares.crossDomain);
