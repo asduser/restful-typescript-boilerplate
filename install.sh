@@ -7,3 +7,6 @@ typings install dt~es6-shim --global
 
 # project internal typings
 typings install
+
+# project logs directory
+mkdir logs

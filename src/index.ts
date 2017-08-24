@@ -6,28 +6,16 @@ import {config} from "./config/config";
 
 const compression = require('compression');
 
-const bunyan = require("express-bunyan-logger");
-const bformat = require('bunyan-format');
-const formatOut = bformat({ outputMode: 'short' });
-const expressWinston = require('express-winston');
-const winston = require('winston');
-
 import * as routes from "./endpoint";
 import * as middlewares from "./middlewares";
+import {winstonLogger} from "./providers/loggers/winston";
 
 const app = express();
 
 // common handlers
 app.disable('etag');
 app.disable('x-powered-by');
-app.use(expressWinston.logger({
-    transports: [
-        new winston.transports.Console({
-            json: true,
-            colorize: true
-        })
-    ]
-}));
+app.use(winstonLogger);
 app.use(compression());
 app.use(middlewares.crossDomain);
 // app.use(middlewares.requestLogger);
