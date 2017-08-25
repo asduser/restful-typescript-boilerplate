@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # npm modules
 npm install
 

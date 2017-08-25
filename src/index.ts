@@ -8,7 +8,7 @@ const compression = require('compression');
 
 import * as routes from "./endpoint";
 import * as middlewares from "./middlewares";
-import {winstonLogger} from "./providers/loggers/winston";
+import {winstonLogger, winstonErrorHandler} from "./providers/loggers/winston";
 
 const app = express();
 
@@ -29,6 +29,7 @@ app.use('/api/v1/info', routes.info);
 app.use('/api/v1/users', routes.users);
 
 // error-handlers
+app.use(winstonErrorHandler);
 app.use('*', middlewares.notFound);
 app.use(middlewares.errorHandler);
 

@@ -4,8 +4,10 @@ const baseTransport = {
     json: true,
     colorize: true,
     level: 'info',
+    timestamp: true,
     handleExceptions: true,
-    timestamp: true
+    humanReadableUnhandledException: true,
+    exitOnError: false
 };
 
 const fileTransport = Object.assign({}, baseTransport, {
