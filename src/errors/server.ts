@@ -37,9 +37,9 @@ export class ForbiddenError extends HttpError {
     }
 }
 
-type HttErrorOptions = {
-    status?: number,
-    message?: string,
-    title?: string,
-    errorCode?: number
+interface HttErrorOptions {
+    status?: number;
+    message?: string;
+    title?: string;
+    errorCode?: number;
 }
