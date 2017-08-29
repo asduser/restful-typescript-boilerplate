@@ -5,7 +5,7 @@ const baseTransport = {
     colorize: true,
     level: 'info',
     timestamp: true,
-    handleExceptions: true,
+    // handleExceptions: true,
     humanReadableUnhandledException: true,
     exitOnError: false
 };
@@ -23,13 +23,5 @@ export const fileInfoTransport = new winston.transports.File(
     Object.assign({}, fileTransport, {
         filename: './logs/info.log',
         name: 'info-logs'
-    })
-);
-
-export const fileErrorTransport = new winston.transports.File(
-    Object.assign({}, fileTransport, {
-        filename: './logs/error.log',
-        level: 'error',
-        name: 'error-logs'
     })
 );
