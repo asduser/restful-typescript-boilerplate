@@ -1,40 +1,39 @@
 import * as mongodb from "mongodb";
+import {IMongoConfig} from "./models/index";
 const mongoClient = new mongodb.MongoClient();
 
 export class MongoProvider {
 
-    private connectionUrl: string;
+    private db: mongodb.Db = null;
+    private config: IMongoConfig;
 
-    public get connectionString(): string {
-        return this.connectionUrl;
+    public get connected(): boolean {
+        return this.connection !== null;
+    }
+    public get connection(): mongodb.Db {
+        return this.db;
     }
 
-    public get connection() {
-
+    constructor() {
+        console.log(new Date().getTime());
     }
 
-    constructor(config: IMongoConfig) {
-        this.connectionUrl = config.url || this.getUrl(config);
+    public connect(config: IMongoConfig): Promise<any> {
+        this.config = config;
+        return mongoClient.connect(config.url || this.getUrl(config))
+            .then((db: mongodb.Db) => {
+                this.db = db;
+                return Promise.resolve(db);
+            })
+            .catch((error) => console.log(error));
     }
 
-    public connect(): void {
-        mongoClient.connect(this.connectionUrl).then(() => {
-
-        });
+    public disconnect(): Promise<any> {
+        return this.db.close();
     }
 
     private getUrl(cfg: IMongoConfig): string {
         return `mongodb://${cfg.host}:${cfg.port}/${cfg.db}`;
     }
 
-}
-
-interface IMongoConfig {
-    port: number;
-    host: string;
-    db?: string;
-    username?: string;
-    password?: string;
-    url?: string;
-    options?: Object;
 }

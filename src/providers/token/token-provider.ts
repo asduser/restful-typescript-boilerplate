@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 import {config} from "../../config/config";
-import {ForbiddenError} from "../../errors/server";
+import {ForbiddenError} from "../../errors/http";
 
 export const ensureToken = (req, res, next) => {
     const bearerHeader = req.headers["authorization"];

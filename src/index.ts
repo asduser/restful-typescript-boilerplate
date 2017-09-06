@@ -2,7 +2,7 @@ import "./config/env-resolver";
 import "reflect-metadata";
 import * as express from 'express';
 import * as bodyParser from "body-parser";
-import {config} from "./config/config";
+import {Server} from "./server";
 
 const compression = require('compression');
 
@@ -10,6 +10,8 @@ import * as routes from "./endpoint";
 import * as middlewares from "./middlewares";
 import {winstonLogger} from "./providers/loggers/winston";
 
+// main
+const server = new Server();
 const app = express();
 
 // common handlers
@@ -18,7 +20,6 @@ app.disable('x-powered-by');
 app.use(winstonLogger);
 app.use(compression());
 app.use(middlewares.crossDomain);
-// app.use(middlewares.requestLogger);
 app.use(middlewares.headerGuard);
 app.post('*', bodyParser.json());
 app.put('*', bodyParser.json());
@@ -33,7 +34,4 @@ app.use('*', middlewares.notFound);
 app.use(middlewares.errorHandler);
 
 // server initialization
-app.listen(config.port, config.host,(data) => {
-    console.log(data);
-    console.log(`Express app started at ${config.port} port!`);
-});
+server.start(app, {useMongo: true});

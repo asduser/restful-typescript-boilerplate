@@ -1,1 +1,3 @@
-export {mongoProvider} from "./initializer";
+import {MongoProvider} from "./mongo";
+
+export const mongoProvider = new MongoProvider();
