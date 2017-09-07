@@ -1,6 +1,6 @@
 {
   "name": "restful-typescript-boilerplate",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "private": true,
   "dependencies": {
     "@types/express": "^4.0.36",
