@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from "express";
-import {InternalError} from "../../errors/http";
+import {InternalError} from "../../http";
 
 export const errorHandlerMiddleware = (err: any, req: Request, res: Response, next: NextFunction) => {
     let error = new InternalError({

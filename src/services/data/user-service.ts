@@ -1,5 +1,4 @@
 import { UserRepository } from "../../repositories/user-repository";
-import { Direction } from "../../enums/direction";
 import {User, IUser} from "../../models/app/user";
 import {SuccessResponse} from "../../models/response/success";
 import {ErrorResponse} from "../../models/response/error";

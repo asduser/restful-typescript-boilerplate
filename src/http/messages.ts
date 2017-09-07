@@ -1,16 +1,16 @@
-abstract class HttpError {
+abstract class HttpMessage {
     public status: number;
     public title: string;
     public message: string;
     public errorCode: number;
 
-    constructor(opts: HttErrorOptions = {}) {
+    constructor(opts: HttpMessageOptions = {}) {
         Object.assign(this, opts);
     }
 }
 
-export class InternalError extends HttpError {
-    constructor(opts: HttErrorOptions) {
+export class InternalError extends HttpMessage {
+    constructor(opts: HttpMessageOptions) {
         super({
             status: opts.status || 500,
             message: opts.message || 'Internal Server Error'
@@ -18,7 +18,7 @@ export class InternalError extends HttpError {
     }
 }
 
-export class NotFoundError extends HttpError {
+export class NotFoundError extends HttpMessage {
     constructor() {
         super({
             status: 404,
@@ -27,7 +27,7 @@ export class NotFoundError extends HttpError {
     }
 }
 
-export class ForbiddenError extends HttpError {
+export class ForbiddenError extends HttpMessage {
     constructor() {
         super({
             status: 403,
@@ -37,7 +37,7 @@ export class ForbiddenError extends HttpError {
     }
 }
 
-interface HttErrorOptions {
+interface HttpMessageOptions {
     status?: number;
     message?: string;
     title?: string;

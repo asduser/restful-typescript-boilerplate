@@ -1,10 +1,8 @@
-import * as mongoose from "mongoose";
+export abstract class MongoRepository<T> {
 
-export abstract class MongooseRepository<T> {
+    private _db;
 
-    private _db: mongoose.model<mongoose.do>;
-
-    constructor(dbSchema: mongoose.model<mongoose.Document>){
+    constructor(dbSchema){
         this._db = dbSchema;
     }
 
