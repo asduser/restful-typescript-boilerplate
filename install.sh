@@ -12,3 +12,6 @@ typings install
 
 # project logs directory
 mkdir logs
+
+# auto-create basic configuration environments file
+cp ./basic-env ./.env

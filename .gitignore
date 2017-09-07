@@ -1,9 +1,19 @@
+# IDE
 .vscode/
 .idea/
+
+# modules
 node_modules/
 typings/
-test/
-dist/
+
+# logs
 logs/
 results.log
 npm-debug.log
+
+# build
+test/
+dist/
+
+# configuration
+.env

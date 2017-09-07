@@ -1,0 +1,8 @@
+# Express API
+PORT=3001
+HOST=localhost
+
+# MongoDB
+MONGO_HOST=localhost
+MONGO_PORT=27017
+MONGO_DB=express-simple-api
