@@ -15,13 +15,13 @@ export class Server {
         this.options = Object.assign({}, this.options, opts);
         if (this.options.useMongo) {
             // if mongo uses, wait until it connected, then start express
-            mongoProvider.connect({
-                host: config.mongodb.host,
-                port: config.mongodb.port,
-                db: config.mongodb.db
-            }).then((data) => {
-                this.listen();
-            }).catch((err) => console.log(err));
+            mongoProvider.connect(config.mongodb)
+                .then((data) => {
+                    this.listen();
+                }).catch((err) => {
+                    console.log(err);
+                    process.exit();
+                });
         } else {
             // in other case - just start express
             this.listen();
@@ -29,8 +29,8 @@ export class Server {
     }
 
     private listen(): void {
-        this.app.listen(config.port, config.host,() => {
-            console.log(`Express app started at ${config.port} port!`);
+        this.app.listen(<number>config.port, config.host,() => {
+            console.log(`Application started at ${config.port} port!`);
         });
     }
 }

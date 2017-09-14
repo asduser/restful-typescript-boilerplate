@@ -18,21 +18,20 @@ export class MongoProvider {
         console.log(new Date().getTime());
     }
 
-    public connect(config: IMongoConfig): Promise<any> {
+    public connect(config): Promise<any> {
         this.config = config;
-        return mongoClient.connect(config.url || this.getUrl(config))
+        return mongoClient.connect(config.url || this.formatUrl(config))
             .then((db: mongodb.Db) => {
                 this.db = db;
-                return Promise.resolve(db);
-            })
-            .catch((error) => console.log(error));
+                return db;
+            });
     }
 
     public disconnect(): Promise<any> {
         return this.db.close();
     }
 
-    private getUrl(cfg: IMongoConfig): string {
+    private formatUrl(cfg: IMongoConfig): string {
         return `mongodb://${cfg.host}:${cfg.port}/${cfg.db}`;
     }
 

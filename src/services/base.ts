@@ -1,15 +1,21 @@
-export abstract class BaseService {
+import {MethodNotImplementedError} from "../errors";
+import {IService, IEntity} from "../models";
 
-    protected model;
+export abstract class BaseService implements IService {
+
+    private model: IEntity;
 
     constructor() {
-
+        this.model = this.getEntity();
     }
 
-    protected getModel() {
-        if (!this.model) {
-            throw new Error(`Model for ${this.constructor.name} doesn't exist!`);
-        }
+    // override in inherited class to return model
+    public getEntity(): IEntity {
+        throw new MethodNotImplementedError();
+    }
+
+    public info(): void {
+        console.log(this.model);
     }
 
 }
