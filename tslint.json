@@ -7,6 +7,7 @@
     "no-eval": true,
     "one-line": [true, "check-open-brace"],
     "semicolon": false,
-    "variable-name": [true, "ban-keywords"]
+    "variable-name": [true, "ban-keywords"],
+    "eofline": true
   }
 }

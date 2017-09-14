@@ -1,1 +1,1 @@
-export {InternalError, ForbiddenError, NotFoundError} from "./messages";
+export {InternalError, ForbiddenError, NotFoundError} from "./errors";
