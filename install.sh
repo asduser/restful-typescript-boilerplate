@@ -14,4 +14,7 @@ typings install
 mkdir logs
 
 # auto-create basic configuration environments file
-cp ./basic-env ./.env
+cp ./config/node/basic-env ./.env
+
+# git hooks
+cp ./config/git/pre-commit .git/hooks/pre-commit

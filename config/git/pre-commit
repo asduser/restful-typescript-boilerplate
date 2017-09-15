@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cd / && tslint "./src/**/*.ts"
