@@ -1,11 +1,19 @@
+import {EntityCollectionError} from "../errors";
+import {IEntity} from "../models";
+
 export abstract class BaseEntity {
 
-    protected collection: string;
+    private collection: string;
 
-    public getCollection() {
-        if (!this.collection) {
-            throw new Error('');
-        }
+    constructor() {
+        this.collection = this.getCollection();
+    }
+
+    public getCollection(): string {
+        throw new EntityCollectionError();
+    }
+
+    public test(): string {
         return this.collection;
     }
 
