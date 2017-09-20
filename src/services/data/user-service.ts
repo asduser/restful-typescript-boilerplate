@@ -3,7 +3,6 @@ import {User, IUser} from "../../models/app/user";
 import {SuccessResponse} from "../../models/response/success";
 import {ErrorResponse} from "../../models/response/error";
 import {BaseResponse} from "../../models/response/base";
-import {MongooseErrorHelper} from "../../helpers/mongoose-error/mongoose-error-helper";
 
 export class UserService {
 
@@ -25,7 +24,7 @@ export class UserService {
         return this._userRepository.create(user).then((err) => {
             let result: BaseResponse;
             if (err) {
-                result = new ErrorResponse(400, "Validation error.", MongooseErrorHelper.use(err.errors));
+                result = new ErrorResponse(400, "Validation error.");
             } else {
                 result = new SuccessResponse(user, `User ${user.name} was successfully created.`);
             }
@@ -37,7 +36,7 @@ export class UserService {
     
     updateById(id: string, user: IUser): Promise<any> {
         return this._userRepository.update(id, user).then((err) => {
-            let result = new SuccessResponse(user, `User ${user.name} was successfully update.`);
+            const result = new SuccessResponse(user, `User ${user.name} was successfully update.`);
             return new Promise<any>((resolve) => {
                 resolve(result);
             });
@@ -48,7 +47,7 @@ export class UserService {
         return this._userRepository.remove(id).then((err) => {
             let result: BaseResponse;
             if (err) {
-                result = new ErrorResponse(500, "Database internal error.", MongooseErrorHelper.use(err.errors));
+                result = new ErrorResponse(500, "Database internal error.");
             } else {
                 result = new SuccessResponse({id: id}, `User with id=${id} was successfully removed.`);
             }
