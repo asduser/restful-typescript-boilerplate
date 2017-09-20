@@ -1,9 +1,16 @@
 import {EntityCollectionError} from "../errors";
-import {IEntity} from "../models";
 
-export abstract class BaseEntity {
+export interface IEntity {
+    id: number;
+    _id: string;
+    getCollection(): string;
+}
+
+export abstract class BaseEntity implements IEntity {
 
     private collection: string;
+    public _id: string;
+    public id: number;
 
     constructor() {
         this.collection = this.getCollection();

@@ -1,5 +1,9 @@
 import {MethodNotImplementedError} from "../errors";
-import {IService, IEntity} from "../models";
+import {IEntity} from "../entities";
+
+export interface IService {
+    getEntity(): IEntity;
+}
 
 export abstract class BaseService implements IService {
 

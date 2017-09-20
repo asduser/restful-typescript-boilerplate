@@ -11,6 +11,3 @@ export class UserEntity extends BaseEntity {
     }
 
 }
-
-const u1 = new UserEntity();
-console.log( u1.test() );
