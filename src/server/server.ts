@@ -3,6 +3,10 @@ import {config} from "../config/config";
 import {IServerOptions} from "./models";
 import {mongoProvider} from "../providers/index";
 
+const defaultOptions: IServerOptions = {
+    useMongo: false
+};
+
 export class Server {
 
     private options: IServerOptions = defaultOptions;
@@ -34,7 +38,3 @@ export class Server {
         });
     }
 }
-
-const defaultOptions: IServerOptions = {
-    useMongo: false
-};

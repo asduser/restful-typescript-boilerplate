@@ -2,7 +2,7 @@ import {Router} from "express";
 import {getById} from "./get-by-id";
 import {getAll} from "./get-all";
 
-let router = Router();
+const router = Router();
 router.get('/', getAll);
 router.get('/:id', getById);
 

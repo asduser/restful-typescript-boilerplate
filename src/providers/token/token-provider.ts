@@ -19,6 +19,6 @@ export const ensureToken = (req, res, next) => {
 };
 
 export const generate = (): string => {
-    let data = {id: new Date().getTime()};
+    const data = {id: new Date().getTime()};
     return jwt.sign(data, config.jwt.secret_key);
 };

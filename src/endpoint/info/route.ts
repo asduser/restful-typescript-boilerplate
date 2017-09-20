@@ -3,7 +3,7 @@ import {getAppInfo} from "./get-app-info";
 import * as tokenProvider from "../../providers/token/token-provider";
 import {winstonLogger} from "../../providers/loggers/winston";
 
-let router = Router();
+const router = Router();
 
 router.get('/', getAppInfo);
 

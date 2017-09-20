@@ -17,7 +17,6 @@
     "no-unused-expression": [true, "allow-fast-null-checks"],
     "no-use-before-declare": true,
     "use-default-type-parameter": true,
-    "arrow-return-shorthand": [true, "multiline"],
     "prefer-method-signature": true,
     "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
   }

@@ -1,4 +1,4 @@
-import {number, string, required, object, valid} from "joi";
+import {number, string, object} from "joi";
 
 export const userCreateSchema = object().keys({
     name: string().required(),

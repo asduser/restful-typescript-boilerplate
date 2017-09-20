@@ -1,5 +1,5 @@
 import { UserRepository } from "../../repositories/user-repository";
-import {User, IUser} from "../../models/app/user";
+import {IUser} from "../../models/app/user";
 import {SuccessResponse} from "../../models/response/success";
 import {ErrorResponse} from "../../models/response/error";
 import {BaseResponse} from "../../models/response/base";

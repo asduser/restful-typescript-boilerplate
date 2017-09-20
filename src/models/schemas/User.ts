@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     "name": {
         type: String,
         required: [true, 'User name is required!']
@@ -10,4 +10,4 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'User age should be defined!']
     },
 });
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', userSchema);
