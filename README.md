@@ -1,5 +1,19 @@
 # restful-typescript-boilerplate
 
+## Install
+
+Just execute:
+
+```
+install.sh
+```
+
+*Dependencies*:
+- `npm install typescript -g`
+- `npm install ts-node -g`
+- `npm install typings -g`
+- `npm install tslint -g`
+
 Express.js application based on ts-node with strong typing on the server-side.
 
 ## Features
