@@ -14,9 +14,7 @@ export class MongoProvider {
         return this.db;
     }
 
-    constructor() {
-        console.log(new Date().getTime());
-    }
+    constructor() {}
 
     public connect(config): Promise<any> {
         this.config = config;

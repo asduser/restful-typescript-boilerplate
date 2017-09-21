@@ -1,14 +1,4 @@
-abstract class HttpMessage {
-    public status: number;
-    public title: string;
-    public message: string;
-    public errorCode: number;
-    public data: null;
-
-    constructor(opts: HttpMessageOptions = {}) {
-        Object.assign(this, opts);
-    }
-}
+import {HttpMessageOptions, HttpMessage} from "./message";
 
 export class BadRequestError extends HttpMessage {
     constructor() {
@@ -50,10 +40,11 @@ export class NotFoundError extends HttpMessage {
 }
 
 export class UnprocessableEntityError extends HttpMessage {
-    constructor() {
+    constructor(errors: string[] = []) {
         super({
             status: 422,
-            message: 'Request body has invalid data!'
+            message: 'Request body has invalid data!',
+            errors
         });
     }
 }
@@ -65,12 +56,4 @@ export class InternalError extends HttpMessage {
             message: opts.message || 'Internal Server Error'
         });
     }
-}
-
-interface HttpMessageOptions {
-    status?: number;
-    message?: string;
-    title?: string;
-    errorCode?: number;
-    data?: any;
 }

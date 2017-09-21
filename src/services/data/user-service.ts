@@ -1,8 +1,5 @@
 import { UserRepository } from "../../repositories/user-repository";
-import {IUser} from "../../models/app/user";
-import {SuccessResponse} from "../../models/response/success";
-import {ErrorResponse} from "../../models/response/error";
-import {BaseResponse} from "../../models/response/base";
+import {UnprocessableEntityError, HttpMessage} from "../../http";
 
 export class UserService {
 
@@ -22,11 +19,13 @@ export class UserService {
 
     create(user: IUser): Promise<any> {
         return this._userRepository.create(user).then((err) => {
-            let result: BaseResponse;
+            let result;
             if (err) {
-                result = new ErrorResponse(400, "Validation error.");
+                result = new UnprocessableEntityError(err);
             } else {
-                result = new SuccessResponse(user, `User ${user.name} was successfully created.`);
+                result = new HttpMessage({
+                    data: `User ${user.name} was successfully created.`
+                });
             }
             return new Promise<any>((resolve, reject) => {
                 resolve(result);
@@ -36,7 +35,9 @@ export class UserService {
     
     updateById(id: string, user: IUser): Promise<any> {
         return this._userRepository.update(id, user).then((err) => {
-            const result = new SuccessResponse(user, `User ${user.name} was successfully update.`);
+            const result = new HttpMessage({
+                data: `User ${user.name} was successfully updated.`
+            });
             return new Promise<any>((resolve) => {
                 resolve(result);
             });
@@ -45,11 +46,13 @@ export class UserService {
 
     removeById(id: string): Promise<any> {
         return this._userRepository.remove(id).then((err) => {
-            let result: BaseResponse;
+            let result;
             if (err) {
-                result = new ErrorResponse(500, "Database internal error.");
+                result = new UnprocessableEntityError(err);
             } else {
-                result = new SuccessResponse({id: id}, `User with id=${id} was successfully removed.`);
+                result = new HttpMessage({
+                    data: `User with id=${id} was successfully removed.`
+                });
             }
             return new Promise<any>((resolve) => {
                 resolve(result);
