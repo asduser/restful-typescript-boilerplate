@@ -11,7 +11,6 @@ import * as middlewares from "./middlewares";
 import {winstonLogger} from "./providers/loggers/winston";
 
 // main
-const server = new Server();
 const app = express();
 
 // common handlers
@@ -34,4 +33,12 @@ app.use('*', middlewares.notFound);
 app.use(middlewares.errorHandler);
 
 // server initialization
-server.start(app, {useMongo: true});
+const server = new Server(app);
+
+// approach when no database needed
+// server.listen();
+
+// approach when database (MySql/MongoDb) needed
+server.connectMongoDb()
+    .then(() => server.listen())
+    .catch((err) => console.log(err));
