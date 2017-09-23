@@ -18,7 +18,7 @@ export class MongoProvider {
 
     public connect(dbConfig: IMongoConfig): Promise<any> {
         this.config = dbConfig;
-        return mongoClient.connect(dbConfig.url || this.formatUrl(dbConfig), dbConfig.options)
+        return mongoClient.connect(this.config.url || this.formatUrl(this.config), this.config.options)
             .then((db: mongodb.Db) => {
                 this.db = db;
                 return db;
