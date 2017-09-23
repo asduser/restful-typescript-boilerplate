@@ -1,1 +1,1 @@
-export {authRoute} from "./route";
+export {authRoute} from "./routing";

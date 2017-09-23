@@ -1,7 +1,7 @@
 import {Router} from "express";
 import {getAppInfo} from "./get-app-info";
-import * as tokenProvider from "../../providers/token/token-provider";
-import {winstonLogger} from "../../providers/loggers/winston";
+import * as tokenProvider from "../../../providers/token/token-provider";
+import {winstonLogger} from "../../../providers/loggers/winston";
 
 const router = Router();
 
