@@ -1,7 +1,7 @@
 export interface IMongoConfig {
-    port: number;
+    port: string | number;
     host: string;
-    db?: string;
+    databaseName?: string;
     username?: string;
     password?: string;
     url?: string;

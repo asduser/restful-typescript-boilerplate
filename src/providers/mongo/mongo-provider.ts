@@ -16,9 +16,9 @@ export class MongoProvider {
 
     constructor() {}
 
-    public connect(config): Promise<any> {
-        this.config = config;
-        return mongoClient.connect(config.url || this.formatUrl(config))
+    public connect(dbConfig: IMongoConfig): Promise<any> {
+        this.config = dbConfig;
+        return mongoClient.connect(dbConfig.url || this.formatUrl(dbConfig), dbConfig.options)
             .then((db: mongodb.Db) => {
                 this.db = db;
                 return db;
@@ -30,7 +30,7 @@ export class MongoProvider {
     }
 
     private formatUrl(cfg: IMongoConfig): string {
-        return `mongodb://${cfg.host}:${cfg.port}/${cfg.db}`;
+        return `mongodb://${cfg.host}:${cfg.port}/${cfg.databaseName}`;
     }
 
 }

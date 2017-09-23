@@ -1,5 +1,6 @@
 {
   "rules": {
+    "adjacent-overload-signatures": true,
     "max-line-length": [true, 120],
     "class-name": true,
     "indent": [true, "spaces"],
