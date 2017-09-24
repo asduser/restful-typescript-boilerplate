@@ -3,6 +3,7 @@ import {IEntity} from "../entities";
 
 export interface IService<T> {
     getEntity(): IEntity<T>;
+
 }
 
 export abstract class BaseService<T> implements IService<T> {
@@ -18,8 +19,8 @@ export abstract class BaseService<T> implements IService<T> {
         throw new MethodNotImplementedError();
     }
 
-    public info(): void {
-        console.log(this.model);
+    public test(): IEntity<T> {
+        return this.model;
     }
 
 }

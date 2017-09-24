@@ -1,5 +1,5 @@
 export interface IEntity<T> {
-    find(query: Object);
+    find<QueryType>(query: QueryType);
     findById(id: number);
     create(model: T);
 }

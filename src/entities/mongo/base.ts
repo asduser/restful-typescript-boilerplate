@@ -15,7 +15,7 @@ export abstract class BaseMongoEntity<T> implements IEntity<T> {
         throw new EntityCollectionError();
     }
 
-    public find(query: Object = {}) {
+    public find<Object>(query: Object) {
         return this.collection.findOne(query);
     }
 
