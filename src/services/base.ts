@@ -1,20 +1,20 @@
 import {MethodNotImplementedError} from "../errors";
 import {IEntity} from "../entities";
 
-export interface IService {
-    getEntity(): IEntity;
+export interface IService<T> {
+    getEntity(): IEntity<T>;
 }
 
-export abstract class BaseService implements IService {
+export abstract class BaseService<T> implements IService<T> {
 
-    private model: IEntity;
+    private model: IEntity<T>;
 
     constructor() {
         this.model = this.getEntity();
     }
 
-    // override in inherited class to return model
-    public getEntity(): IEntity {
+    // override in inherited class to return an entity
+    public getEntity(): IEntity<T> {
         throw new MethodNotImplementedError();
     }
 

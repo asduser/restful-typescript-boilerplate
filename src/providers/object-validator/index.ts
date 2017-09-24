@@ -1,8 +1,8 @@
 export class ObjectValidatorProvider {
 
-    isEqual(instance1, instance2): boolean {
-        const keys1 = Object.getOwnPropertyNames(instance1).toString();
-        const keys2 = Object.getOwnPropertyNames(instance2).toString();
+    hasIdenticalKeys(source, target): boolean {
+        const keys1 = Object.getOwnPropertyNames(source).toString();
+        const keys2 = Object.getOwnPropertyNames(target).toString();
         return keys1 === keys2;
     }
 

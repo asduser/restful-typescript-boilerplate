@@ -2,4 +2,4 @@
 
 # run tslint to check typescript files via CLI
 cd ../
-tslint "./src/**/*.ts"
+tslint --type-check --project tsconfig.json "./src/**/*.ts"

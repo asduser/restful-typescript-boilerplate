@@ -8,8 +8,8 @@ export interface IUser {
 }
 
 export class User implements IUser {
-    public id: number = null;
-    public name: string = null;
+    public id: number;
+    public name: string;
     public gender: Gender;
     public age: number;
 
