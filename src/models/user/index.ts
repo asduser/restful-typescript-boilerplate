@@ -1,7 +1,7 @@
 import {Gender} from "../population";
 
 export interface IUser {
-    id: number;
+    id?: number;
     name: string;
     gender: Gender;
     age: number;
@@ -13,9 +13,12 @@ export class User implements IUser {
     public gender: Gender;
     public age: number;
 
-    constructor(options?) {
-        this.id = options._id;
-        this.name = options.name;
-        this.gender = options.gender || Gender.Male;
+    constructor(model?: IUser) {
+        if (model) {
+            this.id = model.id;
+            this.name = model.name;
+            this.age = model.age;
+            this.gender = model.gender;
+        }
     }
 }

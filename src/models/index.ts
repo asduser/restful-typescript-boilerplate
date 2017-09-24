@@ -1,5 +1,5 @@
 // population
 export {Gender} from "./population";
 
-// users
-export {User, IUser} from "./users";
+// user
+export {User, IUser} from "./user";
