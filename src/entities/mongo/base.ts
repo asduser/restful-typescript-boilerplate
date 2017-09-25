@@ -5,7 +5,6 @@ import {IEntity} from "../entity";
 export abstract class BaseMongoEntity<T> implements IEntity<T> {
 
     private collection: Collection;
-    public id: number;
 
     constructor() {
         this.collection = this.getCollection();
@@ -15,11 +14,11 @@ export abstract class BaseMongoEntity<T> implements IEntity<T> {
         throw new EntityCollectionError();
     }
 
-    public find<Object>(query: Object) {
+    public find<Object>(query: Object): Promise<T[]> {
         return this.collection.findOne(query);
     }
 
-    public findById(id: number) {
+    public findById(id: number | string): Promise<T> {
         return this.collection.findOne({ id });
     }
 

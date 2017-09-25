@@ -38,7 +38,7 @@ const server = new Server(app);
 // approach when no database needed
 // server.listen();
 
-// approach when database (MySql/MongoDb) needed
+// approach when database needed
 server.connectMongoDb()
     .then(() => server.listen())
     .catch((err) => console.log(err));
