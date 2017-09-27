@@ -2,4 +2,4 @@ import {
     MongoDBRepository,
 } from "./base";
 
-class UserRepository extends MongoDBRepository<IUser> {}
+export class UserRepository extends MongoDBRepository<IUser> {}
