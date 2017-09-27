@@ -1,6 +1,4 @@
 // base
-export {IEntity} from "./entity";
+export {IEntity} from "./base";
 
-// mongo entities
-export {BaseMongoEntity} from "./mongo/base";
-export {UserMongoEntity} from "./mongo/user";
+export {IUser} from "./user";
