@@ -1,9 +1,9 @@
 import {BaseService} from "../base";
-import {IUser} from "../../entities";
+import {IUserEntity} from "../../entities";
 
-export class UserService extends BaseService<IUser> {
+export class UserService extends BaseService<IUserEntity> {
 
-    public getEntity(): IUser {
+    public getEntity(): IUserEntity {
         return null;
     }
 

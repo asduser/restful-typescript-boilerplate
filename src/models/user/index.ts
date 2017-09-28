@@ -1,19 +1,15 @@
 import {Gender} from "../population";
+import {IUserEntity} from "../../entities";
 
-export interface IUser {
-    id?: number;
-    name: string;
-    gender: Gender;
-    age: number;
-}
-
-export class User implements IUser {
-    public id: number;
+export class User implements IUserEntity {
+    public createdAt: Date;
+    public updatedAt: Date;
+    public id: string;
     public name: string;
     public gender: Gender;
     public age: number;
 
-    constructor(model?: IUser) {
+    constructor(model?: IUserEntity) {
         if (model) {
             this.id = model.id;
             this.name = model.name;

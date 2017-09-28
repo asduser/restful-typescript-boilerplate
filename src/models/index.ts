@@ -2,4 +2,4 @@
 export {Gender} from "./population";
 
 // user
-export {User, IUser} from "./user";
+export {User} from "./user";

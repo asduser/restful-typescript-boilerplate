@@ -1,1 +1,1 @@
-export {IUser} from "./user";
+export {IUserEntity} from "./user";
