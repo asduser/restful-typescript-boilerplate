@@ -1,21 +1,18 @@
 import {BaseModel} from "../base";
-import {userCreateSchema, ObjectSchema, IUserCreateSchema} from "../../schemas";
+import {userCreateSchema} from "../../schemas";
 import {Gender} from "../population";
+import {IUserEntity} from "../../entities/user/user";
 
-export interface IUser {
-    name: string;
-    gender: Gender;
-    age: number;
-}
-
-export class UserModel extends BaseModel<IUser> implements IUser {
-    public name: string;
-    public gender: Gender;
-    public age: number;
-    public schema: ObjectSchema;
-
-    constructor(u?: IUser){
+export class UserModel extends BaseModel<IUserEntity> {
+    constructor(u?: IUserEntity){
         super(u);
         this.schema = userCreateSchema;
     }
 }
+
+const u1 = new UserModel({name: 'bob', age: 16, gender: Gender.Male});
+const u2 = new UserModel();
+u1.validate();
+u2.validate()
+    .then((good) => console.log(good))
+    .catch((bad) => console.log(bad));

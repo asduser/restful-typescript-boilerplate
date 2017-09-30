@@ -6,14 +6,17 @@ const options = {
 
 export class SchemaValidatorProvider {
 
-    public validate(value, schema: Joi.Schema): Promise<any> {
+    public validate(value, schema: Joi.Schema): Promise<string[]> {
         return new Promise<any>((resolve, reject) => {
+            if (!value) {
+                reject(['Entity cannot be null or undefined!']);
+            }
             const { error } = Joi.validate(value, schema, options);
             if (error) {
                 const errors = error.details.map((item) => item.message);
                 reject(errors);
             } else {
-                resolve();
+                resolve([]);
             }
         });
     }

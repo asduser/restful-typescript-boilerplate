@@ -1,7 +1,7 @@
 import {MethodNotImplementedError} from "../errors";
 import {IEntity} from "../entities";
 
-export interface IService<T extends IEntity> {
+export interface IService<T> {
     getEntity(): T;
 }
 

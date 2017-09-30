@@ -2,9 +2,10 @@ import {
     Collection, InsertOneWriteOpResult, UpdateWriteOpResult, DeleteWriteOpResultObject,
     ObjectId,
 } from "mongodb";
+import {IEntity} from "../../entities";
 import {EntityCollectionError} from "../../errors";
 
-export interface IMongoDBRepository<T> {
+export interface IMongoDBRepository<T extends IEntity> {
     create(model: T, options?: Object): Promise<InsertOneWriteOpResult>;
     findById(id: string, options?: Object): Promise<T>;
     find(query: Object, options?: Object): Promise<T[]>;
@@ -13,7 +14,7 @@ export interface IMongoDBRepository<T> {
     removeById(id: string, options?: Object): Promise<DeleteWriteOpResultObject>;
 }
 
-export abstract class MongoDBRepository<T> implements IMongoDBRepository<T> {
+export abstract class MongoDBRepository<T extends IEntity> implements IMongoDBRepository<T> {
 
     private collection: Collection<T>;
 
