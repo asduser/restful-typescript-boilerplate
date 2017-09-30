@@ -1,4 +1,6 @@
-import {number, string, object} from "joi";
+import {number, string, object, ObjectSchema} from "joi";
+
+export interface IUserCreateSchema extends ObjectSchema {}
 
 export const userCreateSchema = object().keys({
     name: string().required(),

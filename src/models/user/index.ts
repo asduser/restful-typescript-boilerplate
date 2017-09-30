@@ -1,20 +1,21 @@
+import {BaseModel} from "../base";
+import {userCreateSchema, ObjectSchema, IUserCreateSchema} from "../../schemas";
 import {Gender} from "../population";
-import {IUserEntity} from "../../entities";
 
-export class User implements IUserEntity {
-    public createdAt: Date;
-    public updatedAt: Date;
-    public id: string;
+export interface IUser {
+    name: string;
+    gender: Gender;
+    age: number;
+}
+
+export class UserModel extends BaseModel<IUser> implements IUser {
     public name: string;
     public gender: Gender;
     public age: number;
+    public schema: ObjectSchema;
 
-    constructor(model?: IUserEntity) {
-        if (model) {
-            this.id = model.id;
-            this.name = model.name;
-            this.age = model.age;
-            this.gender = model.gender;
-        }
+    constructor(u?: IUser){
+        super(u);
+        this.schema = userCreateSchema;
     }
 }

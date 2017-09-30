@@ -1,2 +1,4 @@
+export {ObjectSchema} from "joi";
+
 // user schemas
-export {userCreateSchema} from "./user/user-create";
+export {userCreateSchema, IUserCreateSchema} from "./user/user-create";
