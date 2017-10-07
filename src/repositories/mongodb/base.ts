@@ -3,7 +3,7 @@ import {
     ObjectId,
 } from "mongodb";
 import {IEntity} from "../../entities";
-import {EntityCollectionError} from "../../errors";
+import {MongoProvider, mongoProvider} from "../../providers";
 
 export interface IMongoDBRepository<T extends IEntity> {
     create(model: T, options?: Object): Promise<InsertOneWriteOpResult>;
@@ -16,14 +16,15 @@ export interface IMongoDBRepository<T extends IEntity> {
 
 export abstract class MongoDBRepository<T extends IEntity> implements IMongoDBRepository<T> {
 
-    private collection: Collection<T>;
-
-    constructor() {
-        this.collection = this.getCollection();
+    protected collectionName: string;
+    protected get db(): MongoProvider {
+        return mongoProvider;
     }
 
-    public getCollection(): Collection<T> {
-        throw new EntityCollectionError();
+    constructor() {}
+
+    public get collection(): Collection<T> {
+        return this.db.connection.collection(this.collectionName);
     }
 
     public create(model: T, options?: Object): Promise<InsertOneWriteOpResult> {

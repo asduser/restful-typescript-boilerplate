@@ -1,15 +1,19 @@
-import {BaseEntity, IEntity} from "../base";
+import {BaseEntity, IEntity, IValidationEntity} from "../base";
 import {Gender} from "../../models";
 import {userCreateSchema} from "../../schemas";
 
-export interface IUserEntity extends IEntity {
+export interface IUserEntity extends IEntity, IValidationEntity {
     age: number;
-    gender: Gender;
+    gender: Gender | number;
     name: string;
 }
 
 export class UserEntity extends BaseEntity<IUserEntity> {
-    constructor(u?: IUserEntity){
+    public age: number;
+    public gender: Gender | number;
+    public name: string;
+
+    constructor(u: IUserEntity){
         super(u);
         this.schema = userCreateSchema;
     }

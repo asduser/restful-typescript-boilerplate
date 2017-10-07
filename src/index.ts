@@ -4,11 +4,13 @@ import * as express from 'express';
 import * as bodyParser from "body-parser";
 import {Server} from "./server";
 
-const compression = require('compression');
-
 import * as routes from "./endpoint";
 import * as middlewares from "./middlewares";
 import {winstonLogger} from "./providers/loggers/winston";
+import {attachControllers} from "@decorators/express";
+import {UsersController} from "./controllers/index";
+
+const compression = require('compression');
 
 // main
 const app = express();
@@ -27,6 +29,7 @@ app.put('*', bodyParser.json());
 app.use('/api/v1/auth', routes.auth);
 app.use('/api/v1/info', routes.info);
 app.use('/api/v1/users', routes.users);
+attachControllers(app, [UsersController]);
 
 // error-handlers
 app.use('*', middlewares.notFound);

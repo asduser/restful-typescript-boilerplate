@@ -14,8 +14,6 @@
     "no-duplicate-variable": true,
     "no-unused-variable": [true, { "ignore-pattern": "^_" }],
     "no-duplicate-super": true,
-    "no-invalid-this": [true, "check-function-in-method"],
-    "no-unused-expression": [true, "allow-fast-null-checks"],
     "no-use-before-declare": true,
     "use-default-type-parameter": true,
     "prefer-method-signature": true,

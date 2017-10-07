@@ -1,31 +1,38 @@
-import * as mongodb from "mongodb";
+import {Db, MongoClient} from "mongodb";
 import {IMongoConfig} from "./models/index";
-const mongoClient = new mongodb.MongoClient();
+const mongoClient = new MongoClient();
 
-export class MongoProvider {
+export interface IMongoProvider {
+    connection: Db;
+    connected: boolean;
+    connect(dbConfig: IMongoConfig): Promise<Db>;
+    disconnect(): Promise<void>;
+}
 
-    private db: mongodb.Db = null;
+export class MongoProvider implements IMongoProvider {
+
+    private db: Db = null;
     private config: IMongoConfig;
 
     public get connected(): boolean {
         return this.connection !== null;
     }
-    public get connection(): mongodb.Db {
+    public get connection(): Db {
         return this.db;
     }
 
     constructor() {}
 
-    public connect(dbConfig: IMongoConfig): Promise<any> {
+    public connect(dbConfig: IMongoConfig): Promise<Db> {
         this.config = dbConfig;
         return mongoClient.connect(this.config.url || this.formatUrl(this.config), this.config.options)
-            .then((db: mongodb.Db) => {
+            .then((db: Db) => {
                 this.db = db;
                 return db;
             });
     }
 
-    public disconnect(): Promise<any> {
+    public disconnect(): Promise<void> {
         return this.db.close();
     }
 

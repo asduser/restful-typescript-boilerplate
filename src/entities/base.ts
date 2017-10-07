@@ -7,15 +7,20 @@ export interface IEntity {
     updatedAt?: Date;
 }
 
-export abstract class BaseEntity<T extends IEntity> {
-    private entity: T;
-    protected schema: ObjectSchema;
+export interface IValidationEntity {
+    validate(): Promise<string[]>;
+}
 
-    constructor(e?: T) {
+export abstract class BaseEntity<T extends IEntity> {
+
+    protected schema: ObjectSchema;
+    public entity: T;
+
+    constructor(e: T) {
         this.entity = e;
     }
 
-    public validate() {
+    public validate(): Promise<string[]> {
         return schemaValidatorProvider.validate(this.entity, this.schema);
     }
 }

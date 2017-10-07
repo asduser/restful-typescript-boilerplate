@@ -1,25 +1,14 @@
-import {MethodNotImplementedError} from "../errors";
 import {IEntity} from "../entities";
+import {IMongoDBRepository} from "../repositories";
 
-export interface IService<T> {
-    getEntity(): T;
-}
+export interface IService {}
 
-export abstract class BaseService<T extends IEntity> implements IService<T> {
+export abstract class BaseService<T extends IEntity> implements IService {
 
-    private model: T;
+    protected repository: IMongoDBRepository<T>;
 
-    constructor() {
-        this.model = this.getEntity();
-    }
-
-    // override in inherited class to return an entity
-    public getEntity(): T {
-        throw new MethodNotImplementedError();
-    }
-
-    public test(): T {
-        return this.model;
+    constructor(repository: IMongoDBRepository<T>) {
+        this.repository = repository;
     }
 
 }

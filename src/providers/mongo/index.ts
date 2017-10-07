@@ -1,1 +1,1 @@
-export {MongoProvider} from "./mongo-provider";
+export {MongoProvider, IMongoProvider} from "./mongo-provider";
