@@ -63,4 +63,10 @@ export class UserService extends BaseService<IUserEntity> {
             .catch((err) => Promise.reject(new DbError(err)));
     }
 
+    public remove(id: string) {
+        return this.findById(id)
+            .then((user) => this.repository.removeById(user._id))
+            .catch((err) => Promise.reject(new DbError(err)));
+    }
+
 }

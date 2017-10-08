@@ -1,5 +1,5 @@
 import {
-    Response, Body, Controller, Get, Post, Next, Params
+    Response, Body, Controller, Get, Post, Delete, Next, Params
 } from '@decorators/express';
 import {UserService} from "../../services/user/user-service";
 import {BaseController} from "../base";
@@ -27,5 +27,10 @@ export class UsersController extends BaseController {
     @Post('/users')
     create(@Body() user, @Response() res, @Next() next) {
         this.handle({res, next }, this.userService.create(user));
+    }
+
+    @Delete('/users/:id')
+    remove(@Params('id') id: string, @Response() res, @Next() next) {
+        this.handle({res, next }, this.userService.remove(id));
     }
 }
