@@ -1,15 +1,6 @@
 import {ObjectSchema} from "../schemas";
 import {schemaValidatorProvider} from "../providers";
-
-export interface IEntity {
-    id?: string;
-    createdAt?: Date;
-    updatedAt?: Date;
-}
-
-export interface IValidationEntity {
-    validate(): Promise<string[]>;
-}
+import {IEntity} from "@app/core";
 
 export abstract class BaseEntity<T extends IEntity> {
 

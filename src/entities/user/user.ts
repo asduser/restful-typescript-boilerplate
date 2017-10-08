@@ -1,4 +1,5 @@
-import {BaseEntity, IEntity, IValidationEntity} from "../base";
+import {IValidationEntity, IEntity} from "@app/core";
+import {BaseEntity} from "../base";
 import {Gender} from "../../models";
 import {userCreateSchema} from "../../schemas";
 

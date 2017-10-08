@@ -1,4 +1,4 @@
-import { IController, ExpressParams } from "tnode-express/core";
+import { IController, ExpressParams } from "@app/core";
 
 export abstract class BaseController implements IController {
 

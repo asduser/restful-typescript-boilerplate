@@ -1,4 +1,2 @@
-// base
-export {IEntity} from "./base";
-
+// User
 export {IUserEntity} from "./user";

@@ -2,17 +2,8 @@ import {
     Collection, InsertOneWriteOpResult, UpdateWriteOpResult, DeleteWriteOpResultObject,
     ObjectId,
 } from "mongodb";
-import {IEntity} from "../../entities";
+import {IEntity,IMongoDBRepository} from "@app/core";
 import {MongoProvider, mongoProvider} from "../../providers";
-
-export interface IMongoDBRepository<T extends IEntity> {
-    create(model: T, options?: Object): Promise<InsertOneWriteOpResult>;
-    findById(id: string, options?: Object): Promise<T>;
-    find(query: Object, options?: Object): Promise<T[]>;
-    updateById(id: string, query: Object, options?: Object): Promise<UpdateWriteOpResult>;
-    update(filter: Object, query: Object, options?: Object): Promise<UpdateWriteOpResult>;
-    removeById(id: string, options?: Object): Promise<DeleteWriteOpResultObject>;
-}
 
 export abstract class MongoDBRepository<T extends IEntity> implements IMongoDBRepository<T> {
 

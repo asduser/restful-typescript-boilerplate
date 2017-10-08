@@ -1,21 +1,15 @@
-declare module 'tnode-express/core' {
+declare module '@app/core' {
 
-    import {Response, Request, NextFunction} from "express";
+    // controllers declarations
+    export { ExpressParams, IController } from "@app/controllers";
 
-    namespace tnode {
+    // entities declarations
+    export { IEntity, IValidationEntity } from "@app/entities";
 
-        export interface ExpressParams {
-            res: Response,
-            next: NextFunction,
-            req?: Request,
-        }
+    // entities services
+    export { IService } from "@app/services";
 
-        export interface IController {
-            handle<T = any>(params: ExpressParams, promise: Promise<T>): void;
-        }
-
-    }
-
-    export = tnode;
+    // entities repositories
+    export { IMongoDBRepository } from "@app/repositories";
 
 }

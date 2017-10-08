@@ -1,7 +1,4 @@
-import {IEntity} from "../entities";
-import {IMongoDBRepository} from "../repositories";
-
-export interface IService {}
+import {IEntity, IService, IMongoDBRepository} from "@app/core";
 
 export abstract class BaseService<T extends IEntity> implements IService {
 
