@@ -12,4 +12,7 @@ declare module '@app/core' {
     // entities repositories
     export { IMongoDBRepository } from "@app/repositories";
 
+    // entities server
+    export { IServerOptions, IServer } from "@app/server";
+
 }

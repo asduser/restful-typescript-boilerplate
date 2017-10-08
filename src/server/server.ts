@@ -1,14 +1,14 @@
 import {Express} from "express";
-import {config} from "../config/config";
-import {IServerOptions} from "./models";
-import {mongoProvider} from "../providers/index";
 import {Db} from "mongodb";
+import {IServer, IServerOptions} from "@app/core";
+import {config} from "../config/config";
+import {mongoProvider} from "../providers/index";
 
 const defaultOptions: IServerOptions = {
     useMongo: false
 };
 
-export class Server {
+export class Server implements IServer {
 
     private options: IServerOptions = defaultOptions;
     private app: Express;
