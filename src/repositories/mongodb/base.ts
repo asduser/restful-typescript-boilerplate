@@ -23,8 +23,8 @@ export abstract class MongoDBRepository<T extends IEntity> implements IMongoDBRe
     }
 
     public findById(id: string, options?: Object): Promise<T> {
-        const queryData = this.normalizeObjectId(id);
-        return this.collection.findOne(queryData);
+        return this.validateObjectId(id)
+            .then((queryData) => this.collection.findOne(queryData));
     }
 
     public find<Object>(query: Object, options?: Object): Promise<T[]> {
@@ -43,8 +43,13 @@ export abstract class MongoDBRepository<T extends IEntity> implements IMongoDBRe
         return this.collection.deleteOne({ id }, options);
     }
 
-    private normalizeObjectId(id: string): Object {
-        return { _id: new ObjectId(id) };
+    private validateObjectId(id: string): Promise<Object> {
+        return new Promise((resolve, reject) => {
+            if (ObjectId.isValid(id)) {
+                resolve({ _id:  new ObjectId(id)});
+            }
+            reject({ code: 2001 });
+        });
     }
 
 }

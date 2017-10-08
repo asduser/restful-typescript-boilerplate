@@ -1,13 +1,14 @@
-import {IHttpMessage} from "@app/core";
+import {IHttpMessage,IHttpMessageDetails} from "@app/core";
 import {HttpMessage} from "./message";
 
 export class BadRequestError extends HttpMessage {
-    constructor() {
-        super({
+    constructor(details?: IHttpMessageDetails) {
+        const error = Object.assign({
             status: 400,
             title: 'Bad Request',
             message: "Request body contains inappropriate data!",
-        });
+        }, details);
+        super(error);
     }
 }
 
@@ -32,20 +33,21 @@ export class ForbiddenError extends HttpMessage {
 }
 
 export class NotFoundError extends HttpMessage {
-    constructor() {
-        super({
+    constructor(details?: IHttpMessageDetails) {
+        const error = Object.assign({
             status: 404,
             title: 'Not Found',
             message: 'Resource are you looking for is not found!'
-        });
+        }, details);
+        super(error);
     }
 }
 
-export class UnprocessableEntityError extends HttpMessage {
+export class UnprocessableError extends HttpMessage {
     constructor(errors: string[] = []) {
         super({
             status: 422,
-            title: 'Entity Validation Error',
+            title: 'Unprocessable Error',
             message: 'Request body has invalid data!',
             errors
         });
@@ -53,13 +55,21 @@ export class UnprocessableEntityError extends HttpMessage {
 }
 
 export class InternalError extends HttpMessage {
-    constructor(opts: IHttpMessage) {
-        super({
-            status: opts.status || 500,
-            title: opts.title,
-            message: opts.message || 'Internal Server Error',
-            errors: opts.errors,
-            errorCode: opts.errorCode,
-        });
+    constructor(details: IHttpMessage) {
+        const error = Object.assign({
+            status: 500,
+            title: 'Internal Server Error',
+            message: 'Server problems. Please, try again later.',
+        }, details);
+        super(error);
+    }
+}
+
+export class DbError extends InternalError {
+    constructor(details: IHttpMessage) {
+        const error = Object.assign({
+            title: 'Database Error'
+        }, details);
+        super(error);
     }
 }

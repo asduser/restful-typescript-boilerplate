@@ -5,7 +5,7 @@ export class HttpMessage {
     public title: string = null;
     public message: string = null;
     public errors: string[] = [];
-    public errorCode: number = null;
+    public code: number = null;
     public data: any = null;
 
     constructor(opts: IHttpMessage = {}) {

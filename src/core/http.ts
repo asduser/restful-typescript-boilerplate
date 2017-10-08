@@ -5,8 +5,13 @@ declare module '@app/http' {
         title?: string;
         message?: string;
         errors?: string[];
-        errorCode?: number;
+        code?: number;
         data?: any;
+    }
+
+    export interface IHttpMessageDetails {
+        message?: string;
+        title?: string;
     }
 
 }

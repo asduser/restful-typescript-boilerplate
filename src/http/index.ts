@@ -3,8 +3,9 @@ export {
     ForbiddenError,
     NotFoundError,
     BadRequestError,
-    UnprocessableEntityError,
+    UnprocessableError,
     InternalError,
+    DbError,
 } from "./errors";
 
 export {HttpMessage} from "./message";
