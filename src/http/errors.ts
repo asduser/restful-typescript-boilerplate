@@ -1,4 +1,5 @@
-import {HttpMessageOptions, HttpMessage} from "./message";
+import {IHttpMessage} from "@app/core";
+import {HttpMessage} from "./message";
 
 export class BadRequestError extends HttpMessage {
     constructor() {
@@ -52,7 +53,7 @@ export class UnprocessableEntityError extends HttpMessage {
 }
 
 export class InternalError extends HttpMessage {
-    constructor(opts: HttpMessageOptions) {
+    constructor(opts: IHttpMessage) {
         super({
             status: opts.status || 500,
             title: opts.title,

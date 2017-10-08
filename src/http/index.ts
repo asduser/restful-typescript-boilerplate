@@ -7,4 +7,4 @@ export {
     InternalError,
 } from "./errors";
 
-export {HttpMessage, HttpMessageOptions} from "./message";
+export {HttpMessage} from "./message";
