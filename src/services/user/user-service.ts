@@ -35,26 +35,6 @@ export class UserService extends BaseService<IUserEntity> {
     }
 
     public async create(data: UserEntity) {
-        // const user = new UserEntity(data);
-        // return user.validate()
-        //     .then(() => this.repository.create(user.entity))
-        //     .catch((err) => {
-        //         if (err.code === ERROR_CODES.ENTITY_VALIDATION_FAILED) {
-        //             return Promise.reject(new BadRequestError(MESSAGES.WRONG_MONGODB_OBJECT_ID))
-        //         }
-        //         return Promise.reject(new DbError(err));
-        //     });
-        // const user = new UserEntity(data);
-        // try {
-        //     await user.validate();
-        //     try {
-        //         this.repository.create(user.entity);
-        //     } catch (error) {
-        //         return Promise.reject(new DbError(error));
-        //     }
-        // } catch (error) {
-        //     return Promise.reject(new UnprocessableError(error));
-        // }
         const user = new UserEntity(data);
         return user.validate()
             .then(() => this.repository.create(user.entity), (error) => {
