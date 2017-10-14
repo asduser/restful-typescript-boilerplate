@@ -7,11 +7,8 @@ import {BaseController} from "../base";
 @Controller('/test')
 export class UsersController extends BaseController {
 
-    private userService: UserService;
-
-    constructor() {
+    constructor(private userService: UserService) {
         super();
-        this.userService = new UserService();
     }
 
     @Get('/users')

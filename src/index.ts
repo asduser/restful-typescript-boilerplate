@@ -29,7 +29,12 @@ app.put('*', bodyParser.json());
 app.use('/api/v1/auth', routes.auth);
 app.use('/api/v1/info', routes.info);
 app.use('/api/v1/users', routes.users);
-attachControllers(app, [UsersController]);
+
+import {ioc} from "./providers";
+
+attachControllers(app, [
+    {provide: UsersController, deps: [ ioc.get.userService ]}
+]);
 
 // error-handlers
 app.use('*', middlewares.notFound);

@@ -56,11 +56,11 @@ export class UnprocessableError extends HttpMessage {
 
 export class InternalError extends HttpMessage {
     constructor(details: IHttpMessage) {
-        const error = Object.assign({
+        const error = {
             status: 500,
             title: 'Internal Server Error',
-            message: 'Server problems. Please, try again later.',
-        }, details);
+            message: details.message || 'Server problems. Please, try again later.',
+        };
         super(error);
     }
 }

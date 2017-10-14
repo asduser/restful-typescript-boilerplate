@@ -1,7 +1,10 @@
 import {Request, Response, NextFunction} from "express";
-import {InternalError} from "../../http";
+import {InternalError, HttpMessage} from "../../http";
 
 export const errorHandlerMiddleware = (err: any, req: Request, res: Response, next: NextFunction) => {
-    const error = new InternalError(err);
+    let error: HttpMessage = err;
+    if (!err.status) {
+        error = new InternalError(err);
+    }
     return res.status(error.status || 500).json(error);
 };
