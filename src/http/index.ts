@@ -8,4 +8,5 @@ export {
     DbError,
 } from "./errors";
 
-export {HttpMessage} from "./message";
+export { HttpMessage } from "./message";
+export { HttpStatus } from "./status";

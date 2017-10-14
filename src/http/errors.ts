@@ -1,5 +1,6 @@
-import {IHttpMessage,IHttpMessageDetails,HttpStatus} from "@app/core";
-import {HttpMessage} from "./message";
+import { IHttpMessage, IHttpMessageDetails } from "@app/core";
+import { HttpMessage } from "./message";
+import { HttpStatus } from "./status";
 
 export class BadRequestError extends HttpMessage {
     constructor(details?: IHttpMessageDetails) {
