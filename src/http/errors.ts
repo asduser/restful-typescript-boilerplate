@@ -1,10 +1,10 @@
-import {IHttpMessage,IHttpMessageDetails} from "@app/core";
+import {IHttpMessage,IHttpMessageDetails,HttpStatus} from "@app/core";
 import {HttpMessage} from "./message";
 
 export class BadRequestError extends HttpMessage {
     constructor(details?: IHttpMessageDetails) {
         const error = Object.assign({
-            status: 400,
+            status: HttpStatus.BAD_REQUEST,
             title: 'Bad Request',
             message: "Request body contains inappropriate data!",
         }, details);
@@ -15,7 +15,7 @@ export class BadRequestError extends HttpMessage {
 export class UnAuthorizedError extends HttpMessage {
     constructor() {
         super({
-            status: 401,
+            status: HttpStatus.UNAUTHORIZED,
             title: 'Unauthorized',
             message: "Please, login.",
         });
@@ -25,7 +25,7 @@ export class UnAuthorizedError extends HttpMessage {
 export class ForbiddenError extends HttpMessage {
     constructor() {
         super({
-            status: 403,
+            status: HttpStatus.FORBIDDEN,
             title: 'Forbidden',
             message: "You don't have permissions for this route!",
         });
@@ -35,7 +35,7 @@ export class ForbiddenError extends HttpMessage {
 export class NotFoundError extends HttpMessage {
     constructor(details?: IHttpMessageDetails) {
         const error = Object.assign({
-            status: 404,
+            status: HttpStatus.NOT_FOUND,
             title: 'Not Found',
             message: 'Resource are you looking for is not found!'
         }, details);
@@ -46,7 +46,7 @@ export class NotFoundError extends HttpMessage {
 export class UnprocessableError extends HttpMessage {
     constructor(errors: string[] = []) {
         super({
-            status: 422,
+            status: HttpStatus.UNPROCESSABLE_ENTITY,
             title: 'Unprocessable Error',
             message: 'Request body has invalid data!',
             errors
@@ -57,7 +57,7 @@ export class UnprocessableError extends HttpMessage {
 export class InternalError extends HttpMessage {
     constructor(details: IHttpMessage) {
         const error = {
-            status: 500,
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
             title: 'Internal Server Error',
             message: details.message || 'Server problems. Please, try again later.',
         };

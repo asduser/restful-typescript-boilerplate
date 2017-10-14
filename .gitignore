@@ -12,7 +12,7 @@ results.log
 npm-debug.log
 
 # build
-test/
+internal/
 dist/
 
 # configuration

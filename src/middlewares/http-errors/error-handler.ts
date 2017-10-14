@@ -6,5 +6,5 @@ export const errorHandlerMiddleware = (err: any, req: Request, res: Response, ne
     if (!err.status) {
         error = new InternalError(err);
     }
-    return res.status(error.status || 500).json(error);
+    return res.status(error.status).json(error);
 };

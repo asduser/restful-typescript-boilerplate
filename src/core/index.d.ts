@@ -5,6 +5,6 @@ declare module '@app/core' {
     export { IService } from "@app/services";
     export { IMongoDBRepository } from "@app/repositories";
     export { IServerOptions, IServer } from "@app/server";
-    export { IHttpMessage, IHttpMessageDetails } from "@app/http";
+    export { IHttpMessage, IHttpMessageDetails, HttpStatus } from "@app/http";
 
 }
