@@ -3,4 +3,4 @@ import * as chai from 'chai';
 
 // exports
 export const expect = chai.expect;
-export { request } from "./request";
+export { api } from "./request";

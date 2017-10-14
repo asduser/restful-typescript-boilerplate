@@ -39,14 +39,11 @@
   "devDependencies": {
     "@types/chai": "^4.0.4",
     "@types/mocha": "^2.2.43",
-    "@types/superagent": "^3.5.6",
-    "@types/superagent-no-cache": "^0.1.1",
+    "@types/supertest": "^2.0.3",
     "chai": "^4.1.2",
-    "chai-http": "^3.0.0",
     "mocha": "^4.0.1",
     "sinon": "^4.0.1",
-    "superagent": "^3.6.3",
-    "superagent-no-cache": "^0.1.1",
+    "supertest": "^3.0.0",
     "tslint": "^5.6.0"
   }
 }
