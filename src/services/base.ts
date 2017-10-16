@@ -1,11 +1,8 @@
-import {IEntity, IService, IMongoDBRepository} from "@app/core";
+import { IService } from "@app/core";
+import { IoC } from "../injectors/ioc";
 
-export abstract class BaseService<T extends IEntity> implements IService {
+export abstract class BaseService implements IService {
 
-    protected repository: IMongoDBRepository<T>;
-
-    constructor(repository: IMongoDBRepository<T>) {
-        this.repository = repository;
-    }
+    protected userRepository = IoC.get.userRepository;
 
 }

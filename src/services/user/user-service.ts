@@ -1,25 +1,17 @@
 import {BaseService} from "../base";
-import {IUserEntity} from "../../entities";
-import {UserRepository} from "../../repositories";
 import {UserEntity} from "../../entities/user/user";
 import {UnprocessableError, NotFoundError, BadRequestError, DbError} from "../../http";
 import {MESSAGES} from "../../constants/messages";
 import {ERROR_CODES} from "../../constants/error-codes";
 
-const userRepository = new UserRepository();
-
-export class UserService extends BaseService<IUserEntity> {
-
-    constructor() {
-        super(userRepository);
-    }
+export class UserService extends BaseService {
 
     public findAll() {
-        return this.repository.find({});
+        return this.userRepository.find({});
     }
 
     public findById(id: string) {
-        return this.repository.findById(id)
+        return this.userRepository.findById(id)
             .then((user) => {
                 if (!user) {
                     return Promise.reject(new NotFoundError(MESSAGES.USER_NOT_FOUND));
@@ -37,7 +29,7 @@ export class UserService extends BaseService<IUserEntity> {
     public async create(data: UserEntity) {
         const user = new UserEntity(data);
         return user.validate()
-            .then(() => this.repository.create(user.entity), (error) => {
+            .then(() => this.userRepository.create(user.entity), (error) => {
                 return Promise.reject(new UnprocessableError(error));
             })
             .catch((err) => Promise.reject(new DbError(err)));
@@ -45,7 +37,7 @@ export class UserService extends BaseService<IUserEntity> {
 
     public remove(id: string) {
         return this.findById(id)
-            .then((user) => this.repository.removeById(user._id))
+            .then((user) => this.userRepository.removeById(user._id))
             .catch((err) => Promise.reject(new DbError(err)));
     }
 

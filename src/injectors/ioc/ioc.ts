@@ -10,29 +10,28 @@ const container = createContainer({});
  */
 export class IoC {
 
-    private injectedItems = new AppInjectedItems();
+    private static injectedItems = new AppInjectedItems();
 
     /**
      * Return application injected items.
      * Each item should be registered in configure() method.
      * @returns {AppInjectedItems}
      */
-    public get get(): AppInjectedItems {
-        return this.injectedItems;
+    public static get get(): AppInjectedItems {
+        return IoC.injectedItems;
     }
 
-    constructor() {
-        this.configure();
-    }
+    constructor() {}
 
     /**
-     *
+     * Register application services, repositories, functional modules into the
+     * main container. It should be called at the top of application to work properly.
      */
-    private configure(): void {
+    public static configure(): void {
+        container.register('userRepository', asClass(UserRepository));
+        IoC.injectedItems.userRepository = container.cradle.userRepository;
         container.register('userService', asClass(UserService).singleton());
-        container.register('userRepository', asClass(UserRepository).singleton());
-        this.injectedItems.userService = container.cradle.userService;
-        this.injectedItems.userRepository = container.cradle.userRepository;
+        IoC.injectedItems.userService = container.cradle.userService;
     }
 
 }

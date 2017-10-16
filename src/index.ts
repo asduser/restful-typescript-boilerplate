@@ -1,8 +1,10 @@
-import "./config/env-resolver";
+import "./config/init";
 import "reflect-metadata";
 import * as express from 'express';
 import * as bodyParser from "body-parser";
-import {Server} from "./server";
+
+import { IoC } from "./injectors";
+import { Server } from "./server";
 
 import * as routes from "./endpoint";
 import * as middlewares from "./middlewares";
@@ -30,10 +32,8 @@ app.use('/api/v1/auth', routes.auth);
 app.use('/api/v1/info', routes.info);
 app.use('/api/v1/users', routes.users);
 
-import {ioc} from "./providers";
-
 attachControllers(app, [
-    {provide: UsersController, deps: [ ioc.get.userService ]}
+    {provide: UsersController, deps: [ IoC.get.userService ]}
 ]);
 
 // error-handlers
