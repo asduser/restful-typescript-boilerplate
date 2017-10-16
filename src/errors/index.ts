@@ -1,6 +1,5 @@
 // implementation
-export {MethodNotImplementedError} from "./implementation";
-export {EntityCollectionError} from "./implementation";
+export {MethodNotImplementedError} from "./method-not-implemented";
 
 // connection
-export {MongoConnectionError} from "./connection";
+export {MongoConnectionError} from "./mongo-connection";

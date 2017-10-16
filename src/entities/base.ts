@@ -1,6 +1,6 @@
+import {IEntity} from "@app/core";
 import {ObjectSchema} from "../schemas";
 import {schemaValidatorProvider} from "../providers";
-import {IEntity} from "@app/core";
 
 export abstract class BaseEntity<T extends IEntity> {
 

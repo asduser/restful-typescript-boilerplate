@@ -28,11 +28,16 @@ export class UserService extends BaseService {
 
     public async create(data: UserEntity) {
         const user = new UserEntity(data);
-        return user.validate()
-            .then(() => this.userRepository.create(user.entity), (error) => {
-                return Promise.reject(new UnprocessableError(error));
-            })
-            .catch((err) => Promise.reject(new DbError(err)));
+        try {
+            await user.validate();
+        } catch (error) {
+            return Promise.reject(new UnprocessableError(error));
+        }
+        try {
+            return this.userRepository.create(user.entity);
+        } catch (error) {
+            return Promise.reject(new DbError(error));
+        }
     }
 
     public remove(id: string) {

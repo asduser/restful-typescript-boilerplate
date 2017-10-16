@@ -1,0 +1,1 @@
+export {entitySchema} from "./entity";

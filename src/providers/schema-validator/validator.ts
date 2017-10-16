@@ -6,6 +6,12 @@ const options = {
 
 export class SchemaValidatorProvider {
 
+    /**
+     * Check if entity is valid by using the joi-schema.
+     * @param {object} value Entity for validation.
+     * @param {Joi.Schema} schema Validation joi-schema.
+     * @returns {Promise<string[]>}
+     */
     public validate(value, schema: Joi.Schema): Promise<string[]> {
         return new Promise<any>((resolve, reject) => {
             if (!value) {
@@ -21,9 +27,16 @@ export class SchemaValidatorProvider {
         });
     }
 
-    public async isValid(value, schema: Joi.Schema) {
+    /**
+     * Return true if entity validation passed.
+     * @param {object} value Entity for validation.
+     * @param {Joi.Schema} schema Validation joi-schema.
+     * @returns {Promise<boolean>}
+     */
+    public async isValid(value, schema: Joi.Schema): Promise<boolean> {
         try {
-            return await this.validate(value, schema);
+            await this.validate(value, schema);
+            return true;
         } catch (e) {
             return false;
         }

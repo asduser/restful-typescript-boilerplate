@@ -3,12 +3,12 @@ import {
     ObjectId,
 } from "mongodb";
 import {IEntity,IMongoDBRepository} from "@app/core";
-import {MongoProvider, mongoProvider} from "../../providers";
+import {IMongoProvider, mongoProvider} from "../../providers";
 
 export abstract class MongoDBRepository<T extends IEntity> implements IMongoDBRepository<T> {
 
     protected collectionName: string;
-    protected get db(): MongoProvider {
+    protected get db(): IMongoProvider {
         return mongoProvider;
     }
 
