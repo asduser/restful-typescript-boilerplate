@@ -4,12 +4,26 @@ import {UnprocessableError, NotFoundError, BadRequestError, DbError} from "../..
 import {MESSAGES} from "../../constants/messages";
 import {ERROR_CODES} from "../../constants/error-codes";
 
+/**
+ * Wrapper to work with UserRepository and MongoDB.
+ * Controller: <UsersController>.
+ * Validation Entity: <UserEntity>.
+ */
 export class UserService extends BaseService {
 
+    /**
+     * Find all users in DB and return.
+     * @returns {Promise<IUserEntity[]>}
+     */
     public findAll() {
         return this.userRepository.find({});
     }
 
+    /**
+     * Find user in DB by ObjectId.
+     * @param {string} id
+     * @returns {Promise<never | IUserEntity>}
+     */
     public findById(id: string) {
         return this.userRepository.findById(id)
             .then((user) => {
@@ -26,6 +40,12 @@ export class UserService extends BaseService {
             });
     }
 
+    /**
+     * Add new user into DB. Before adding will be called entity validation.
+     * If it failed - should be rejected an error.
+     * @param {UserEntity} data
+     * @returns {Promise<any>}
+     */
     public async create(data: UserEntity) {
         const user = new UserEntity(data);
         try {
@@ -40,6 +60,11 @@ export class UserService extends BaseService {
         }
     }
 
+    /**
+     * Find user by ObjectId in DB and then delete.
+     * @param {string} id
+     * @returns {Promise<never | DeleteWriteOpResultObject>}
+     */
     public remove(id: string) {
         return this.findById(id)
             .then((user) => this.userRepository.removeById(user._id))
