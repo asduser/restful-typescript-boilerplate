@@ -66,10 +66,13 @@ export class UserService extends BaseService {
      * @param {string} id
      * @returns {Promise<never | DeleteWriteOpResultObject>}
      */
-    public remove(id: string) {
-        return this.findById(id)
-            .then((user) => this.userRepository.removeById(user._id))
-            .catch((err) => Promise.reject(new DbError(err)));
+    public async remove(id: string) {
+        const user = await this.findById(id);
+        try {
+            return await this.userRepository.removeById(user._id);
+        } catch (err) {
+            return Promise.reject(new DbError(err))
+        }
     }
 
 }

@@ -40,7 +40,8 @@ export abstract class MongoDBRepository<T extends IEntity> implements IMongoDBRe
     }
 
     public removeById(id: string, options?: Object): Promise<DeleteWriteOpResultObject> {
-        return this.collection.deleteOne({ id }, options);
+        return this.validateObjectId(id)
+            .then(() => this.collection.deleteOne({ _id: id }, options));
     }
 
     private validateObjectId(id: string): Promise<Object> {
