@@ -1,4 +1,5 @@
 import { IController, ExpressParams } from "@app/core";
+import { HttpMessage } from "../../http";
 
 export abstract class BaseController implements IController {
 
@@ -14,7 +15,7 @@ export abstract class BaseController implements IController {
      */
     public handle<T = any>({ req, res, next }: ExpressParams, promise: Promise<T>): void {
         promise
-            .then((data) => res.json(data))
+            .then((data) => res.json(new HttpMessage({ data })))
             .catch(next);
     }
 

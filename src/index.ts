@@ -3,14 +3,12 @@ import "reflect-metadata";
 import * as express from 'express';
 import * as bodyParser from "body-parser";
 
-import { IoC } from "./injectors";
+import {registerControllers} from "./controllers";
 import { Server } from "./server";
 
 import * as routes from "./endpoint";
 import * as middlewares from "./middlewares";
 import {winstonLogger} from "./providers/loggers/winston";
-import {attachControllers} from "@decorators/express";
-import {UsersController} from "./controllers/index";
 
 const compression = require('compression');
 
@@ -29,12 +27,9 @@ app.put('*', bodyParser.json());
 
 // routes
 app.use('/api/v1/auth', routes.auth);
-app.use('/api/v1/info', routes.info);
 app.use('/api/v1/users', routes.users);
 
-attachControllers(app, [
-    {provide: UsersController, deps: [ IoC.get.userService ]}
-]);
+registerControllers(app);
 
 // error-handlers
 app.use('*', middlewares.notFound);

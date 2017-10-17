@@ -7,6 +7,7 @@ import {ERROR_CODES} from "../../constants/error-codes";
 /**
  * Wrapper to work with UserRepository and MongoDB.
  * Controller: <UsersController>.
+ * MongoDB Collection: <users>.
  * Validation Entity: <UserEntity>.
  */
 export class UserService extends BaseService {
@@ -51,12 +52,12 @@ export class UserService extends BaseService {
         try {
             await user.validate();
         } catch (error) {
-            return Promise.reject(new UnprocessableError(error));
+            throw new UnprocessableError(error);
         }
         try {
             return this.userRepository.create(user.entity);
         } catch (error) {
-            return Promise.reject(new DbError(error));
+            throw new DbError(error);
         }
     }
 
