@@ -16,8 +16,8 @@ export class UserService extends BaseService {
      * Find all users in DB and return.
      * @returns {Promise<IUserEntity[]>}
      */
-    public findAll() {
-        return this.userRepository.find({});
+    public async findAll() {
+        return await this.userRepository.find({});
     }
 
     /**
@@ -25,20 +25,19 @@ export class UserService extends BaseService {
      * @param {string} id
      * @returns {Promise<never | IUserEntity>}
      */
-    public findById(id: string) {
-        return this.userRepository.findById(id)
-            .then((user) => {
-                if (!user) {
-                    return Promise.reject(new NotFoundError(MESSAGES.USER_NOT_FOUND));
-                }
-                return Promise.resolve(user);
-            })
-            .catch((err) => {
-                if (err.code === ERROR_CODES.INCORRECT_OBJECT_ID) {
-                    return Promise.reject(new BadRequestError(MESSAGES.WRONG_MONGODB_OBJECT_ID))
-                }
-                return Promise.reject(new DbError(err));
-            });
+    public async findById(id: string) {
+        try {
+            const user = await this.userRepository.findById(id);
+            if (!user) {
+                return Promise.reject(new NotFoundError(MESSAGES.USER_NOT_FOUND));
+            }
+            return Promise.resolve(user);
+        } catch (err) {
+            if (err.code === ERROR_CODES.INCORRECT_OBJECT_ID) {
+                return Promise.reject(new BadRequestError(MESSAGES.WRONG_MONGODB_OBJECT_ID))
+            }
+            return Promise.reject(new DbError(err));
+        }
     }
 
     /**
@@ -55,7 +54,7 @@ export class UserService extends BaseService {
             throw new UnprocessableError(error);
         }
         try {
-            return this.userRepository.create(user.entity);
+            return await this.userRepository.create(user.entity);
         } catch (error) {
             throw new DbError(error);
         }
