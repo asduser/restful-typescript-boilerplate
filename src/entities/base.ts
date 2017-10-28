@@ -9,13 +9,13 @@ import {schemaValidatorProvider} from "../providers";
 export abstract class BaseEntity<T extends IEntity> {
 
     protected schema: ObjectSchema;
-    public entity: T;
+    public currentData: T;
 
     constructor(e: T) {
-        this.entity = e;
+        this.currentData = e;
     }
 
     public validate(): Promise<string[]> {
-        return schemaValidatorProvider.validate(this.entity, this.schema);
+        return schemaValidatorProvider.validate(this.currentData, this.schema);
     }
 }

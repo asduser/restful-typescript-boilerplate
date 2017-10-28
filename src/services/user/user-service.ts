@@ -1,5 +1,5 @@
 import {BaseService} from "../base";
-import {UserEntity} from "../../entities/user/user";
+import {UserEntity, IUserEntity} from "../../entities/user/user";
 import {UnprocessableError, NotFoundError, BadRequestError, DbError} from "../../http";
 import {MESSAGES} from "../../constants/messages";
 import {ERROR_CODES} from "../../constants/error-codes";
@@ -43,20 +43,20 @@ export class UserService extends BaseService {
     /**
      * Add new user into DB. Before adding will be called entity validation.
      * If it failed - should be rejected an error.
-     * @param {UserEntity} data
+     * @param {IUserEntity} data
      * @returns {Promise<any>}
      */
-    public async create(data: UserEntity) {
+    public async create(data: IUserEntity) {
         const user = new UserEntity(data);
         try {
             await user.validate();
         } catch (error) {
-            throw new UnprocessableError(error);
+            return Promise.reject(new UnprocessableError(error));
         }
         try {
-            return await this.userRepository.create(user.entity);
+            return await this.userRepository.create(user.currentData);
         } catch (error) {
-            throw new DbError(error);
+            return Promise.reject(new DbError(error));
         }
     }
 

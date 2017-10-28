@@ -1,9 +1,9 @@
-import {IValidationEntity, IEntity} from "@app/core";
+import {IEntity} from "@app/core";
 import {BaseEntity} from "../base";
 import {Gender} from "../../models";
 import {userCreateSchema} from "../../schemas";
 
-export interface IUserEntity extends IEntity, IValidationEntity {
+export interface IUserEntity extends IEntity {
     age: number;
     gender: Gender | number;
     name: string;
