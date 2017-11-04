@@ -1,7 +1,7 @@
 import {BaseService} from "../base";
 import {UserEntity, IUserEntity} from "../../entities/user/user";
 import {UnprocessableError, NotFoundError, BadRequestError, DbError} from "../../http";
-import {MESSAGES} from "../../constants/messages";
+import {ERROR_MESSAGES} from "../../constants/error-messages";
 import {ERROR_CODES} from "../../constants/error-codes";
 
 /**
@@ -29,12 +29,12 @@ export class UserService extends BaseService {
         try {
             const user = await this.userRepository.findById(id);
             if (!user) {
-                return Promise.reject(new NotFoundError(MESSAGES.USER_NOT_FOUND));
+                return Promise.reject(new NotFoundError(ERROR_MESSAGES.USER_NOT_FOUND));
             }
             return Promise.resolve(user);
         } catch (err) {
             if (err.code === ERROR_CODES.INCORRECT_OBJECT_ID) {
-                return Promise.reject(new BadRequestError(MESSAGES.WRONG_MONGODB_OBJECT_ID))
+                return Promise.reject(new BadRequestError(ERROR_MESSAGES.WRONG_MONGODB_OBJECT_ID))
             }
             return Promise.reject(new DbError(err));
         }

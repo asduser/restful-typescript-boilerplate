@@ -1,4 +1,4 @@
-export const MESSAGES = {
+export const ERROR_MESSAGES = {
 
     /**
      * User was not found in database.
