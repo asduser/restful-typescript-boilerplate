@@ -1,8 +1,8 @@
 import {BaseService} from "../base";
-import {UserEntity, IUserEntity} from "../../entities/user/user";
+import {IUserCreate, UserCreate} from "../../models";
 import {UnprocessableError, NotFoundError, BadRequestError, DbError} from "../../http";
 import {ERROR_MESSAGES} from "../../constants/error-messages";
-import {ERROR_CODES} from "../../constants/error-codes";
+import {ObjectId} from "mongodb";
 
 /**
  * Wrapper to work with UserRepository and MongoDB.
@@ -14,10 +14,11 @@ export class UserService extends BaseService {
 
     /**
      * Find all users in DB and return.
+     * @param {Object} query MongoDB query to find documents
      * @returns {Promise<IUserEntity[]>}
      */
-    public async findAll() {
-        return await this.userRepository.find({});
+    public async findAll(query = {}) {
+        return await this.userRepository.find(query);
     }
 
     /**
@@ -26,38 +27,44 @@ export class UserService extends BaseService {
      * @returns {Promise<never | IUserEntity>}
      */
     public async findById(id: string) {
+        let result;
         try {
-            const user = await this.userRepository.findById(id);
-            if (!user) {
-                return Promise.reject(new NotFoundError(ERROR_MESSAGES.USER_NOT_FOUND));
-            }
-            return Promise.resolve(user);
+            await this.checkObjectId(id);
         } catch (err) {
-            if (err.code === ERROR_CODES.INCORRECT_OBJECT_ID) {
-                return Promise.reject(new BadRequestError(ERROR_MESSAGES.WRONG_MONGODB_OBJECT_ID))
-            }
-            return Promise.reject(new DbError(err));
+            throw new BadRequestError(ERROR_MESSAGES.WRONG_MONGODB_OBJECT_ID);
         }
+        try {
+            result = await this.userRepository.findOne({ id });
+        } catch (err) {
+            throw new DbError(err);
+        }
+        if (!result) {
+            throw new NotFoundError(ERROR_MESSAGES.USER_NOT_FOUND);
+        }
+        return result;
     }
 
     /**
      * Add new user into DB. Before adding will be called entity validation.
      * If it failed - should be rejected an error.
-     * @param {IUserEntity} data
+     * @param {IUserCreate} data
      * @returns {Promise<any>}
      */
-    public async create(data: IUserEntity) {
-        const user = new UserEntity(data);
+    public async create(data: IUserCreate) {
+        let result, validData;
+        const user = new UserCreate(data);
         try {
-            await user.validate();
+            validData = await user.validate();
+            await this.checkIfEmailExist(validData.email);
         } catch (error) {
-            return Promise.reject(new UnprocessableError(error));
+            throw new UnprocessableError(error);
         }
         try {
-            return await this.userRepository.create(user.currentData);
+            result = await this.userRepository.create(validData);
         } catch (error) {
-            return Promise.reject(new DbError(error));
+            throw new DbError(error);
         }
+        return result;
     }
 
     /**
@@ -65,13 +72,31 @@ export class UserService extends BaseService {
      * @param {string} id
      * @returns {Promise<never | DeleteWriteOpResultObject>}
      */
-    public async remove(id: string) {
+    public async removeById(id: string) {
         const user = await this.findById(id);
         try {
-            return await this.userRepository.removeById(user._id);
+            return await this.userRepository.removeOne(user._id);
         } catch (err) {
             return Promise.reject(new DbError(err))
         }
     }
 
+    public async checkIfEmailExist(email: string) {
+        return new Promise(async (resolve, reject) => {
+            const user = await this.userRepository.findOne({ email });
+            if (user != null) {
+                reject('User with this email already exist!');
+            }
+            resolve();
+        });
+    }
+
+    private checkObjectId(id: string) {
+        return new Promise((resolve, reject) => {
+            if (ObjectId.isValid(id)) {
+                resolve();
+            }
+            reject('Wrong ObjectID format!');
+        });
+    }
 }

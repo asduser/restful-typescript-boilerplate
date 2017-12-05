@@ -1,6 +1,5 @@
 // load .env resolver
 import "./env-resolver";
+import {AppContainer} from "../injectors";
 
-// load IoC configuration
-import { IoC } from "../injectors";
-IoC.configure();
+AppContainer.configure();

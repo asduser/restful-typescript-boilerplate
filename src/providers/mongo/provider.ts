@@ -1,13 +1,7 @@
-import {Db, MongoClient} from "mongodb";
-import {IMongoConfig} from "./models/index";
-const mongoClient = new MongoClient();
+import { Db, MongoClient } from "mongodb";
+import { IMongoConfig, IMongoProvider } from "./models/index";
 
-export interface IMongoProvider {
-    connection: Db;
-    connected: boolean;
-    connect(dbConfig: IMongoConfig): Promise<Db>;
-    disconnect(): Promise<void>;
-}
+const mongoClient = new MongoClient();
 
 export class MongoProvider implements IMongoProvider {
 
@@ -20,8 +14,6 @@ export class MongoProvider implements IMongoProvider {
     public get connection(): Db {
         return this.db;
     }
-
-    constructor() {}
 
     public connect(dbConfig: IMongoConfig): Promise<Db> {
         this.config = dbConfig;

@@ -1,1 +1,2 @@
-export {MongoProvider, IMongoProvider} from "./mongo-provider";
+export { IMongoProvider, IMongoConfig } from "./models";
+export { MongoProvider } from "./provider";

@@ -6,12 +6,12 @@ declare module '@app/repositories' {
     import {IEntity} from "@app/entities";
 
     export interface IMongoDBRepository<T extends IEntity> {
-        create(model: T, options?: Object): Promise<InsertOneWriteOpResult>;
-        findById(id: string, options?: Object): Promise<T>;
-        find(query: Object, options?: Object): Promise<T[]>;
-        updateById(id: string, query: Object, options?: Object): Promise<UpdateWriteOpResult>;
+        create(filter: Object, options?: Object): Promise<InsertOneWriteOpResult>;
+        findOne(filter: Object, options?: Object): Promise<T>;
+        find(filter: Object, options?: Object): Promise<T[]>;
+        updateOne(filter: Object, query: Object, options?: Object): Promise<UpdateWriteOpResult>;
         update(filter: Object, query: Object, options?: Object): Promise<UpdateWriteOpResult>;
-        removeById(id: string, options?: Object): Promise<DeleteWriteOpResultObject>;
+        removeOne(filter: Object, options?: Object): Promise<DeleteWriteOpResultObject>;
     }
 
 }

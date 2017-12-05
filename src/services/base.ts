@@ -1,5 +1,5 @@
-import { IService } from "@app/core";
-import { IoC } from "../injectors/ioc";
+import {IService} from "@app/core";
+import {AppContainer} from "../injectors";
 
 /**
  * Base application service to work with MongoDB query using an abstraction level.
@@ -9,6 +9,6 @@ import { IoC } from "../injectors/ioc";
  */
 export abstract class BaseService implements IService {
 
-    protected userRepository = IoC.get.userRepository;
+    protected userRepository = AppContainer.getItems().userRepository;
 
 }

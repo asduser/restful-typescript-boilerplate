@@ -6,12 +6,12 @@
         "moduleResolution": "node",
         "experimentalDecorators": true,
         "sourceMap": true,
-        "outDir": "dist",
-        "rootDirs": [
-            "./src"
-        ],
+        "outDir": "dist/src/",
         "watch": true
     },
+    "include": [
+        "src/**/*"
+    ],
     "exclude": [
         "node_modules",
         "typings"

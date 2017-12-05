@@ -2,7 +2,7 @@ import {Express} from "express";
 import {Db} from "mongodb";
 import {IServer, IServerOptions} from "@app/core";
 import {config} from "../config/config";
-import {mongoProvider} from "../providers/index";
+import {AppContainer} from "../injectors";
 
 const defaultOptions: IServerOptions = {
     useMongo: false
@@ -19,7 +19,7 @@ export class Server implements IServer {
     }
 
     public connectMongoDb(): Promise<Db> {
-        return mongoProvider.connect(config.mongodb);
+        return AppContainer.getItems().mongoProvider.connect(config.mongodb);
     }
 
     public listen(): void {

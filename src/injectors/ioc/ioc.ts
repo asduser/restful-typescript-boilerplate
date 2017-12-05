@@ -30,6 +30,7 @@ export class IoC {
     public static configure(): void {
         container.register('userRepository', asClass(UserRepository));
         IoC.injectedItems.userRepository = container.cradle.userRepository;
+
         container.register('userService', asClass(UserService).singleton());
         IoC.injectedItems.userService = container.cradle.userService;
     }

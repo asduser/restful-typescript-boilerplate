@@ -1,7 +1,6 @@
 import {Express} from 'express';
 import {attachControllers} from "@decorators/express";
-import {IoC} from "../injectors";
-
+import {AppContainer} from "../injectors";
 import {UsersController} from "./users";
 import {InfoController} from "./info";
 
@@ -12,7 +11,7 @@ import {InfoController} from "./info";
  */
 export const registerControllers = (app: Express) => {
     attachControllers(app, [
-        { provide: UsersController, deps: [ IoC.get.userService ] },
+        { provide: UsersController, deps: [ AppContainer.getItems().userService ] },
         { provide: InfoController, deps: [] }
     ]);
 };

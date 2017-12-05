@@ -13,21 +13,21 @@ export class UsersController extends BaseController {
 
     @Get('/users')
     find(@Response() res, @Next() next) {
-        this.handle({res, next }, this.userService.findAll());
+        return this.handle({res, next }, this.userService.findAll());
     }
 
     @Get('/users/:id')
     findById(@Params('id') id: string, @Response() res, @Next() next) {
-        this.handle({res, next }, this.userService.findById(id));
+        return this.handle({res, next }, this.userService.findById(id));
     }
 
     @Post('/users')
     create(@Body() user, @Response() res, @Next() next) {
-        this.handle({res, next }, this.userService.create(user));
+        return this.handle({res, next }, this.userService.create(user));
     }
 
     @Delete('/users/:id')
-    remove(@Params('id') id: string, @Response() res, @Next() next) {
-        this.handle({res, next }, this.userService.remove(id));
+    removeById(@Params('id') id: string, @Response() res, @Next() next) {
+        return this.handle({res, next }, this.userService.removeById(id));
     }
 }

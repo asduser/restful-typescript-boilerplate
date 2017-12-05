@@ -1,4 +1,4 @@
-import {IEntity} from "@app/core";
+import {IEntity, IValidationEntity} from "@app/core";
 import {ObjectSchema} from "../schemas";
 import {schemaValidatorProvider} from "../providers";
 
@@ -6,7 +6,7 @@ import {schemaValidatorProvider} from "../providers";
  * Validation Entity to work with data in MongoDB queries.
  * When created a new MongoDB <Collection>, should be created a suitable entity.
  */
-export abstract class BaseEntity<T extends IEntity> {
+export abstract class BaseEntity<T extends IEntity> implements IValidationEntity {
 
     protected schema: ObjectSchema;
     public currentData: T;
