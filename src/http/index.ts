@@ -10,3 +10,8 @@ export {
 
 export { HttpMessage } from "./message";
 export { HttpStatus } from "./status";
+
+export {
+    HttpSuccess,
+    HttpCreated,
+} from "./common";

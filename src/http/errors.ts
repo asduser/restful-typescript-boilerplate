@@ -1,7 +1,7 @@
 import { IHttpMessage, IHttpMessageDetails } from "@app/core";
 import { HttpMessage } from "./message";
 import { HttpStatus } from "./status";
-import { isArray } from "lodash";
+import * as _ from "lodash";
 
 export class BadRequestError extends HttpMessage {
     constructor(details?: IHttpMessageDetails) {
@@ -51,7 +51,7 @@ export class UnprocessableError extends HttpMessage {
             status: HttpStatus.UNPROCESSABLE_ENTITY,
             title: 'Unprocessable Error',
             message: 'Request body has invalid data!',
-            errors: isArray(err) ? err : [err],
+            errors: _.isArray(err) ? err : [err],
         });
     }
 }

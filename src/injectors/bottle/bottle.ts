@@ -16,7 +16,6 @@ export class AppContainer {
     private static items: InjectedItems;
 
     public static getItems (): InjectedItems {
-        console.log(AppContainer.items);
         return AppContainer.items;
     }
 

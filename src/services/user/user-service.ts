@@ -18,7 +18,8 @@ export class UserService extends BaseService {
      * @returns {Promise<IUserEntity[]>}
      */
     public async findAll(query = {}) {
-        return await this.userRepository.find(query);
+        const result = await this.userRepository.find(query);
+        return this.normalizeResponse(result);
     }
 
     /**
@@ -41,7 +42,7 @@ export class UserService extends BaseService {
         if (!result) {
             throw new NotFoundError(ERROR_MESSAGES.USER_NOT_FOUND);
         }
-        return result;
+        return this.normalizeResponse(result);
     }
 
     /**
@@ -64,7 +65,7 @@ export class UserService extends BaseService {
         } catch (error) {
             throw new DbError(error);
         }
-        return result;
+        return this.normalizeResponse(result);
     }
 
     /**
