@@ -10,7 +10,7 @@ import * as _ from "lodash";
  */
 export abstract class BaseService implements IService {
 
-    protected userRepository = AppContainer.getItems().userRepository;
+    protected userRepository = AppContainer.userRepository;
 
     protected normalizeResponse(data: any | any[]) {
         function normalizeData (data) {

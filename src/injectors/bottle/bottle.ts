@@ -1,40 +1,35 @@
 import * as Bottle from "bottlejs";
-import {MongoProvider, IMongoProvider} from "../../providers";
+import {MongoProvider, SchemaValidatorProvider} from "../../providers";
 import {UserService} from "../../services";
 import {UserRepository} from "../../repositories";
-
-class InjectedItems {
-    public mongoProvider: IMongoProvider;
-    public userService: UserService;
-    public userRepository: UserRepository;
-}
 
 export class AppContainer {
 
     private static bottle: Bottle;
     private static container: Bottle.IContainer;
-    private static items: InjectedItems;
 
-    public static getItems (): InjectedItems {
-        return AppContainer.items;
-    }
+    public static schemaValidatorProvider: SchemaValidatorProvider;
+    public static mongoProvider: MongoProvider;
+    public static userRepository: UserRepository;
+    public static userService: UserService;
 
     public static configure (): void {
         AppContainer.bottle = new Bottle();
         AppContainer.container = AppContainer.bottle.container;
-        AppContainer.items = new InjectedItems();
 
         // providers
         AppContainer.bottle.service('mongoProvider', MongoProvider as any);
-        AppContainer.items.mongoProvider = AppContainer.container['mongoProvider'];
+        AppContainer.mongoProvider = AppContainer.container['mongoProvider'];
+        AppContainer.bottle.service('schemaValidatorProvider', SchemaValidatorProvider as any);
+        AppContainer.schemaValidatorProvider = AppContainer.container['schemaValidatorProvider'];
 
         // repositories
         AppContainer.bottle.service('userRepository', UserRepository as any);
-        AppContainer.items.userRepository = AppContainer.container['userRepository'];
+        AppContainer.userRepository = AppContainer.container['userRepository'];
 
         // services
         AppContainer.bottle.service('userService', UserService as any);
-        AppContainer.items.userService = AppContainer.container['userService'];
+        AppContainer.userService = AppContainer.container['userService'];
     }
 
 }

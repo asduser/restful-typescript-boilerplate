@@ -2,9 +2,9 @@ import {Request, Response, NextFunction} from "express";
 import {InternalError, HttpMessage} from "../../http";
 
 export const errorHandlerMiddleware = (err: any, req: Request, res: Response, next: NextFunction) => {
-    let error: HttpMessage = err;
+    let httpMessage: HttpMessage = err;
     if (!err.status) {
-        error = new InternalError(err);
+        httpMessage = new InternalError(err);
     }
-    return res.status(error.status).json(error);
+    return res.status(httpMessage.status).json(httpMessage);
 };

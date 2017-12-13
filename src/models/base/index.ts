@@ -1,11 +1,11 @@
-import {schemaValidatorProvider} from "../../providers/index";
+import {AppContainer} from "../../injectors";
 
 export class BaseModel {
     protected currentData: any;
     protected schema: any;
 
     public validate() {
-        return schemaValidatorProvider.validate(this.currentData, this.schema)
+        return AppContainer.schemaValidatorProvider.validate(this.currentData, this.schema)
             .then(() => this.currentData);
     }
 }

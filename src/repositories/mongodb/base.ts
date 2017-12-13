@@ -10,7 +10,7 @@ export abstract class MongoDBRepository<T extends IEntity> implements IMongoDBRe
 
     protected collectionName: string;
     protected get db(): IMongoProvider {
-        return AppContainer.getItems().mongoProvider;
+        return AppContainer.mongoProvider;
     }
 
     /**

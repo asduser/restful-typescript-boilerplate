@@ -1,6 +1,6 @@
 import {IEntity, IValidationEntity} from "@app/core";
 import {ObjectSchema} from "../schemas";
-import {schemaValidatorProvider} from "../providers";
+import {AppContainer} from "../injectors";
 
 /**
  * Validation Entity to work with data in MongoDB queries.
@@ -16,6 +16,6 @@ export abstract class BaseEntity<T extends IEntity> implements IValidationEntity
     }
 
     public validate(): Promise<string[]> {
-        return schemaValidatorProvider.validate(this.currentData, this.schema);
+        return AppContainer.schemaValidatorProvider.validate(this.currentData, this.schema);
     }
 }

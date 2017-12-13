@@ -7,8 +7,8 @@ declare module '@app/server' {
     }
 
     export interface IServer {
-        connectMongoDb(): Promise<Db>;
-        listen(): void;
+        dbConnect(): Promise<Db>;
+        run(): void;
     }
 
 }

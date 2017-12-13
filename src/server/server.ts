@@ -18,11 +18,11 @@ export class Server implements IServer {
         this.options = Object.assign({}, this.options, opts);
     }
 
-    public connectMongoDb(): Promise<Db> {
-        return AppContainer.getItems().mongoProvider.connect(config.mongodb);
+    public dbConnect(): Promise<Db> {
+        return AppContainer.mongoProvider.connect(config.mongodb);
     }
 
-    public listen(): void {
+    public run(): void {
         this.app.listen(<number>config.port, config.host,() => {
             console.log(`Application started at ${config.port} port!`);
         });

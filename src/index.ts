@@ -38,10 +38,7 @@ app.use(middlewares.errorHandler);
 // server initialization
 const server = new Server(app);
 
-// approach when no database needed
-// server.listen();
-
 // approach when database needed
-server.connectMongoDb()
-    .then(() => server.listen())
+server.dbConnect()
+    .then(() => server.run())
     .catch((err) => console.log(err));

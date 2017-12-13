@@ -11,7 +11,7 @@ import {InfoController} from "./info";
  */
 export const registerControllers = (app: Express) => {
     attachControllers(app, [
-        { provide: UsersController, deps: [ AppContainer.getItems().userService ] },
+        { provide: UsersController, deps: [ AppContainer.userService ] },
         { provide: InfoController, deps: [] }
     ]);
 };
