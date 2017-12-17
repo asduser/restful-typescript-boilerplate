@@ -12,6 +12,7 @@ declare module '@app/repositories' {
         updateOne(filter: Object, query: Object, options?: Object): Promise<UpdateWriteOpResult>;
         update(filter: Object, query: Object, options?: Object): Promise<UpdateWriteOpResult>;
         removeOne(filter: Object, options?: Object): Promise<DeleteWriteOpResultObject>;
+        runCommand(cmd: Object);
     }
 
 }

@@ -5,6 +5,7 @@
 # modules
 node_modules/
 typings/
+package-lock.json
 
 # logs
 logs/

@@ -87,6 +87,14 @@ export abstract class MongoDBRepository<T extends IEntity> implements IMongoDBRe
     }
 
     /**
+     * Execute MongoDB command.
+     * @param {Object} cmd - MongoDB command declaration.
+     */
+    public runCommand(cmd: Object) {
+        return this.db.connection.command(cmd);
+    }
+
+    /**
      * Transform an existing filter into MongoDB query format.
      * @param {Object} filter
      * @returns {Object}
