@@ -2,12 +2,14 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
+        "typeRoots": [ "node_modules/@types" ],
         "types": ["node"],
         "moduleResolution": "node",
         "experimentalDecorators": true,
         "sourceMap": true,
         "outDir": "dist/src/",
-        "watch": true
+        "watch": true,
+        "inlineSource": true
     },
     "include": [
         "src/**/*"

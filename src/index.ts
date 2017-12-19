@@ -40,5 +40,9 @@ const server = new Server(app);
 
 // approach when database needed
 server.dbConnect()
-    .then(() => server.run())
-    .catch((err) => console.log(err));
+    .then(() => {
+        return server.run();
+    })
+    .catch((err) => {
+        console.log(err);
+    });

@@ -16,7 +16,7 @@ export class UserCreate extends BaseModel implements IUserCreate {
         this.map(data);
     }
 
-    private map(data): void {
+    private map(data): number {
         if (data != null) {
             const item = data as IUserCreate;
             this.name = item.name;

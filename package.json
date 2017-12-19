@@ -35,7 +35,7 @@
     "nodemon": "*",
     "reflect-metadata": "^0.1.8",
     "ts-node": "*",
-    "typescript": "^2.4.2",
+    "typescript": "*",
     "winston": "^2.3.1"
   },
   "devDependencies": {

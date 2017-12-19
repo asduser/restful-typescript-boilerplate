@@ -89,8 +89,9 @@ export abstract class MongoDBRepository<T extends IEntity> implements IMongoDBRe
     /**
      * Execute MongoDB command.
      * @param {Object} cmd - MongoDB command declaration.
+     * @returns {Promise<any>}
      */
-    public runCommand(cmd: Object) {
+    public runCommand(cmd: Object): Promise<any> {
         return this.db.connection.command(cmd);
     }
 
