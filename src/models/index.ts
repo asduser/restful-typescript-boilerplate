@@ -4,4 +4,4 @@ export {BaseModel} from "./base";
 export {UserCreate, IUserCreate} from "./user/create";
 
 // population
-export {Gender} from "./population";
+export {Gender} from "./population/gender";

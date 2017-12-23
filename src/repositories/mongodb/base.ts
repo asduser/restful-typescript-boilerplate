@@ -101,7 +101,7 @@ export abstract class MongoDBRepository<T extends IEntity> implements IMongoDBRe
      * @returns {Object}
      */
     private normalizeFilter(filter) {
-        const query = Object.assign({}, filter);
+        const query: any = Object.assign({}, filter);
         // set ObjectId to work with 'find' queries
         if (query.id) {
             query._id = new ObjectId(filter.id);

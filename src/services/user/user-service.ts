@@ -65,7 +65,7 @@ export class UserService extends BaseService {
         } catch (error) {
             throw new DbError(error);
         }
-        return this.normalizeResponse(result);
+        return this.normalizeResponse(result.ops[0]);
     }
 
     /**
@@ -76,10 +76,11 @@ export class UserService extends BaseService {
     public async removeById(id: string) {
         const user = await this.findById(id);
         try {
-            return await this.userRepository.removeOne(user._id);
+            await this.userRepository.removeOne(user._id);
         } catch (err) {
-            return Promise.reject(new DbError(err))
+            throw new DbError(err);
         }
+        return true;
     }
 
     public async checkIfEmailExist(email: string) {

@@ -15,6 +15,7 @@ export class HttpCreated extends HttpMessage {
         super({
             status: HttpStatus.CREATED,
             data,
+            title: 'Successfully created!'
         });
     }
 }
