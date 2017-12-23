@@ -13,6 +13,6 @@ export interface IMongoConfig {
 export interface IMongoProvider {
     connection: Db;
     connected: boolean;
-    connect(dbConfig: IMongoConfig): Promise<Db>;
+    connect(url: string): Promise<Db>;
     disconnect(): Promise<void>;
 }

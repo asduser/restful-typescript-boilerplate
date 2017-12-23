@@ -1,12 +1,11 @@
 import { Db, MongoClient } from "mongodb";
-import { IMongoConfig, IMongoProvider } from "./models/index";
+import { IMongoProvider } from "./models/index";
 
 const mongoClient = new MongoClient();
 
 export class MongoProvider implements IMongoProvider {
 
     private db: Db = null;
-    private config: IMongoConfig;
 
     public get connected(): boolean {
         return this.connection !== null;
@@ -15,9 +14,11 @@ export class MongoProvider implements IMongoProvider {
         return this.db;
     }
 
-    public connect(dbConfig: IMongoConfig): Promise<Db> {
-        this.config = dbConfig;
-        return mongoClient.connect(this.config.url || this.formatUrl(this.config), this.config.options)
+    public connect(url: string): Promise<Db> {
+        if (url === null) {
+            throw new Error('MongoDB url should be defined!');
+        }
+        return mongoClient.connect(url)
             .then((db: Db) => {
                 this.db = db;
                 return db;
@@ -26,10 +27,6 @@ export class MongoProvider implements IMongoProvider {
 
     public disconnect(): Promise<void> {
         return this.db.close();
-    }
-
-    private formatUrl(cfg: IMongoConfig): string {
-        return `mongodb://${cfg.host}:${cfg.port}/${cfg.databaseName}`;
     }
 
 }

@@ -5,12 +5,6 @@ export const config = {
        secret_key: 'secret_key_goes_here'
     },
     mongodb: {
-        host: process.env.MONGO_HOST || 'localhost',
-        port: process.env.MONGO_PORT || 27017,
-        databaseName: process.env.MONGO_DB || 'express-simple-api',
-        username: null,
-        password: null,
-        url: null,
-        options: {}
+        url: process.env.MONGO_DB_URL || 'mongodb://localhost:27017/express-simple-api',
     }
 };

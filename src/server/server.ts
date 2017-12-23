@@ -19,7 +19,7 @@ export class Server implements IServer {
     }
 
     public dbConnect(): Promise<Db> {
-        return AppContainer.mongoProvider.connect(config.mongodb);
+        return AppContainer.mongoProvider.connect(config.mongodb.url);
     }
 
     public run(): void {

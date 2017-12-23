@@ -20,6 +20,23 @@ app.disable('etag');
 app.disable('x-powered-by');
 app.use(winstonLogger);
 app.use(compression());
+
+app.use((req, res, next) => {
+    const startAt = process.hrtime();
+    console.log('===');
+    console.log(startAt);
+    console.log('===');
+    req.on('end', () => {
+        const diff = process.hrtime(startAt);
+        console.log('===');
+        console.log(diff);
+        console.log(`${diff[0]} s`);
+        console.log(`${diff[1]/1000000} ms`);
+        console.log('===');
+    });
+    next();
+});
+
 app.use(middlewares.crossDomain);
 app.use(middlewares.headerGuard);
 app.post('*', bodyParser.json());
@@ -45,4 +62,5 @@ server.dbConnect()
     })
     .catch((err) => {
         console.log(err);
+        process.exit(1);
     });

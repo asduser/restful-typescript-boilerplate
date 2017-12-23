@@ -1,1 +1,0 @@
-export { IoC } from "./ioc";
