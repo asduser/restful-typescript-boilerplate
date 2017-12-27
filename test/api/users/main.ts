@@ -1,4 +1,4 @@
-import {expect, api} from "../../config";
+import {api} from "../../config";
 
 describe('/users', () => {
     // route path to avoid code duplication
@@ -9,14 +9,13 @@ describe('/users', () => {
             return api
                 .get(route)
                 .then((res) => {
-                    expect(res.status).to.equal(200);
-                    expect(res.body.data).to.be.an('array');
+                    expect(res.status).toEqual(200);
                 });
         });
 
         it('return all users from db (using async/await)', async () => {
             const res = await api.get(route);
-            expect(res.status).to.equal(200);
+            expect(res.status).toEqual(200);
         });
     });
 });

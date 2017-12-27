@@ -5,65 +5,56 @@ import * as _ from "lodash";
 
 export class BadRequestError extends HttpMessage {
     constructor(details?: IHttpMessageDetails) {
-        const error = Object.assign({
-            status: HttpStatus.BAD_REQUEST,
-            title: 'Bad Request',
-            message: "Request body contains inappropriate data!",
-        }, details);
-        super(error);
+        super();
+        this.status = HttpStatus.BAD_REQUEST;
+        this.title = details.title || 'Bad Request';
+        this.message = details.message || 'Request body contains inappropriate data!';
     }
 }
 
 export class UnAuthorizedError extends HttpMessage {
     constructor() {
-        super({
-            status: HttpStatus.UNAUTHORIZED,
-            title: 'Unauthorized',
-            message: "Please, login.",
-        });
+        super();
+        this.status = HttpStatus.UNAUTHORIZED;
+        this.title = 'Unauthorized';
+        this.message = 'Please, login!';
     }
 }
 
 export class ForbiddenError extends HttpMessage {
     constructor() {
-        super({
-            status: HttpStatus.FORBIDDEN,
-            title: 'Forbidden',
-            message: "You don't have permissions for this route!",
-        });
+        super();
+        this.status = HttpStatus.FORBIDDEN;
+        this.title = 'Forbidden';
+        this.message = 'You don\'t have permissions for this route!';
     }
 }
 
 export class NotFoundError extends HttpMessage {
     constructor(details?: IHttpMessageDetails) {
-        const error = Object.assign({
-            status: HttpStatus.NOT_FOUND,
-            title: 'Not Found',
-            message: 'Resource are you looking for is not found!'
-        }, details);
-        super(error);
+        super();
+        this.status = HttpStatus.NOT_FOUND;
+        this.title = details.title || 'Not Found';
+        this.message = details.message || 'Resource are you looking for is not found!';
     }
 }
 
 export class UnprocessableError extends HttpMessage {
     constructor(err) {
-        super({
-            status: HttpStatus.UNPROCESSABLE_ENTITY,
-            title: 'Unprocessable Error',
-            message: 'Request body has invalid data!',
-            errors: _.isArray(err) ? err : [err],
-        });
+        super();
+        this.status = HttpStatus.NOT_FOUND;
+        this.title = 'Unprocessable Error';
+        this.message = 'Request body has invalid data!';
+        this.errors = _.isArray(err) ? err : [err];
     }
 }
 
 export class InternalError extends HttpMessage {
     constructor(details: IHttpMessage) {
-        const error = {
-            status: HttpStatus.INTERNAL_SERVER_ERROR,
-            title: 'Internal Server Error',
-            message: details.message || 'Server problems. Please, try again later.',
-        };
-        super(error);
+        super();
+        this.status = HttpStatus.INTERNAL_SERVER_ERROR;
+        this.title = 'Internal Server Error';
+        this.message = details.message || 'Server problems. Please, try again later.';
     }
 }
 

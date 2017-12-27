@@ -1,4 +1,4 @@
-import {expect, api} from "../../config";
+import {api} from "../../config";
 
 describe('/users/:id', () => {
     describe('GET', () => {
@@ -10,8 +10,7 @@ describe('/users/:id', () => {
          */
         it('return error when id is invalid', async () => {
             const res = await api.get(`/test/users/${uniqueId}`);
-
-            expect(res.status).to.equal(400);
+            expect(res.status).toEqual(400);
         });
 
     });

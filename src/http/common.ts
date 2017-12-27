@@ -3,19 +3,17 @@ import { HttpStatus } from "./status";
 
 export class HttpSuccess extends HttpMessage {
     constructor(data = null) {
-        super({
-            status: HttpStatus.OK,
-            data,
-        });
+        super();
+        this.status = HttpStatus.OK;
+        this.data = data;
     }
 }
 
 export class HttpCreated extends HttpMessage {
     constructor(data = null) {
-        super({
-            status: HttpStatus.CREATED,
-            data,
-            title: 'Successfully created!'
-        });
+        super();
+        this.status = HttpStatus.CREATED;
+        this.data = data;
+        this.title = 'Successfully created!';
     }
 }
