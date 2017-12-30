@@ -2,12 +2,8 @@ declare module '@app/server' {
 
     import {Db} from "mongodb";
 
-    export interface IServerOptions {
-        useMongo?: boolean;
-    }
-
     export interface IServer {
-        dbConnect(): Promise<Db>;
+        connectToDb(): Promise<Db>;
         run(): void;
     }
 

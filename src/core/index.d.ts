@@ -4,7 +4,7 @@ declare module '@app/core' {
     export { IEntity, IValidationEntity } from "@app/entities";
     export { IService } from "@app/services";
     export { IMongoDBRepository } from "@app/repositories";
-    export { IServerOptions, IServer } from "@app/server";
+    export { IServer } from "@app/server";
     export { IHttpMessage, IHttpMessageDetails } from "@app/http";
 
 }

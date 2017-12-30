@@ -1,30 +1,26 @@
 import {Express} from "express";
 import {Db} from "mongodb";
-import {IServer, IServerOptions} from "@app/core";
-import {config} from "../config/config";
+import {IServer} from "@app/core";
+import {IAppConfig} from "../config/config";
 import {AppContainer} from "../injectors";
-
-const defaultOptions: IServerOptions = {
-    useMongo: false
-};
 
 export class Server implements IServer {
 
-    private options: IServerOptions = defaultOptions;
+    private config: IAppConfig;
     private app: Express;
 
-    constructor(app: Express, opts: IServerOptions = {}) {
+    constructor(app: Express, config: IAppConfig) {
         this.app = app;
-        this.options = Object.assign({}, this.options, opts);
+        this.config = config;
     }
 
-    public dbConnect(): Promise<Db> {
-        return AppContainer.mongoProvider.connect(config.mongodb.url);
+    public connectToDb(): Promise<Db> {
+        return AppContainer.mongoProvider.connect(this.config.mongodb.url);
     }
 
     public run(): void {
-        this.app.listen(<number>config.port, config.host,() => {
-            console.log(`Application started at ${config.port} port!`);
+        this.app.listen(<number>this.config.port, this.config.host,() => {
+            console.log(`Application started at ${this.config.port} port!`);
         });
     }
 }

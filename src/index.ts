@@ -7,6 +7,7 @@ import { Server } from "./server";
 import * as routes from "./endpoint";
 import * as middlewares from "./middlewares";
 import {winstonLogger} from "./providers/loggers/winston";
+import {config} from "./config/config";
 
 const compression = require('compression');
 const app = express();
@@ -44,9 +45,9 @@ app.use('*', middlewares.notFound);
 app.use(middlewares.errorHandler);
 
 async function main() {
-    const server = new Server(app);
+    const server = new Server(app, config);
     try {
-        await server.dbConnect();
+        await server.connectToDb();
         await server.run();
     } catch (err) {
         console.log(err);
