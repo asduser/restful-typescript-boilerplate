@@ -15,7 +15,7 @@ export abstract class BaseController implements IController {
      */
     public handle<T = any>({ req, res, next }: ExpressParams, promise: Promise<T>): void {
         promise
-            .then((data) => res.json(new HttpMessage({ data })))
+            .then((data) => res.json(new HttpMessage()))
             .catch(next);
     }
 

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "ts-node --inspect=5858 ./src/index.ts",
     "test:api": "jest --forceExit",
-    "lint": "tslint --type-check --project tsconfig.json './src/**/*.ts'",
+    "lint": "./node_modules/.bin/tslint --type-check --project tsconfig.json './src/**/*.ts'",
     "watch": "tsc --watch"
   },
   "jest": {
