@@ -2,7 +2,6 @@ import {BaseService} from "../base";
 import {IUserCreate, UserCreate} from "../../models";
 import {UnprocessableError, NotFoundError, BadRequestError, DbError} from "../../http";
 import {ERROR_MESSAGES} from "../../constants/error-messages";
-import {ObjectId} from "mongodb";
 
 /**
  * Wrapper to work with UserRepository and MongoDB.
@@ -30,7 +29,7 @@ export class UserService extends BaseService {
     public async findById(id: string) {
         let result;
         try {
-            await this.checkObjectId(id);
+            await this.validateObjectId(id);
         } catch (err) {
             throw new BadRequestError(ERROR_MESSAGES.WRONG_MONGODB_OBJECT_ID);
         }
@@ -76,11 +75,10 @@ export class UserService extends BaseService {
     public async removeById(id: string) {
         const user = await this.findById(id);
         try {
-            await this.userRepository.removeOne(user._id);
+            return this.userRepository.removeOne(user._id);
         } catch (err) {
             throw new DbError(err);
         }
-        return true;
     }
 
     public async checkIfEmailExist(email: string) {
@@ -90,15 +88,6 @@ export class UserService extends BaseService {
                 reject('User with this email already exist!');
             }
             resolve();
-        });
-    }
-
-    private checkObjectId(id: string) {
-        return new Promise((resolve, reject) => {
-            if (ObjectId.isValid(id)) {
-                resolve();
-            }
-            reject('Wrong ObjectID format!');
         });
     }
 }

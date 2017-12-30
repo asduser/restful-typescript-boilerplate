@@ -1,6 +1,7 @@
 import {IService} from "@app/core";
 import {AppContainer} from "../injectors";
 import * as _ from "lodash";
+import {ObjectId} from "mongodb";
 
 /**
  * Base application service to work with MongoDB query using an abstraction level.
@@ -11,6 +12,15 @@ import * as _ from "lodash";
 export abstract class BaseService implements IService {
 
     protected userRepository = AppContainer.userRepository;
+
+    protected validateObjectId(id: string) {
+        return new Promise((resolve, reject) => {
+            if (ObjectId.isValid(id)) {
+                resolve();
+            }
+            reject('Wrong ObjectID format!');
+        });
+    }
 
     protected normalizeResponse(data: any | any[]) {
         function normalizeData (data) {

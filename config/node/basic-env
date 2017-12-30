@@ -1,6 +1,7 @@
 # Express API
 PORT=3001
 HOST=localhost
+JWT_SECRET_KEY=secret_key_goes_here
 
 # MongoDB
-MONGO_DB_URL=mongodb://localhost:27017/express-simple-api
+MONGO_DB_URL=mongodb://localhost:27017/rest-api

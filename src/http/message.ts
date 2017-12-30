@@ -1,5 +1,4 @@
-import {IHttpMessage} from "@app/core";
-import * as _ from "lodash";
+import {omit} from "lodash";
 
 export class HttpMessage {
     public status: number = 200;
@@ -10,6 +9,6 @@ export class HttpMessage {
     public data: any = null;
 
     public toJSON() {
-        return _.omit(this, 'status');
+        return omit(this, 'status');
     }
 }
