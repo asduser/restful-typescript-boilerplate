@@ -16,15 +16,7 @@ const app = express();
 app.disable('etag');
 app.disable('x-powered-by');
 app.use(compression());
-app.use((req, res, next) => {
-    const startAt = process.hrtime();
-    req.on('end', () => {
-        const diff = process.hrtime(startAt);
-        const response = Object.assign({}, res, { responseTime: diff[1]/1000000 });
-        AppContainer.logger.info({ req, res: response });
-    });
-    next();
-});
+app.use(middlewares.onRequestFinished);
 app.use(middlewares.crossDomain);
 app.use(middlewares.headerGuard);
 app.post('*', bodyParser.json());
