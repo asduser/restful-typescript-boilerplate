@@ -1,7 +1,6 @@
 import {Router} from "express";
 import {getAppInfo} from "./get-app-info";
 import * as tokenProvider from "../../../providers/token/token-provider";
-import {winstonLogger} from "../../../providers/loggers/winston";
 
 const router = Router();
 
@@ -12,7 +11,6 @@ router.get('/s', (req, res, next) => {
 });
 
 router.get('/s1', (req, res, next) => {
-    winstonLogger.error('Some error');
     next(new Error('Test 1'));
 });
 

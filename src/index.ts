@@ -2,12 +2,12 @@ import "./config/init";
 import "reflect-metadata";
 import * as express from 'express';
 import * as bodyParser from "body-parser";
+import {config} from "./config/config";
 import {registerControllers} from "./controllers";
 import { Server } from "./server";
 import * as routes from "./endpoint";
 import * as middlewares from "./middlewares";
-import {winstonLogger} from "./providers/loggers/winston";
-import {config} from "./config/config";
+import {AppContainer} from "./injectors";
 
 const compression = require('compression');
 const app = express();
@@ -15,20 +15,13 @@ const app = express();
 // common handlers
 app.disable('etag');
 app.disable('x-powered-by');
-app.use(winstonLogger);
 app.use(compression());
 app.use((req, res, next) => {
     const startAt = process.hrtime();
-    console.log('===');
-    console.log(startAt);
-    console.log('===');
     req.on('end', () => {
         const diff = process.hrtime(startAt);
-        console.log('===');
-        console.log(diff);
-        console.log(`${diff[0]} s`);
-        console.log(`${diff[1]/1000000} ms`);
-        console.log('===');
+        const response = Object.assign({}, res, { responseTime: diff[1]/1000000 });
+        AppContainer.logger.info({ req, res: response });
     });
     next();
 });
@@ -50,7 +43,7 @@ async function main() {
         await server.connectToDb();
         await server.run();
     } catch (err) {
-        console.log(err);
+        AppContainer.logger.info(err);
         process.exit(1);
     }
 }

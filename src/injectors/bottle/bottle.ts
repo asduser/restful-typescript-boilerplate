@@ -1,5 +1,6 @@
 import * as Bottle from "bottlejs";
-import {MongoProvider, SchemaValidatorProvider} from "../../providers";
+import {IAppLogger} from "@app/core";
+import {MongoProvider, SchemaValidatorProvider, BunyanLogger} from "../../providers";
 import {UserService} from "../../services";
 import {UserRepository} from "../../repositories";
 
@@ -12,6 +13,7 @@ export class AppContainer {
     public static mongoProvider: MongoProvider;
     public static userRepository: UserRepository;
     public static userService: UserService;
+    public static logger: IAppLogger;
 
     public static configure (): void {
         AppContainer.bottle = new Bottle();
@@ -22,6 +24,8 @@ export class AppContainer {
         AppContainer.mongoProvider = AppContainer.container['mongoProvider'];
         AppContainer.bottle.service('schemaValidatorProvider', SchemaValidatorProvider as any);
         AppContainer.schemaValidatorProvider = AppContainer.container['schemaValidatorProvider'];
+        AppContainer.bottle.service('logger', BunyanLogger as any);
+        AppContainer.logger = AppContainer.container['logger'];
 
         // repositories
         AppContainer.bottle.service('userRepository', UserRepository as any);
