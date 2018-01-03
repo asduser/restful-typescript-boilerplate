@@ -42,7 +42,7 @@ export class NotFoundError extends HttpMessage {
 export class UnprocessableError extends HttpMessage {
     constructor(err) {
         super();
-        this.status = HttpStatus.NOT_FOUND;
+        this.status = HttpStatus.UNPROCESSABLE_ENTITY;
         this.title = 'Unprocessable Error';
         this.message = 'Request body has invalid data!';
         this.errors = _.isArray(err) ? err : [err];

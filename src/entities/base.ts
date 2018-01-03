@@ -1,5 +1,5 @@
 import {IEntity, IValidationEntity} from "@app/core";
-import {ObjectSchema} from "../schemas";
+import {ObjectSchema} from "../schemas/";
 import {AppContainer} from "../injectors";
 
 /**
