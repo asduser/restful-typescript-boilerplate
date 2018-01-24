@@ -11,17 +11,10 @@ export class UserCreate extends BaseModel implements IUserCreate {
     public email: string;
 
     constructor(data) {
-        super();
+        super(data);
+        const item = <any>data;
         this.schema = userCreateSchema;
-        this.map(data);
-    }
-
-    private map(data): void {
-        if (data != null) {
-            const item = data as IUserCreate;
-            this.name = item.name;
-            this.email = item.email;
-        }
-        this.currentData = data;
+        this.name = item.name;
+        this.email = item.email;
     }
 }

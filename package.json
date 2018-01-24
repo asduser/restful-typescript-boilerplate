@@ -5,6 +5,8 @@
   "private": true,
   "scripts": {
     "start": "ts-node --inspect=5858 ./src/index.ts",
+    "start:dev": "ts-node ./src/index.ts --cache-directory ./tscache",
+    "start:fast": "ts-node --fast ./src/index.ts",
     "test:api": "jest --forceExit",
     "lint": "./node_modules/.bin/tslint --project tsconfig.json './src/**/*.ts'",
     "modclean": "./node_modules/.bin/modclean",

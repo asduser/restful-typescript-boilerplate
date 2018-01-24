@@ -1,5 +1,5 @@
 import {BaseService} from "../base";
-import {IUserCreate, UserCreate} from "../../models";
+import {UserCreate} from "../../models";
 import {UnprocessableError, NotFoundError, BadRequestError, DbError} from "../../http";
 import {ERROR_MESSAGES} from "../../constants/error-messages";
 
@@ -47,10 +47,10 @@ export class UserService extends BaseService {
     /**
      * Add new user into DB. Before adding will be called entity validation.
      * If it failed - should be rejected an error.
-     * @param {IUserCreate} data
+     * @param {any} data - payload from request
      * @returns {Promise<any>}
      */
-    public async create(data: IUserCreate) {
+    public async create(data) {
         let result, validData;
         const user = new UserCreate(data);
         try {
