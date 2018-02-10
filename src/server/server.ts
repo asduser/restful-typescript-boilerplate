@@ -1,10 +1,8 @@
 import {Express} from "express";
-import {Db} from "mongodb";
 import {IServer} from "@app/core";
 import {IAppConfig} from "../config/config";
-import {AppContainer} from "../injectors";
 
-export class Server implements IServer {
+export class ExpressServer implements IServer {
 
     private config: IAppConfig;
     private app: Express;
@@ -14,10 +12,9 @@ export class Server implements IServer {
         this.config = config;
     }
 
-    public connectToDb(): Promise<Db> {
-        return AppContainer.mongoProvider.connect(this.config.mongodb.url);
-    }
-
+    /**
+     * Start listening Express server.
+     */
     public run(): void {
         this.app.listen(<number>this.config.port, this.config.host,() => {
             console.log(`Application started at ${this.config.port} port!`);

@@ -9,8 +9,9 @@
         "sourceMap": true,
         "outDir": "dist/src/"
     },
-    "include": [
-        "src/**/*"
+    "files": [
+        "src/**/*",
+        "./node_modules/@types/jest/index.d.ts"
     ],
     "exclude": [
         "node_modules",
